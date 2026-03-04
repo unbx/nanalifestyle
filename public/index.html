@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NANA LIFESTYLE | Sean Nana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root {
+  --pink: #f0a0c0; --amber: #e8c878; --green: #a8e0b0;
+  --blue: #88c8e8; --purple: #c0a0e0;
+  --black: #0a0a0a; --dark: #111; --card: #1a1a1a;
+  --border: #2a2a2a; --text: #e0e0e0; --muted: #888;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; background:var(--black); color:var(--text); }
+body { font-family:'Inter',system-ui,sans-serif; overflow-x:hidden; }
+
+/* Film grain */
+body::after {
+  content:''; position:fixed; top:-50%; left:-50%; right:-50%; bottom:-50%;
+  width:200%; height:200%; pointer-events:none; z-index:9999; opacity:0.4;
+  background:transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E") repeat;
+  animation:grain 8s steps(10) infinite;
+}
+@keyframes grain {
+  0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)}
+  20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-25%)}
+  40%{transform:translate(-5%,25%)} 50%{transform:translate(-15%,10%)}
+  60%{transform:translate(15%,0%)} 70%{transform:translate(0%,15%)}
+  80%{transform:translate(3%,35%)} 90%{transform:translate(-10%,10%)}
+}
+
+.font-display { font-family:'Space Grotesk',system-ui,sans-serif; }
+.font-mono { font-family:'JetBrains Mono',monospace; }
+
+.holo-text {
+  background:linear-gradient(135deg,var(--amber),var(--pink),var(--purple),var(--blue),var(--green));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.holo-bg { background:linear-gradient(135deg,var(--amber),var(--pink),var(--purple),var(--blue),var(--green)); }
+.section-divider { height:1px; background:linear-gradient(90deg,transparent 0%,var(--purple) 20%,var(--pink) 50%,var(--amber) 80%,transparent 100%); opacity:0.4; }
+
+/* Scanlines */
+.scanlines::before {
+  content:''; position:absolute; top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events:none; z-index:10;
+}
+
+/* Animations */
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes glow { 0%{filter:brightness(1) drop-shadow(0 0 10px rgba(240,160,192,0.3))} 100%{filter:brightness(1.1) drop-shadow(0 0 20px rgba(136,200,232,0.5))} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.animate-fade-up { animation:fadeUp 0.8s ease-out forwards; opacity:0; }
+.delay-1 { animation-delay:0.3s; } .delay-2 { animation-delay:0.6s; }
+.delay-3 { animation-delay:0.9s; } .delay-4 { animation-delay:1.2s; }
+
+/* Scroll reveal */
+.reveal { opacity:0; transform:translateY(30px); transition:all 0.7s ease-out; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ==================== PARALLAX ==================== */
+.parallax-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  will-change: transform;
+  pointer-events: none;
+}
+.parallax-element {
+  position: absolute;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Nav */
+nav { position:fixed; top:0; left:0; right:0; z-index:50; transition:all 0.5s; }
+nav.scrolled { background:rgba(10,10,10,0.8); backdrop-filter:blur(20px); border-bottom:1px solid rgba(42,42,42,0.5); }
+nav a { text-decoration:none; }
+.nav-inner { max-width:1200px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+.nav-links { display:flex; gap:32px; }
+.nav-link { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); transition:color 0.3s; }
+.nav-link:hover,.nav-link.active { color:white; }
+
+/* Hero */
+#hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+#hero-canvas { position:absolute; inset:0; z-index:0; }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(10,10,10,0.4),transparent,var(--black)); z-index:1; }
+.hero-content { position:relative; z-index:2; text-align:center; padding:0 24px; max-width:960px; }
+.hero-logo { width:280px; max-width:80vw; margin:0 auto 32px; filter:invert(1); animation:glow 3s ease-in-out infinite alternate; }
+.hero-subtitle { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
+.hero-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(24px,5vw,48px); font-weight:300; letter-spacing:-0.02em; margin-bottom:32px; line-height:1.3; }
+.hero-desc { color:var(--muted); font-size:14px; max-width:560px; margin:0 auto; line-height:1.8; }
+.scroll-indicator { position:absolute; bottom:48px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; animation:float 2s ease-in-out infinite; }
+.scroll-indicator span { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:rgba(136,136,136,0.5); }
+.scroll-line { width:1px; height:32px; background:linear-gradient(to bottom,rgba(136,136,136,0.5),transparent); }
+
+/* Sections */
+section { position:relative; padding:128px 0; overflow:hidden; }
+.section-inner { max-width:1100px; margin:0 auto; padding:0 24px; position:relative; z-index:5; }
+.section-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.4em; text-transform:uppercase; margin-bottom:12px; }
+.section-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(32px,6vw,60px); font-weight:700; letter-spacing:-0.02em; margin-bottom:16px; }
+.section-subtitle { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(16px,2vw,20px); color:var(--muted); font-weight:300; }
+
+/* Cards */
+.card { border:1px solid rgba(42,42,42,0.3); border-radius:12px; padding:32px 40px; background:rgba(26,26,26,0.2); backdrop-filter:blur(4px); transition:all 0.5s; }
+.card:hover { border-color:rgba(136,200,232,0.2); }
+.stat-card { border:1px solid rgba(42,42,42,0.5); border-radius:12px; padding:24px; text-align:center; background:rgba(26,26,26,0.3); }
+.stat-value { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(28px,4vw,40px); font-weight:700; margin-bottom:8px; }
+.stat-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
+
+/* Release cards */
+.release-card { border:1px solid rgba(42,42,42,0.3); border-radius:12px; overflow:hidden; transition:all 0.5s; }
+.release-card:hover { border-color:rgba(232,200,120,0.3); }
+.release-art { aspect-ratio:1; background:linear-gradient(135deg,var(--card),var(--dark)); display:flex; align-items:center; justify-content:center; padding:24px; text-align:center; }
+.release-info { padding:16px; }
+
+/* Collaborator pills */
+.pill { display:inline-block; padding:8px 16px; border:1px solid rgba(42,42,42,0.4); border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(224,224,224,0.7); transition:all 0.3s; margin:4px; }
+.pill:hover { border-color:rgba(232,200,120,0.4); color:var(--amber); }
+
+/* Product cards */
+.product-link { display:block; border:1px solid rgba(42,42,42,0.2); border-radius:12px; padding:20px; background:rgba(10,10,10,0.4); transition:all 0.3s; text-decoration:none; color:inherit; }
+.product-link:hover { border-color:rgba(136,200,232,0.3); background:rgba(26,26,26,0.3); }
+
+/* Timeline */
+.timeline { position:relative; padding-left:64px; }
+.timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,rgba(192,160,224,0.3),rgba(192,160,224,0.1),transparent); }
+.timeline-dot { position:absolute; left:-64px; top:8px; width:8px; height:8px; transform:translateX(-3.5px); border-radius:50%; background:rgba(192,160,224,0.6); box-shadow:0 0 0 4px var(--black); }
+.timeline-item { position:relative; margin-bottom:64px; }
+.timeline-item:last-child { margin-bottom:0; }
+
+/* Highlight list */
+.highlight { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.highlight-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; margin-top:8px; }
+.highlight-text { color:rgba(224,224,224,0.6); font-size:14px; line-height:1.7; }
+
+/* Footer / Contact */
+.contact-btn { display:inline-block; padding:12px 32px; border:1px solid rgba(42,42,42,0.5); border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text); text-decoration:none; transition:all 0.3s; }
+.contact-btn:hover { border-color:rgba(240,160,192,0.5); color:var(--pink); }
+.social-link {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px;
+  border:1px solid rgba(42,42,42,0.35);
+  border-radius:999px;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.3s, border-color 0.3s, background 0.3s;
+}
+.social-link:hover { color:white; border-color:rgba(255,255,255,0.22); background:rgba(255,255,255,0.03); }
+.social-link:focus-visible { outline:2px solid rgba(136,200,232,0.55); outline-offset:3px; }
+.social-link svg { width:18px; height:18px; display:block; }
+.social-link .x-glyph { font-family:system-ui,-apple-system,'Inter',sans-serif; font-size:16px; line-height:1; font-weight:700; }
+
+/* Grid helpers */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+@media(max-width:768px) {
+  .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
+  .nav-links { display:none; }
+  .timeline { padding-left:32px; }
+  .timeline::before { left:0; }
+  .timeline-dot { left:0; }
+  .video-grid { grid-template-columns:1fr !important; }
+  .two-col { grid-template-columns:1fr !important; }
+}
+@media(max-width:1024px) and (min-width:769px) {
+  .video-grid { grid-template-columns:repeat(2,1fr) !important; }
+}
+
+/* VHS rec indicator */
+.rec-indicator { position:absolute; top:32px; right:32px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; z-index:10; }
+.rec-dot { display:inline-block; width:6px; height:6px; background:rgba(255,50,50,0.6); border-radius:50%; margin-left:4px; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:0.2} }
+
+/* ==================== BACKGROUND VIDEO ==================== */
+.bg-video-wrapper {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.bg-video-wrapper iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 180%; height: 180%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.15;
+  filter: grayscale(40%) blur(1px);
+}
+.bg-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    var(--black) 0%,
+    rgba(10,10,10,0.65) 12%,
+    rgba(13,10,8,0.5) 50%,
+    rgba(10,10,10,0.65) 88%,
+    var(--black) 100%
+  );
+  z-index: 1;
+}
+
+/* ==================== VIDEO GALLERY ==================== */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.video-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(42,42,42,0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: var(--card);
+}
+.video-card:hover {
+  border-color: rgba(232,200,120,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.video-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.4s ease;
+  filter: brightness(0.7) saturate(0.8);
+}
+.video-card:hover .video-thumb img {
+  transform: scale(1.05);
+  filter: brightness(0.85) saturate(1);
+}
+/* Play button */
+.play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.video-card:hover .play-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.play-btn svg {
+  width: 18px; height: 18px;
+  fill: white;
+  margin-left: 2px;
+}
+/* Duration badge */
+.video-duration {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  background: rgba(0,0,0,0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.05em;
+}
+/* Video info */
+.video-info {
+  padding: 12px 14px 14px;
+}
+.video-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.video-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.video-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232,200,120,0.6);
+}
+.video-views {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.video-meta-dot {
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: rgba(136,136,136,0.4);
+}
+
+/* ==================== VIDEO LIGHTBOX ==================== */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox-content {
+  width: 90%;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.lightbox-overlay.active .lightbox-content {
+  transform: scale(1);
+}
+.lightbox-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+.lightbox-close {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  width: 36px; height: 36px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.lightbox-close:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.05);
+}
+.lightbox-title {
+  position: absolute;
+  bottom: -40px; left: 0;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ==================== PARALLAX FLOATING SHAPES ==================== */
+.parallax-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(60px);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+.parallax-shape.visible { opacity: 1; }
+
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--black); }
+::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
+</style>
+</head>
+<body>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <iframe id="lightbox-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="lightbox-title" id="lightbox-title"></div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#hero" style="display:flex;align-items:center;">
+      <svg width="32" height="32" viewBox="0 0 488.37 437.66" fill="white" opacity="0.8"><path d="M347.71,211.52c5.41-13.69,10.45-27.55,16.34-41.03,7.32-16.77,14.77-33.52,23.19-49.75,11.28-21.76,23.61-42.97,35.32-64.5,7.36-13.52,14.89-27.11,26.43-37.38,8.2-7.3,18.16-12.63,27.33-18.84l1.9,1.16c0,3.9.54,7.89-.09,11.68-3.77,22.87-12.55,44.13-22.89,64.6-12.15,24.04-26.1,47.16-38.29,71.19-9.49,18.7-18.02,37.93-25.98,57.33-9.77,23.83-18.44,48.11-27.67,72.17-6.38,16.64-12.82,33.25-19.39,49.82-2.67,6.73-5.39,13.48-8.73,19.88-2.5,4.8-6.01,4.83-9.2.12-5.3-7.83-10.83-15.52-15.91-23.49-1.32-2.07-1.86-4.96-1.87-7.48-.09-31.88-.15-63.76.14-95.63.06-6.59,1.71-13.15,2.44-19.75.21-1.85-.22-3.77-.46-7.18-31.16,54.48-61.47,107.5-91.91,160.72-9.22-7.09-9.61-7.53-5.54-17.01,15.06-35.07,30.06-70.17,45.69-104.99,6.96-15.49,15.63-30.21,23.07-45.5,10.54-21.64,20.75-43.44,30.91-65.26,1.94-4.18,3.17-8.73,4.4-13.2,2.39-8.63,9.87-10.77,16.87-13.55,1.87-.74,3.84-1.69,5.77-1.7,3.09,0,6.61-.11,9.17,1.28,4.86,2.65,9.25,6.23,7.91,13.01-.52,2.63-.81,5.31-1.1,7.97-1.65,14.84-3.32,29.68-4.87,44.53-1.03,9.8-1.79,19.64-2.83,29.44-.58,5.51-1.55,10.97-2.2,16.47-.17,1.45.18,2.96.3,4.44.58.14,1.17.29,1.75.43Z"/><path d="M88.64,188.18c-28.15,50.48-56.3,100.96-84.54,151.39-.37.65-1.97.61-3.76,1.11-1.52-8.42,2.49-15.11,5.38-21.65,16.98-38.56,34.23-77.01,51.65-115.37,12.48-27.47,25.01-54.92,38.3-82,4.22-8.61,10.51-16.13,9.39-26.54-.08-.72.71-1.58,1.2-2.31,3.28-4.84,18.73-10.1,24.21-8.27,8.27,2.77,12.07,12.43,8.6,21.72-.7,1.86-1.46,3.78-1.69,5.72-1.8,15.46-3.38,30.94-5.24,46.39-1.47,12.17-3.16,24.31-4.93,36.44-.37,2.53-1.52,4.94-.92,7.96,7.78-13.26,15.56-26.53,23.35-39.79,8.7-14.81,17.52-29.56,26.09-44.45,5.84-10.14,11.33-20.49,17.02-30.73,5.15-9.27,10.27-18.56,15.56-27.75,5.61-9.75,10.99-19.67,17.26-28.99,6.09-9.04,12.75-17.81,20.02-25.92,4.49-5,19.9-5.9,24.98-2.81,4.39,2.67,6.73,10.64,4.28,16.79-4.79,12.06-9.28,24.31-15.19,35.82-4.43,8.63-11.3,15.97-16.36,24.32-8.91,14.69-17.3,29.7-25.87,44.59-6.27,10.89-12.59,21.76-18.68,32.75-9.17,16.56-18.2,33.2-27.21,49.85-12.57,23.22-25.43,46.29-37.46,69.79-7.89,15.42-14.5,31.49-21.72,47.24-.73,1.59-1.67,3.09-2.62,4.56-3.16,4.88-5.61,4.23-9.8.23-8.08-7.71-12.36-17.39-16.65-27.19-.77-1.76-.7-3.96-.7-5.95-.06-17.18-.55-34.38.12-51.54.41-10.41,2.72-20.73,4.06-31.11,1.05-8.08,1.92-16.17,2.87-24.26-.33-.02-.66-.04-.99-.06Z"/><path d="M476.47,336.61c-4.76-6.18-9.28-11.21-12.86-16.84-9.35-14.7-13.6-31.04-15.11-48.32-1.22-13.91-3.09-27.77-4.92-41.62-.63-4.76-2.03-9.41-3.41-15.56-4.6,9.21-8.66,17.33-12.71,25.45-8.27,16.59-16.72,33.1-24.76,49.81-9.3,19.32-18.07,38.89-27.39,58.19-7.25,15.02-14.96,29.83-22.55,44.69-6.62,12.96-13.41,25.83-20.05,38.77-3.45,6.72-7.74,8.45-10.76,4.06-.76-1.1-1.28-3.03-.85-4.18,7.01-18.52,14.42-36.88,21.26-55.46,5.68-15.46,10.26-31.33,16.17-46.69,9.95-25.87,20.71-51.43,30.84-77.24,5.87-14.96,10.84-30.27,16.78-45.2,9.09-22.86,18.23-45.73,28.32-68.15,2.82-6.26,6.95-11.58,6.98-19.01.02-5.29,4.81-7.67,9.09-9.56,4.62-2.04,9.43-3.65,14.19-5.36,5.68-2.04,15.54,4.25,16.1,10.32.9,9.78,2.66,19.6,2.27,29.34-.56,14.02-3.5,27.96-3.97,41.98-.47,13.84.88,27.75,1.42,41.63.09,2.25-.02,4.53.27,6.76,1.58,11.86,3.51,23.68,4.84,35.56,1.25,11.1,3.61,22.47,2.33,33.35-1.26,10.75-3.4,22.14-11.53,33.29Z"/><path d="M231.97,266.73v-74.66c-6.06,11.47-11.47,21.93-17.09,32.28-4.42,8.14-8.99,16.2-13.67,24.19-5.04,8.61-10.37,17.04-15.41,25.65-5.99,10.23-11.9,20.5-17.68,30.85-6.55,11.74-12.89,23.59-19.39,35.36-6.74,12.21-13.4,24.46-20.39,36.53-6.65,11.49-13.68,22.76-20.51,34.15-1.5,2.5-2.7,5.2-4.31,7.62-3.72,5.58-3.78,5.54-10.46,7.42-3.05-7.71,2.28-13.61,4.87-19.74,12.48-29.54,25.59-58.82,38.39-88.23,12.23-28.09,23.92-56.42,36.66-84.27,10.56-23.1,22.33-45.65,33.49-68.48,5.62-11.5,10.85-23.19,16.63-34.6,5.07-10.02,10.6-19.8,16.04-29.63,3.28-5.93,9.7-7.09,15.29-7.9,3.33-.48,6.19-3.44,10.92-.97,7.89,4.12,10.74,8.94,10.14,17.81-1.44,21.06-1.41,42.22-2.92,63.27-.99,13.78-6.33,26.3-12.95,38.62-8.36,15.58-14.71,32.24-22.14,48.33-1.02,2.21-3.28,3.86-5.51,6.4Z"/></svg>
+    </a>
+    <div class="nav-links">
+      <a href="#hero" class="nav-link active">NANA</a>
+      <a href="#creative" class="nav-link">Creative</a>
+      <a href="#product" class="nav-link">Product</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-overlay"></div>
+  <!-- Parallax floating shapes -->
+  <div class="parallax-shape visible" data-speed="0.03" style="width:400px;height:400px;background:rgba(240,160,192,0.06);top:10%;right:-100px;"></div>
+  <div class="parallax-shape visible" data-speed="0.05" style="width:300px;height:300px;background:rgba(136,200,232,0.05);bottom:20%;left:-80px;"></div>
+  <div class="hero-content">
+    <div class="animate-fade-up">
+      <svg class="hero-logo" viewBox="0 0 488.37 437.66" fill="white"><path d="M347.71,211.52c5.41-13.69,10.45-27.55,16.34-41.03,7.32-16.77,14.77-33.52,23.19-49.75,11.28-21.76,23.61-42.97,35.32-64.5,7.36-13.52,14.89-27.11,26.43-37.38,8.2-7.3,18.16-12.63,27.33-18.84l1.9,1.16c0,3.9.54,7.89-.09,11.68-3.77,22.87-12.55,44.13-22.89,64.6-12.15,24.04-26.1,47.16-38.29,71.19-9.49,18.7-18.02,37.93-25.98,57.33-9.77,23.83-18.44,48.11-27.67,72.17-6.38,16.64-12.82,33.25-19.39,49.82-2.67,6.73-5.39,13.48-8.73,19.88-2.5,4.8-6.01,4.83-9.2.12-5.3-7.83-10.83-15.52-15.91-23.49-1.32-2.07-1.86-4.96-1.87-7.48-.09-31.88-.15-63.76.14-95.63.06-6.59,1.71-13.15,2.44-19.75.21-1.85-.22-3.77-.46-7.18-31.16,54.48-61.47,107.5-91.91,160.72-9.22-7.09-9.61-7.53-5.54-17.01,15.06-35.07,30.06-70.17,45.69-104.99,6.96-15.49,15.63-30.21,23.07-45.5,10.54-21.64,20.75-43.44,30.91-65.26,1.94-4.18,3.17-8.73,4.4-13.2,2.39-8.63,9.87-10.77,16.87-13.55,1.87-.74,3.84-1.69,5.77-1.7,3.09,0,6.61-.11,9.17,1.28,4.86,2.65,9.25,6.23,7.91,13.01-.52,2.63-.81,5.31-1.1,7.97-1.65,14.84-3.32,29.68-4.87,44.53-1.03,9.8-1.79,19.64-2.83,29.44-.58,5.51-1.55,10.97-2.2,16.47-.17,1.45.18,2.96.3,4.44.58.14,1.17.29,1.75.43Z"/><path d="M88.64,188.18c-28.15,50.48-56.3,100.96-84.54,151.39-.37.65-1.97.61-3.76,1.11-1.52-8.42,2.49-15.11,5.38-21.65,16.98-38.56,34.23-77.01,51.65-115.37,12.48-27.47,25.01-54.92,38.3-82,4.22-8.61,10.51-16.13,9.39-26.54-.08-.72.71-1.58,1.2-2.31,3.28-4.84,18.73-10.1,24.21-8.27,8.27,2.77,12.07,12.43,8.6,21.72-.7,1.86-1.46,3.78-1.69,5.72-1.8,15.46-3.38,30.94-5.24,46.39-1.47,12.17-3.16,24.31-4.93,36.44-.37,2.53-1.52,4.94-.92,7.96,7.78-13.26,15.56-26.53,23.35-39.79,8.7-14.81,17.52-29.56,26.09-44.45,5.84-10.14,11.33-20.49,17.02-30.73,5.15-9.27,10.27-18.56,15.56-27.75,5.61-9.75,10.99-19.67,17.26-28.99,6.09-9.04,12.75-17.81,20.02-25.92,4.49-5,19.9-5.9,24.98-2.81,4.39,2.67,6.73,10.64,4.28,16.79-4.79,12.06-9.28,24.31-15.19,35.82-4.43,8.63-11.3,15.97-16.36,24.32-8.91,14.69-17.3,29.7-25.87,44.59-6.27,10.89-12.59,21.76-18.68,32.75-9.17,16.56-18.2,33.2-27.21,49.85-12.57,23.22-25.43,46.29-37.46,69.79-7.89,15.42-14.5,31.49-21.72,47.24-.73,1.59-1.67,3.09-2.62,4.56-3.16,4.88-5.61,4.23-9.8.23-8.08-7.71-12.36-17.39-16.65-27.19-.77-1.76-.7-3.96-.7-5.95-.06-17.18-.55-34.38.12-51.54.41-10.41,2.72-20.73,4.06-31.11,1.05-8.08,1.92-16.17,2.87-24.26-.33-.02-.66-.04-.99-.06Z"/><path d="M476.47,336.61c-4.76-6.18-9.28-11.21-12.86-16.84-9.35-14.7-13.6-31.04-15.11-48.32-1.22-13.91-3.09-27.77-4.92-41.62-.63-4.76-2.03-9.41-3.41-15.56-4.6,9.21-8.66,17.33-12.71,25.45-8.27,16.59-16.72,33.1-24.76,49.81-9.3,19.32-18.07,38.89-27.39,58.19-7.25,15.02-14.96,29.83-22.55,44.69-6.62,12.96-13.41,25.83-20.05,38.77-3.45,6.72-7.74,8.45-10.76,4.06-.76-1.1-1.28-3.03-.85-4.18,7.01-18.52,14.42-36.88,21.26-55.46,5.68-15.46,10.26-31.33,16.17-46.69,9.95-25.87,20.71-51.43,30.84-77.24,5.87-14.96,10.84-30.27,16.78-45.2,9.09-22.86,18.23-45.73,28.32-68.15,2.82-6.26,6.95-11.58,6.98-19.01.02-5.29,4.81-7.67,9.09-9.56,4.62-2.04,9.43-3.65,14.19-5.36,5.68-2.04,15.54,4.25,16.1,10.32.9,9.78,2.66,19.6,2.27,29.34-.56,14.02-3.5,27.96-3.97,41.98-.47,13.84.88,27.75,1.42,41.63.09,2.25-.02,4.53.27,6.76,1.58,11.86,3.51,23.68,4.84,35.56,1.25,11.1,3.61,22.47,2.33,33.35-1.26,10.75-3.4,22.14-11.53,33.29Z"/><path d="M231.97,266.73v-74.66c-6.06,11.47-11.47,21.93-17.09,32.28-4.42,8.14-8.99,16.2-13.67,24.19-5.04,8.61-10.37,17.04-15.41,25.65-5.99,10.23-11.9,20.5-17.68,30.85-6.55,11.74-12.89,23.59-19.39,35.36-6.74,12.21-13.4,24.46-20.39,36.53-6.65,11.49-13.68,22.76-20.51,34.15-1.5,2.5-2.7,5.2-4.31,7.62-3.72,5.58-3.78,5.54-10.46,7.42-3.05-7.71,2.28-13.61,4.87-19.74,12.48-29.54,25.59-58.82,38.39-88.23,12.23-28.09,23.92-56.42,36.66-84.27,10.56-23.1,22.33-45.65,33.49-68.48,5.62-11.5,10.85-23.19,16.63-34.6,5.07-10.02,10.6-19.8,16.04-29.63,3.28-5.93,9.7-7.09,15.29-7.9,3.33-.48,6.19-3.44,10.92-.97,7.89,4.12,10.74,8.94,10.14,17.81-1.44,21.06-1.41,42.22-2.92,63.27-.99,13.78-6.33,26.3-12.95,38.62-8.36,15.58-14.71,32.24-22.14,48.33-1.02,2.21-3.28,3.86-5.51,6.4Z"/></svg>
+    </div>
+    <p class="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
+    <h1 class="hero-title animate-fade-up delay-2">
+      <span style="white-space:nowrap"><span class="holo-text" style="font-weight:500">Creative</span> Enabler. <span class="holo-text" style="font-weight:500">Experience</span> Builder.</span><br>
+      Culture <span style="color:var(--muted);font-weight:300">&times;</span> Technology.
+    </h1>
+    <p class="hero-desc animate-fade-up delay-3">
+      17+ years across tech, entertainment, retail, and web3. Building at the intersection of culture, creativity, and emerging technology.
+    </p>
+    <div class="scroll-indicator animate-fade-up delay-4">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREATIVE ===================== -->
+<section id="creative" class="scanlines" style="background:linear-gradient(to bottom,var(--black),#0d0a08,var(--black))">
+  <!-- Background video -->
+  <div class="bg-video-wrapper">
+    <iframe id="bg-video" src="https://www.youtube.com/embed/4ZLu5G12kAY?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=4ZLu5G12kAY&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="bg-video-overlay"></div>
+  </div>
+  <!-- Parallax floating shapes -->
+  <div class="parallax-shape" data-speed="0.04" style="width:500px;height:500px;background:rgba(232,200,120,0.04);top:5%;left:-150px;"></div>
+  <div class="parallax-shape" data-speed="0.06" style="width:350px;height:350px;background:rgba(240,160,192,0.04);bottom:10%;right:-100px;"></div>
+
+  <div class="rec-indicator" style="color:rgba(232,200,120,0.3)">REC <span class="rec-dot"></span></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" style="color:rgba(232,200,120,0.6)">01 / Creative</p>
+      <h2 class="section-title"><span class="holo-text">MIKNNA</span></h2>
+      <p class="section-subtitle">NANA LIFESTYLE</p>
+    </div>
+
+    <div class="reveal two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin:48px 0 64px">
+      <p style="color:rgba(224,224,224,0.8);font-size:14px;line-height:1.8">
+        Co-founded an independent label and creative collective that powered MIKNNA to 10M+ streams, international tours, and collaborations with the Free Nationals, Terrace Martin, Far East Movement, Big K.R.I.T., and TDE.
+      </p>
+      <p style="color:var(--muted);font-size:14px;line-height:1.8;border-left:1px solid rgba(232,200,120,0.2);padding-left:24px">
+        Creative Director &amp; CEO via NANA LIFESTYLE &mdash; artist development, brand identity, content production, business strategy, touring, merchandising, and publishing.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid-4 reveal" style="margin-bottom:80px">
+      <div class="stat-card"><div class="stat-value holo-text">10M+</div><div class="stat-label">Streams</div></div>
+      <div class="stat-card"><div class="stat-value holo-text">2</div><div class="stat-label">Continental Tours</div></div>
+      <div class="stat-card"><div class="stat-value holo-text">13+</div><div class="stat-label">Years</div></div>
+      <div class="stat-card"><div class="stat-value holo-text">5+</div><div class="stat-label">Releases</div></div>
+    </div>
+
+    <!-- Video Gallery -->
+    <div class="reveal">
+      <p class="font-mono" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,200,120,0.6);margin-bottom:32px">Directed &amp; Produced by Sean Nana</p>
+      <div class="video-grid" id="videoGallery">
+        <!-- Videos injected by JS -->
+      </div>
+    </div>
+
+    <!-- Releases -->
+    <div class="reveal" style="margin-top:80px">
+      <p class="font-mono" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,200,120,0.6);margin-bottom:32px">Discography</p>
+      <div class="grid-3" style="margin-bottom:64px">
+        <div class="release-card">
+          <div class="release-art">
+            <div><div class="font-display" style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.8);margin-bottom:4px">Escape (Deluxe)</div><div class="font-mono" style="font-size:10px;letter-spacing:0.1em;color:var(--muted)">MIKNNA &middot; 2021</div></div>
+          </div>
+          <div class="release-info"><span class="font-mono" style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,200,120,0.6)">Album</span></div>
+        </div>
+        <div class="release-card">
+          <div class="release-art">
+            <div><div class="font-display" style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.8);margin-bottom:4px">Pool Haus EP</div><div class="font-mono" style="font-size:10px;letter-spacing:0.1em;color:var(--muted)">MIKNNA x SATICA &middot; 2020</div></div>
+          </div>
+          <div class="release-info">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="font-mono" style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,200,120,0.6)">EP</span>
+              <span class="font-mono" style="font-size:9px;color:var(--muted)">3M+ streams worldwide</span>
+            </div>
+          </div>
+        </div>
+        <div class="release-card">
+          <div class="release-art">
+            <div><div class="font-display" style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.8);margin-bottom:4px">50|50 (Side A)</div><div class="font-mono" style="font-size:10px;letter-spacing:0.1em;color:var(--muted)">MIKNNA &middot; 2016</div></div>
+          </div>
+          <div class="release-info"><span class="font-mono" style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,200,120,0.6)">EP</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collaborators -->
+    <div class="reveal">
+      <p class="font-mono" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,200,120,0.6);margin-bottom:24px">Collaborators &amp; Partners</p>
+      <div>
+        <span class="pill">Free Nationals</span>
+        <span class="pill">Terrace Martin</span>
+        <span class="pill">Far East Movement</span>
+        <span class="pill">Big K.R.I.T.</span>
+        <span class="pill">Top Dawg Entertainment</span>
+        <span class="pill">SATICA</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider" style="position:absolute;bottom:0;left:0;right:0"></div>
+</section>
+
+<!-- ===================== PRODUCT ===================== -->
+<section id="product" style="background:linear-gradient(to bottom,var(--black),#080a0d,var(--black))">
+  <!-- Parallax floating shapes -->
+  <div class="parallax-shape" data-speed="0.035" style="width:450px;height:450px;background:rgba(136,200,232,0.04);top:15%;right:-120px;"></div>
+  <div class="parallax-shape" data-speed="0.055" style="width:280px;height:280px;background:rgba(192,160,224,0.03);bottom:25%;left:-80px;"></div>
+
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" style="color:rgba(136,200,232,0.6)">02 / Product</p>
+      <h2 class="section-title"><span class="holo-text">CR3 Labs</span></h2>
+      <p class="section-subtitle">Web3, 3D &amp; AI Product Studio</p>
+    </div>
+
+    <!-- CR3 Labs -->
+    <div class="card reveal" style="margin:48px 0 32px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;margin-bottom:24px">
+        <div>
+          <h3 class="font-display" style="font-size:22px;font-weight:600;color:white;margin-bottom:4px">Head of Experience</h3>
+          <p class="font-display" style="font-size:15px;color:rgba(136,200,232,0.8)">CR3 Labs</p>
+        </div>
+        <span class="font-mono" style="font-size:10px;letter-spacing:0.15em;color:var(--muted)">Jan 2024 - Present</span>
+      </div>
+      <p style="color:rgba(224,224,224,0.7);font-size:14px;line-height:1.7;margin-bottom:24px">
+        Product experience, creator partnerships, BD, community growth, and creative direction on a lean team of four.
+      </p>
+      <div style="margin-bottom:32px">
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Grew the platform to 500+ communities and thousands of active creators and collectors, generating 20,000+ onchain transactions</span></div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Built strategic partnerships with major web3 brands and IPs in Ethereum, ApeChain, and Base ecosystems</span></div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Embedded AI and agentic capabilities into core product experience</span></div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Designed and provided self-serve enablement resources such as product documentation, support content, and user guides for OpenPage (docs.op.xyz), covering creator tools, collector flows, avatars &amp; wearables, developer APIs, and troubleshooting</span></div>
+      </div>
+      <div class="grid-2">
+        <a href="https://op.xyz" target="_blank" rel="noopener" class="product-link">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <h4 class="font-display" style="font-size:15px;font-weight:600;color:white">OpenPage</h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </div>
+          <p class="font-mono" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(136,200,232,0.5);margin-bottom:8px">Universal Avatar Platform</p>
+          <p style="color:var(--muted);font-size:12px;line-height:1.6">Turning followers into superfans. Verify fans, prove engagement, reward loyalty.</p>
+        </a>
+        <a href="https://doppel.fun" target="_blank" rel="noopener" class="product-link">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <h4 class="font-display" style="font-size:15px;font-weight:600;color:white">Doppel</h4>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </div>
+          <p class="font-mono" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(136,200,232,0.5);margin-bottom:8px">AI-Agent Built 3D Spaces</p>
+          <p style="color:var(--muted);font-size:12px;line-height:1.6">Intersection of 3D, blockchain, and AI agents.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Other Space FM -->
+    <div class="card reveal" style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;margin-bottom:24px">
+        <div>
+          <h3 class="font-display" style="font-size:22px;font-weight:600;color:white;margin-bottom:4px">Founder</h3>
+          <p class="font-display" style="font-size:15px;color:rgba(136,200,232,0.8)">Other Space FM</p>
+        </div>
+        <span class="font-mono" style="font-size:10px;letter-spacing:0.15em;color:var(--muted)">Jul 2022 - Present</span>
+      </div>
+      <p style="color:rgba(224,224,224,0.7);font-size:14px;line-height:1.7;margin-bottom:24px">
+        Community platform for creators, builders, and artists in web3 and AI. Acquired by CR3 Labs in 2024.
+      </p>
+      <div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Created weekly X Spaces and livestreams featuring builders and creators</span></div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Community network became the pipeline for OpenPage partnerships and core creators</span></div>
+        <div class="highlight"><span class="highlight-dot" style="background:rgba(136,200,232,0.6)"></span><span class="highlight-text">Platform acquired by CR3 Labs in 2024</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider" style="position:absolute;bottom:0;left:0;right:0"></div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" style="background:linear-gradient(to bottom,var(--black),#0a0a0c,var(--black))">
+  <!-- Parallax floating shapes -->
+  <div class="parallax-shape" data-speed="0.04" style="width:400px;height:400px;background:rgba(192,160,224,0.04);top:20%;left:-120px;"></div>
+  <div class="parallax-shape" data-speed="0.025" style="width:350px;height:350px;background:rgba(168,224,176,0.03);bottom:15%;right:-100px;"></div>
+
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" style="color:rgba(192,160,224,0.6)">03 / Experience</p>
+      <h2 class="section-title"><span class="holo-text">Enterprise</span></h2>
+      <p class="section-subtitle">L&amp;D, Enablement &amp; Experience Design</p>
+    </div>
+
+    <p class="reveal" style="color:rgba(224,224,224,0.7);font-size:14px;line-height:1.8;max-width:720px;margin:48px 0 64px">
+      17+ years designing learning experiences and scaling enablement programs at some of the most recognized brands in tech.
+    </p>
+
+    <div class="timeline">
+      <!-- Enjoy -->
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div style="margin-bottom:24px">
+          <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:4px">
+            <h3 class="font-display" style="font-size:28px;font-weight:700;color:white">Enjoy Inc.</h3>
+            <span class="font-mono" style="font-size:10px;letter-spacing:0.15em;color:var(--muted)">Jul 2016 - Sep 2022</span>
+          </div>
+          <p class="font-display" style="font-size:15px;color:rgba(192,160,224,0.7);margin-bottom:8px">Sr. Learning &amp; Development Manager</p>
+          <p class="font-mono" style="font-size:10px;letter-spacing:0.1em;color:rgba(136,136,136,0.6);text-transform:uppercase">$350M+ funded | $1.2B SPAC IPO</p>
+        </div>
+        <div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">First L&D hire &mdash; built the learning function from scratch</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Scaled from 4 U.S. markets to 54+ across three countries</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Led sales enablement contributing to 25% revenue lift</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Cut new hire ramp time by 33% for ~100-person cohorts</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Managed 8 regional facilitators across US and Canada</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Developed partner training with Apple, AT&T, Google, Sonos, Rogers, Magic Leap</span></div>
+        </div>
+      </div>
+
+      <!-- Apple -->
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div style="margin-bottom:24px">
+          <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:4px">
+            <h3 class="font-display" style="font-size:28px;font-weight:700;color:white">Apple Inc.</h3>
+            <span class="font-mono" style="font-size:10px;letter-spacing:0.15em;color:var(--muted)">Jul 2005 - Jun 2016</span>
+          </div>
+          <p class="font-display" style="font-size:15px;color:rgba(192,160,224,0.7);margin-bottom:8px">Creative / Instructional Designer / Facilitator</p>
+          <p class="font-mono" style="font-size:10px;letter-spacing:0.1em;color:rgba(136,136,136,0.6);text-transform:uppercase">11 years | 100 &rarr; 490 stores | 20+ countries</p>
+        </div>
+        <div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Designed Facilitation Skills learning experience for Global Retail Training</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Developed Apple Business training deployed globally in 11+ languages</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Facilitated New Store Openings at Grand Central (NYC) and Covent Garden (London)</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Trained teams at Cupertino HQ with participants from 10+ countries</span></div>
+          <div class="highlight"><span class="highlight-dot" style="background:rgba(192,160,224,0.4)"></span><span class="highlight-text">Certified in Final Cut Pro, Logic Pro, and Aperture</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="reveal" style="margin-top:80px;padding-top:48px;border-top:1px solid rgba(42,42,42,0.2)">
+      <p class="font-mono" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(192,160,224,0.4);margin-bottom:16px">Education</p>
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+        <h4 class="font-display" style="font-size:18px;font-weight:500;color:rgba(255,255,255,0.8)">San Diego State University</h4>
+        <span style="color:var(--muted);font-size:14px">B.A. in Art, emphasis in Multimedia (2007)</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider" style="position:absolute;bottom:0;left:0;right:0"></div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" style="padding:128px 0;background:linear-gradient(to bottom,var(--black),#050505)">
+  <div class="parallax-shape visible" data-speed="0.03" style="width:300px;height:300px;background:rgba(240,160,192,0.03);top:30%;left:-80px;"></div>
+  <div style="max-width:800px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:5">
+    <div class="reveal">
+      <svg width="96" viewBox="0 0 488.37 437.66" fill="white" style="opacity:0.4;margin-bottom:32px"><path d="M347.71,211.52c5.41-13.69,10.45-27.55,16.34-41.03,7.32-16.77,14.77-33.52,23.19-49.75,11.28-21.76,23.61-42.97,35.32-64.5,7.36-13.52,14.89-27.11,26.43-37.38,8.2-7.3,18.16-12.63,27.33-18.84l1.9,1.16c0,3.9.54,7.89-.09,11.68-3.77,22.87-12.55,44.13-22.89,64.6-12.15,24.04-26.1,47.16-38.29,71.19-9.49,18.7-18.02,37.93-25.98,57.33-9.77,23.83-18.44,48.11-27.67,72.17-6.38,16.64-12.82,33.25-19.39,49.82-2.67,6.73-5.39,13.48-8.73,19.88-2.5,4.8-6.01,4.83-9.2.12-5.3-7.83-10.83-15.52-15.91-23.49-1.32-2.07-1.86-4.96-1.87-7.48-.09-31.88-.15-63.76.14-95.63.06-6.59,1.71-13.15,2.44-19.75.21-1.85-.22-3.77-.46-7.18-31.16,54.48-61.47,107.5-91.91,160.72-9.22-7.09-9.61-7.53-5.54-17.01,15.06-35.07,30.06-70.17,45.69-104.99,6.96-15.49,15.63-30.21,23.07-45.5,10.54-21.64,20.75-43.44,30.91-65.26,1.94-4.18,3.17-8.73,4.4-13.2,2.39-8.63,9.87-10.77,16.87-13.55,1.87-.74,3.84-1.69,5.77-1.7,3.09,0,6.61-.11,9.17,1.28,4.86,2.65,9.25,6.23,7.91,13.01-.52,2.63-.81,5.31-1.1,7.97-1.65,14.84-3.32,29.68-4.87,44.53-1.03,9.8-1.79,19.64-2.83,29.44-.58,5.51-1.55,10.97-2.2,16.47-.17,1.45.18,2.96.3,4.44.58.14,1.17.29,1.75.43Z"/><path d="M88.64,188.18c-28.15,50.48-56.3,100.96-84.54,151.39-.37.65-1.97.61-3.76,1.11-1.52-8.42,2.49-15.11,5.38-21.65,16.98-38.56,34.23-77.01,51.65-115.37,12.48-27.47,25.01-54.92,38.3-82,4.22-8.61,10.51-16.13,9.39-26.54-.08-.72.71-1.58,1.2-2.31,3.28-4.84,18.73-10.1,24.21-8.27,8.27,2.77,12.07,12.43,8.6,21.72-.7,1.86-1.46,3.78-1.69,5.72-1.8,15.46-3.38,30.94-5.24,46.39-1.47,12.17-3.16,24.31-4.93,36.44-.37,2.53-1.52,4.94-.92,7.96,7.78-13.26,15.56-26.53,23.35-39.79,8.7-14.81,17.52-29.56,26.09-44.45,5.84-10.14,11.33-20.49,17.02-30.73,5.15-9.27,10.27-18.56,15.56-27.75,5.61-9.75,10.99-19.67,17.26-28.99,6.09-9.04,12.75-17.81,20.02-25.92,4.49-5,19.9-5.9,24.98-2.81,4.39,2.67,6.73,10.64,4.28,16.79-4.79,12.06-9.28,24.31-15.19,35.82-4.43,8.63-11.3,15.97-16.36,24.32-8.91,14.69-17.3,29.7-25.87,44.59-6.27,10.89-12.59,21.76-18.68,32.75-9.17,16.56-18.2,33.2-27.21,49.85-12.57,23.22-25.43,46.29-37.46,69.79-7.89,15.42-14.5,31.49-21.72,47.24-.73,1.59-1.67,3.09-2.62,4.56-3.16,4.88-5.61,4.23-9.8.23-8.08-7.71-12.36-17.39-16.65-27.19-.77-1.76-.7-3.96-.7-5.95-.06-17.18-.55-34.38.12-51.54.41-10.41,2.72-20.73,4.06-31.11,1.05-8.08,1.92-16.17,2.87-24.26-.33-.02-.66-.04-.99-.06Z"/><path d="M476.47,336.61c-4.76-6.18-9.28-11.21-12.86-16.84-9.35-14.7-13.6-31.04-15.11-48.32-1.22-13.91-3.09-27.77-4.92-41.62-.63-4.76-2.03-9.41-3.41-15.56-4.6,9.21-8.66,17.33-12.71,25.45-8.27,16.59-16.72,33.1-24.76,49.81-9.3,19.32-18.07,38.89-27.39,58.19-7.25,15.02-14.96,29.83-22.55,44.69-6.62,12.96-13.41,25.83-20.05,38.77-3.45,6.72-7.74,8.45-10.76,4.06-.76-1.1-1.28-3.03-.85-4.18,7.01-18.52,14.42-36.88,21.26-55.46,5.68-15.46,10.26-31.33,16.17-46.69,9.95-25.87,20.71-51.43,30.84-77.24,5.87-14.96,10.84-30.27,16.78-45.2,9.09-22.86,18.23-45.73,28.32-68.15,2.82-6.26,6.95-11.58,6.98-19.01.02-5.29,4.81-7.67,9.09-9.56,4.62-2.04,9.43-3.65,14.19-5.36,5.68-2.04,15.54,4.25,16.1,10.32.9,9.78,2.66,19.6,2.27,29.34-.56,14.02-3.5,27.96-3.97,41.98-.47,13.84.88,27.75,1.42,41.63.09,2.25-.02,4.53.27,6.76,1.58,11.86,3.51,23.68,4.84,35.56,1.25,11.1,3.61,22.47,2.33,33.35-1.26,10.75-3.4,22.14-11.53,33.29Z"/><path d="M231.97,266.73v-74.66c-6.06,11.47-11.47,21.93-17.09,32.28-4.42,8.14-8.99,16.2-13.67,24.19-5.04,8.61-10.37,17.04-15.41,25.65-5.99,10.23-11.9,20.5-17.68,30.85-6.55,11.74-12.89,23.59-19.39,35.36-6.74,12.21-13.4,24.46-20.39,36.53-6.65,11.49-13.68,22.76-20.51,34.15-1.5,2.5-2.7,5.2-4.31,7.62-3.72,5.58-3.78,5.54-10.46,7.42-3.05-7.71,2.28-13.61,4.87-19.74,12.48-29.54,25.59-58.82,38.39-88.23,12.23-28.09,23.92-56.42,36.66-84.27,10.56-23.1,22.33-45.65,33.49-68.48,5.62-11.5,10.85-23.19,16.63-34.6,5.07-10.02,10.6-19.8,16.04-29.63,3.28-5.93,9.7-7.09,15.29-7.9,3.33-.48,6.19-3.44,10.92-.97,7.89,4.12,10.74,8.94,10.14,17.81-1.44,21.06-1.41,42.22-2.92,63.27-.99,13.78-6.33,26.3-12.95,38.62-8.36,15.58-14.71,32.24-22.14,48.33-1.02,2.21-3.28,3.86-5.51,6.4Z"/></svg>
+      <h2 class="font-display" style="font-size:clamp(28px,5vw,48px);font-weight:700;letter-spacing:-0.02em;margin-bottom:24px"><span class="holo-text">Let's Build Something</span></h2>
+      <p style="color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 48px;line-height:1.8">
+        Open to creative collaborations, product roles, and conversations about culture, technology, and what's next.
+      </p>
+    </div>
+    <div class="reveal" style="margin-bottom:64px">
+      <a href="mailto:holler.back@me.com" class="contact-btn">holler.back@me.com</a>
+    </div>
+    <div class="reveal" style="display:flex;justify-content:center;gap:32px;margin-bottom:80px">
+      <a href="https://x.com/seannana" target="_blank" rel="noopener" class="social-link" aria-label="X">
+        <span class="x-glyph" aria-hidden="true">𝕏</span>
+      </a>
+      <a href="https://www.linkedin.com/in/seannana/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V9h4v2"></path>
+          <path d="M2 9h4v12H2z"></path>
+          <path d="M4 4a2 2 0 1 0 0.01 0"></path>
+        </svg>
+      </a>
+      <a href="https://instagram.com/seannana" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"></path>
+          <path d="M12 11a4 4 0 1 0 0 0.01"></path>
+          <path d="M17.5 6.5h.01"></path>
+        </svg>
+      </a>
+    </div>
+    <div style="border-top:1px solid rgba(42,42,42,0.2);padding-top:32px">
+      <p class="font-mono" style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(136,136,136,0.4)">&copy; 2026 NANA LIFESTYLE. All rights reserved.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// ==================== VIDEO GALLERY DATA ====================
+const videos = [
+  { id: '4ZLu5G12kAY', title: 'Rush', role: 'Director & Producer', views: '77K', year: 2019, duration: '3:24' },
+  { id: 'ECTwG4yb_BY', title: 'NIGHTCAP', role: 'Producer', views: '26K', year: 2020, duration: '3:53' },
+  { id: '2w-yQ_Sp5WE', title: 'Electric', role: 'Producer', views: '59K', year: 2018, duration: '3:50' },
+  { id: 'JwE1hSu5FMw', title: 'Summertime Shine', role: 'Director', views: '20K', year: 2019, duration: '4:00' },
+  { id: 'VdzEdMzrlcE', title: 'NESS', role: 'Director & Producer', views: '', year: 2016, duration: '' },
+  { id: 'CCcjm7hz5W8', title: 'Mona Lisa', role: 'Director & Producer', views: '50K', year: 2017, duration: '2:50' },
+  { id: 'XXWFJhYZslo', title: 'VICE (ft. Autumn in June)', role: 'Director & DP', views: '', year: 2018, duration: '' },
+  { id: 'VjA5YoKVc1w', title: 'Euphoria ft. ATOSA', role: 'Producer', views: '', year: 2016, duration: '' },
+  { id: 'u-XltTtOtdU', title: 'MPH (Lyric Video)', role: 'Producer', views: '', year: 2017, duration: '' },
+  { id: 'yC5pFWhhzCE', title: 'VORTEX (CORE+AXIS)', role: 'Producer', views: '3.5K', year: 2018, duration: '3:33' },
+];
+
+// Build gallery
+const gallery = document.getElementById('videoGallery');
+videos.forEach(v => {
+  const card = document.createElement('div');
+  card.className = 'video-card';
+  card.onclick = () => openLightbox(v.id, v.title);
+  card.innerHTML = `
+    <div class="video-thumb">
+      <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+      ${v.duration ? `<div class="video-duration">${v.duration}</div>` : ''}
+    </div>
+    <div class="video-info">
+      <div class="video-title">MIKNNA &mdash; ${v.title}</div>
+      <div class="video-meta">
+        <span class="video-role">${v.role}</span>
+        ${v.views ? `<span class="video-meta-dot"></span><span class="video-views">${v.views} views</span>` : ''}
+      </div>
+    </div>
+  `;
+  gallery.appendChild(card);
+});
+
+// ==================== LIGHTBOX ====================
+function openLightbox(id, title) {
+  const overlay = document.getElementById('lightbox');
+  const iframe = document.getElementById('lightbox-iframe');
+  const titleEl = document.getElementById('lightbox-title');
+  iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+  titleEl.textContent = `MIKNNA — ${title}`;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  const overlay = document.getElementById('lightbox');
+  const iframe = document.getElementById('lightbox-iframe');
+  overlay.classList.remove('active');
+  iframe.src = '';
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// ==================== THREE.JS HERO ====================
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 6;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const geo = new THREE.IcosahedronGeometry(2, 1);
+  const mat = new THREE.MeshBasicMaterial({ color: 0x1a1a2e, wireframe: true, transparent: true, opacity: 0.4 });
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+
+  const count = 500;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const holoColors = [[0.94,0.63,0.75],[0.91,0.78,0.47],[0.66,0.88,0.69],[0.53,0.78,0.91],[0.75,0.63,0.88]];
+  for (let i = 0; i < count; i++) {
+    positions[i*3] = (Math.random()-0.5)*20;
+    positions[i*3+1] = (Math.random()-0.5)*20;
+    positions[i*3+2] = (Math.random()-0.5)*20;
+    const c = holoColors[Math.floor(Math.random()*holoColors.length)];
+    colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const pMat = new THREE.PointsMaterial({ size: 0.03, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
+  const points = new THREE.Points(pGeo, pMat);
+  scene.add(points);
+
+  const sCount = 1000;
+  const sPos = new Float32Array(sCount * 3);
+  for (let i = 0; i < sCount; i++) {
+    sPos[i*3] = (Math.random()-0.5)*100;
+    sPos[i*3+1] = (Math.random()-0.5)*100;
+    sPos[i*3+2] = (Math.random()-0.5)*100;
+  }
+  const sGeo = new THREE.BufferGeometry();
+  sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
+  const sMat = new THREE.PointsMaterial({ size: 0.5, color: 0xffffff, transparent: true, opacity: 0.3 });
+  scene.add(new THREE.Points(sGeo, sMat));
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = Date.now() * 0.001;
+    mesh.rotation.x = t * 0.1;
+    mesh.rotation.y = t * 0.15;
+    points.rotation.y = t * 0.02;
+    points.rotation.x = Math.sin(t * 0.01) * 0.1;
+    mesh.position.y = Math.sin(t * 1.5) * 0.3;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ==================== SCROLL REVEAL ====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '-50px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Also reveal parallax shapes
+const shapeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0, rootMargin: '100px' });
+document.querySelectorAll('.parallax-shape').forEach(el => shapeObserver.observe(el));
+
+// ==================== PARALLAX SCROLL ====================
+let scrollY = 0;
+let ticking = false;
+
+function updateParallax() {
+  const shapes = document.querySelectorAll('.parallax-shape');
+  shapes.forEach(shape => {
+    const speed = parseFloat(shape.dataset.speed) || 0.03;
+    const rect = shape.parentElement.getBoundingClientRect();
+    const offset = rect.top * speed;
+    shape.style.transform = `translateY(${-offset}px)`;
+  });
+
+  // Subtle parallax on section inner content
+  document.querySelectorAll('.section-inner').forEach(inner => {
+    const rect = inner.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const viewCenter = window.innerHeight / 2;
+    const diff = (center - viewCenter) * 0.015;
+    inner.style.transform = `translateY(${diff}px)`;
+  });
+
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  scrollY = window.pageYOffset;
+  if (!ticking) {
+    requestAnimationFrame(updateParallax);
+    ticking = true;
+  }
+
+  // Nav
+  const nav = document.getElementById('mainNav');
+  nav.classList.toggle('scrolled', scrollY > 100);
+
+  // Active section
+  const sections = ['hero','creative','product','experience','contact'];
+  let active = 'hero';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 200) active = id;
+  });
+  document.querySelectorAll('.nav-link').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

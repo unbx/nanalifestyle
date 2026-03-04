@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "NANA LIFESTYLE | Sean Nana — Creative Producer, Experience Builder",
+  title: "NANA LIFESTYLE | Sean Nana — Creative Enabler, Experience Builder",
   description:
-    "Portfolio of Sean Nana — Creative Producer, Experience Builder, and technologist bridging culture, creativity, and emerging technology. MIKNNA, CR3 Labs, Apple, and beyond.",
+    "Portfolio of Sean Nana — Creative Enabler, Experience Builder, and technologist bridging culture, creativity, and emerging technology. MIKNNA, CR3 Labs, Apple, and beyond.",
   keywords: [
     "Sean Nana",
     "NANA LIFESTYLE",
     "MIKNNA",
-    "Creative Producer",
+    "Creative Enabler",
     "CR3 Labs",
     "OpenPage",
     "Web3",
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NANA LIFESTYLE | Sean Nana",
     description:
-      "Creative Producer. Experience Builder. Culture x Technology.",
+      "Creative Enabler. Experience Builder. Culture x Technology.",
     url: "https://nanalifestyle.com",
     siteName: "NANA LIFESTYLE",
     type: "website",
@@ -31,10 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="film-grain bg-nana-black text-nana-text font-body antialiased">
-        {children}
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }
