@@ -456,7 +456,7 @@ function CreativeSection() {
                   onClick={() => {
                     if (m.type === "video" && m.videoId) openLightbox(m.videoId, m.title);
                     else if (m.type === "video" && m.localVideoSrc) openLocalVideoLightbox(m.localVideoSrc, m.title);
-                    if (m.type === "photo") openImageLightbox(m.thumbSrc, m.title);
+                    if (m.type === "photo" && m.thumbSrc) openImageLightbox(m.thumbSrc, m.title);
                   }}
                   aria-label={m.type === "video" ? `Play ${m.title}` : m.title}
                 >
@@ -649,7 +649,7 @@ function ContactSection() {
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 24px", textAlign: "center" as const, position: "relative" as const, zIndex: 5 }}>
         <div className="reveal">
           <NanaLogo width={96} className="" />
-          <h2 className="font-display" style={{ fontSize: "clamp(28px,5vw,48px)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 24, marginTop: 32 }}><span className="holo-text">Let&apos;s Build Something</span></h2>
+          <h2 className="font-display" style={{ fontSize: "clamp(28px,5vw,48px)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 24, marginTop: 32 }}><span className="holo-text">Let&apos;s Build Together</span></h2>
           <p style={{ color: "var(--muted)", fontSize: 14, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.8 }}>Open to creative collaborations, product roles, and conversations about culture, technology, and what&apos;s next.</p>
         </div>
         <div className="reveal" style={{ marginBottom: 64 }}><a href="mailto:holler.back@me.com" className="contact-btn">holler.back@me.com</a></div>
@@ -894,35 +894,72 @@ function initHeroScene() {
   const mesh = new THREE.Mesh(geo, mat);
   scene.add(mesh);
 
-  const count = 500;
+  // Create a soft circular star texture via canvas
+  const starCanvas = document.createElement("canvas");
+  starCanvas.width = 64; starCanvas.height = 64;
+  const ctx = starCanvas.getContext("2d")!;
+  const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, "rgba(255,255,255,1)");
+  grad.addColorStop(0.15, "rgba(255,255,255,0.8)");
+  grad.addColorStop(0.4, "rgba(255,255,255,0.15)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 64, 64);
+  const starTexture = new THREE.CanvasTexture(starCanvas);
+
+  // Holographic near-field stars (subtle color tints)
+  const count = 400;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
-  const holoColors = [[0.94,0.63,0.75],[0.91,0.78,0.47],[0.66,0.88,0.69],[0.53,0.78,0.91],[0.75,0.63,0.88]];
+  const sizes = new Float32Array(count);
+  const phases = new Float32Array(count); // for twinkle
+  const holoColors = [[0.94,0.63,0.75],[0.91,0.78,0.47],[0.66,0.88,0.69],[0.53,0.78,0.91],[0.75,0.63,0.88],[1,1,1],[1,1,1]];
   for (let i = 0; i < count; i++) {
-    positions[i*3] = (Math.random()-0.5)*20; positions[i*3+1] = (Math.random()-0.5)*20; positions[i*3+2] = (Math.random()-0.5)*20;
+    positions[i*3] = (Math.random()-0.5)*24; positions[i*3+1] = (Math.random()-0.5)*24; positions[i*3+2] = (Math.random()-0.5)*24;
     const c = holoColors[Math.floor(Math.random()*holoColors.length)];
     colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
+    sizes[i] = 0.02 + Math.random() * 0.06;
+    phases[i] = Math.random() * Math.PI * 2;
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  const pMat = new THREE.PointsMaterial({ size: 0.03, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
+  pGeo.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+  const pMat = new THREE.PointsMaterial({ size: 0.05, map: starTexture, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
-  const sCount = 1000;
+  // Deep background star field
+  const sCount = 1200;
   const sPos = new Float32Array(sCount * 3);
-  for (let i = 0; i < sCount; i++) { sPos[i*3] = (Math.random()-0.5)*100; sPos[i*3+1] = (Math.random()-0.5)*100; sPos[i*3+2] = (Math.random()-0.5)*100; }
+  const sSizes = new Float32Array(sCount);
+  const sPhases = new Float32Array(sCount);
+  for (let i = 0; i < sCount; i++) {
+    sPos[i*3] = (Math.random()-0.5)*120; sPos[i*3+1] = (Math.random()-0.5)*120; sPos[i*3+2] = (Math.random()-0.5)*120;
+    sSizes[i] = 0.1 + Math.random() * 0.5;
+    sPhases[i] = Math.random() * Math.PI * 2;
+  }
   const sGeo = new THREE.BufferGeometry();
   sGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
-  scene.add(new THREE.Points(sGeo, new THREE.PointsMaterial({ size: 0.5, color: 0xffffff, transparent: true, opacity: 0.3 })));
+  const bgStars = new THREE.Points(sGeo, new THREE.PointsMaterial({ size: 0.3, map: starTexture, color: 0xffffff, transparent: true, opacity: 0.5, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+  scene.add(bgStars);
 
   function animate() {
     requestAnimationFrame(animate);
     const t = Date.now() * 0.001;
-    mesh.rotation.x = t * 0.1; mesh.rotation.y = t * 0.15;
-    points.rotation.y = t * 0.02; points.rotation.x = Math.sin(t * 0.01) * 0.1;
-    mesh.position.y = Math.sin(t * 1.5) * 0.3;
+    mesh.rotation.x = t * 0.06; mesh.rotation.y = t * 0.08;
+    mesh.position.y = Math.sin(t * 0.8) * 0.2;
+    points.rotation.y = t * 0.012;
+    points.rotation.x = Math.sin(t * 0.008) * 0.05;
+    bgStars.rotation.y = t * 0.003;
+    bgStars.rotation.x = t * 0.002;
+    // Twinkle effect — modulate opacity over time
+    const pSizes = pGeo.attributes.size as any;
+    for (let i = 0; i < count; i++) {
+      const base = sizes[i];
+      pSizes.array[i] = base * (0.5 + 0.5 * Math.sin(t * (1.5 + (phases[i] % 3)) + phases[i]));
+    }
+    pSizes.needsUpdate = true;
     renderer.render(scene, camera);
   }
   animate();
