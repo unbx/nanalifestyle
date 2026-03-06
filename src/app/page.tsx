@@ -104,7 +104,7 @@ nav a { text-decoration:none; }
 .nav-link { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); transition:color 0.3s; cursor:pointer; }
 .nav-link:hover,.nav-link.active { color:white; }
 #hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-#hero-canvas { position:absolute; inset:0; z-index:0; }
+#hero-canvas { position:absolute; inset:0; z-index:0; width:100%!important; height:100%!important; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(10,10,10,0.4),transparent,var(--black)); z-index:1; }
 .hero-content { position:relative; z-index:2; text-align:center; padding:0 24px; max-width:960px; }
 .hero-logo { width:280px; max-width:80vw; margin:0 auto 32px; filter:invert(1); animation:glow 3s ease-in-out infinite alternate; }
@@ -200,19 +200,19 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .chip:hover { border-color:rgba(232,200,120,0.35); color:white; }
 .chip.active { border-color:rgba(232,200,120,0.55); color:rgba(255,255,255,0.95); background:rgba(232,200,120,0.08); }
 .media-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
-.media-tile { grid-column:span 4; width:100%; padding:0; text-align:left; background:rgba(10,10,10,0.4); border:1px solid rgba(42,42,42,0.25); border-radius:14px; overflow:hidden; cursor:pointer; transition:transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease; color:inherit; }
+.media-tile { grid-column:span 4; width:100%; padding:0; text-align:left; background:rgba(10,10,10,0.4); border:1px solid rgba(42,42,42,0.25); border-radius:14px; overflow:hidden; cursor:pointer; transition:transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease; color:inherit; position:relative; }
 .media-tile:hover { transform:translateY(-4px); border-color:rgba(232,200,120,0.35); background:rgba(26,26,26,0.35); box-shadow:0 16px 60px rgba(0,0,0,0.55); }
 .media-tile:focus-visible { outline:2px solid rgba(136,200,232,0.55); outline-offset:3px; }
 .media-thumb { position:relative; aspect-ratio:4/3; overflow:hidden; background:black; }
 .media-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.6s ease, filter 0.35s ease; filter:brightness(0.78) saturate(0.9); }
 .media-tile:hover .media-thumb img { transform:scale(1.05); filter:brightness(0.9) saturate(1); }
 .media-gradient { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 55%, rgba(0,0,0,0) 100%); opacity:0.95; }
-.media-badge { position:absolute; top:10px; left:10px; padding:4px 8px; border-radius:999px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12); font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.78); opacity:0; transition:opacity 0.3s ease; }
+.media-badge { position:absolute; top:10px; left:10px; padding:4px 8px; border-radius:999px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12); font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.78); opacity:0; transition:opacity 0.3s ease; z-index:3; }
 .media-tile:hover .media-badge { opacity:1; }
-.media-duration { position:absolute; bottom:10px; right:10px; padding:3px 6px; border-radius:6px; background:rgba(0,0,0,0.65); font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.06em; opacity:0; transition:opacity 0.3s ease; }
+.media-duration { position:absolute; top:10px; right:10px; padding:3px 6px; border-radius:6px; background:rgba(0,0,0,0.65); font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.06em; opacity:0; transition:opacity 0.3s ease; z-index:3; }
 .media-tile:hover .media-duration { opacity:1; }
-.media-meta { padding:14px 14px 16px; max-height:0; overflow:hidden; padding:0 14px; opacity:0; transition:max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease; }
-.media-tile:hover .media-meta { max-height:80px; padding:14px 14px 16px; opacity:1; }
+.media-meta { position:absolute; bottom:0; left:0; right:0; padding:14px 14px 16px; opacity:0; transform:translateY(6px); transition:opacity 0.3s ease, transform 0.3s ease; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0) 100%); pointer-events:none; z-index:2; }
+.media-tile:hover .media-meta { opacity:1; transform:translateY(0); pointer-events:auto; }
 .media-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:6px; letter-spacing:-0.01em; }
 .media-sub { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(232,200,120,0.6); }
 .media-note { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; color:rgba(136,136,136,0.65); margin-top:10px; }
@@ -886,10 +886,13 @@ function initHeroScene() {
   if (!canvas) return;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  const hero = canvas.parentElement!;
+  const w = hero.clientWidth, h = hero.clientHeight;
+  const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
   camera.position.z = 6;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, premultipliedAlpha: false });
+  renderer.setClearColor(0x000000, 0);
+  renderer.setSize(w, h, false);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   const geo = new THREE.IcosahedronGeometry(2, 1);
@@ -968,8 +971,9 @@ function initHeroScene() {
   animate();
 
   window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const rw = hero.clientWidth, rh = hero.clientHeight;
+    camera.aspect = rw / rh;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(rw, rh, false);
   });
 }
