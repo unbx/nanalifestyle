@@ -124,9 +124,15 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .stat-card { border:1px solid rgba(42,42,42,0.5); border-radius:12px; padding:24px; text-align:center; background:rgba(26,26,26,0.3); }
 .stat-value { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(28px,4vw,40px); font-weight:700; margin-bottom:8px; }
 .stat-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
-.release-card { border:1px solid rgba(42,42,42,0.3); border-radius:12px; overflow:hidden; transition:all 0.5s; }
-.release-card:hover { border-color:rgba(232,200,120,0.3); }
-.release-art { aspect-ratio:1; background:linear-gradient(135deg,var(--card),var(--dark)); display:flex; align-items:center; justify-content:center; padding:24px; text-align:center; }
+.release-card { border:1px solid rgba(42,42,42,0.3); border-radius:12px; overflow:hidden; transition:all 0.5s; position:relative; }
+.release-card:hover { border-color:rgba(232,200,120,0.3); transform:translateY(-4px); box-shadow:0 16px 60px rgba(0,0,0,0.55); }
+.release-art { aspect-ratio:1; background:linear-gradient(135deg,var(--card),var(--dark)); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.release-art img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.6s ease, filter 0.35s ease; filter:brightness(0.78) saturate(0.9); }
+.release-card:hover .release-art img { transform:scale(1.05); filter:brightness(0.9) saturate(1); }
+.release-overlay { position:absolute; bottom:0; left:0; right:0; padding:16px; opacity:0; transform:translateY(6px); transition:opacity 0.3s ease, transform 0.3s ease; background:linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0) 100%); z-index:2; pointer-events:none; }
+.release-card:hover .release-overlay { opacity:1; transform:translateY(0); pointer-events:auto; }
+.release-badge { position:absolute; top:10px; left:10px; padding:4px 8px; border-radius:999px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12); font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.78); opacity:0; transition:opacity 0.3s ease; z-index:3; }
+.release-card:hover .release-badge { opacity:1; }
 .release-info { padding:16px; }
 .pill { display:inline-block; padding:8px 16px; border:1px solid rgba(42,42,42,0.4); border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(224,224,224,0.7); transition:all 0.3s; margin:4px; }
 .pill:hover { border-color:rgba(232,200,120,0.4); color:var(--amber); }
@@ -487,13 +493,20 @@ function CreativeSection() {
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)", marginBottom: 32 }}>Discography</p>
           <div className="grid-3" style={{ marginBottom: 64 }}>
             {[
-              { title: "Escape (Deluxe)", sub: "MIKNNA · 2021", type: "Album" },
-              { title: "Pool Haus EP", sub: "MIKNNA x SATICA · 2020", type: "EP", extra: "3M+ streams worldwide" },
-              { title: "50|50 (Side A)", sub: "MIKNNA · 2016", type: "EP" },
+              { title: "Escape (Deluxe)", sub: "MIKNNA · 2021", type: "Album", img: "/escape-deluxe.jpg" },
+              { title: "Pool Haus EP", sub: "MIKNNA x SATICA · 2020", type: "EP", extra: "3M+ streams worldwide", img: "/pool-haus-ep.png" },
+              { title: "50|50 (Side A)", sub: "MIKNNA · 2016", type: "EP", img: "/5050-side-a.jpg" },
             ].map((r) => (
               <div key={r.title} className="release-card">
-                <div className="release-art"><div><div className="font-display" style={{ fontSize: 18, fontWeight: 700, color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>{r.title}</div><div className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--muted)" }}>{r.sub}</div></div></div>
-                <div className="release-info"><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)" }}>{r.type}</span>{r.extra && <span className="font-mono" style={{ fontSize: 9, color: "var(--muted)" }}>{r.extra}</span>}</div></div>
+                <div className="release-art">
+                  {r.img ? <img src={r.img} alt={r.title} /> : <div style={{ padding: 24, textAlign: "center" }}><div className="font-display" style={{ fontSize: 18, fontWeight: 700, color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>{r.title}</div><div className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--muted)" }}>{r.sub}</div></div>}
+                  <div className="release-badge">{r.type}</div>
+                  <div className="release-overlay">
+                    <div className="font-display" style={{ fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: 4 }}>{r.title}</div>
+                    <div className="font-mono" style={{ fontSize: 9, letterSpacing: "0.1em", color: "rgba(232,200,120,0.7)" }}>{r.sub}</div>
+                    {r.extra && <div className="font-mono" style={{ fontSize: 9, color: "var(--muted)", marginTop: 6 }}>{r.extra}</div>}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
