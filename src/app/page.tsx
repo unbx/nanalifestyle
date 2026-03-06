@@ -346,7 +346,6 @@ function CreativeSection() {
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", views: "", duration: "" },
     { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", views: "", duration: "" },
     { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", views: "", duration: "" },
-    { id: "yC5pFWhhzCE", title: "VORTEX (CORE+AXIS)", role: "Producer", views: "3.5K", duration: "3:33" },
   ];
 
   const mediaItems: MediaItem[] = useMemo(() => {
@@ -360,19 +359,10 @@ function CreativeSection() {
       thumbSrc: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
     }));
 
-    const additionalVideo: MediaItem = {
-      key: "video-this-is-america-vibe-edit",
-      type: "video",
-      title: "This is America Vibe Edit",
-      subtitle: "Edit by NANA",
-      duration: undefined,
-      localVideoSrc: "/this-is-america-vibe-edit.mov",
-    };
-
     const photoItems: MediaItem[] = [];
     const web3Items: MediaItem[] = [];
 
-    return [...videoItems, additionalVideo, ...photoItems, ...web3Items];
+    return [...videoItems, ...photoItems, ...web3Items];
   }, [videos]);
 
   const filteredItems = useMemo(() => {
