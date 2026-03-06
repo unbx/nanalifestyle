@@ -62,17 +62,17 @@ function Head() {
 html { scroll-behavior:smooth; background:var(--black); color:var(--text); }
 body { font-family:'Inter',system-ui,sans-serif; overflow-x:hidden; }
 body::after {
-  content:''; position:fixed; top:-50%; left:-50%; right:-50%; bottom:-50%;
-  width:200%; height:200%; pointer-events:none; z-index:9999; opacity:0.4;
+  content:''; position:fixed; top:-100%; left:-100%;
+  width:300%; height:300%; pointer-events:none; z-index:9999; opacity:0.4;
   background:transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E") repeat;
   animation:grain 8s steps(10) infinite;
 }
 @keyframes grain {
-  0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)}
-  20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-25%)}
-  40%{transform:translate(-5%,25%)} 50%{transform:translate(-15%,10%)}
-  60%{transform:translate(15%,0%)} 70%{transform:translate(0%,15%)}
-  80%{transform:translate(3%,35%)} 90%{transform:translate(-10%,10%)}
+  0%,100%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)}
+  20%{transform:translate(-5%,2%)} 30%{transform:translate(3%,-8%)}
+  40%{transform:translate(-2%,8%)} 50%{transform:translate(-5%,3%)}
+  60%{transform:translate(5%,0%)} 70%{transform:translate(0%,5%)}
+  80%{transform:translate(1%,10%)} 90%{transform:translate(-3%,3%)}
 }
 .font-display { font-family:'Space Grotesk',system-ui,sans-serif; }
 .font-mono { font-family:'JetBrains Mono',monospace; }
