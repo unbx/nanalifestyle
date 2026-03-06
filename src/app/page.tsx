@@ -103,8 +103,8 @@ nav a { text-decoration:none; }
 .nav-links { display:flex; gap:32px; }
 .nav-link { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); transition:color 0.3s; cursor:pointer; }
 .nav-link:hover,.nav-link.active { color:white; }
-#hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-#hero-canvas { position:absolute; inset:0; z-index:0; width:100%!important; height:100%!important; }
+#hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:var(--black); }
+#hero-canvas { position:absolute; inset:0; z-index:0; display:block; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(10,10,10,0.4),transparent,var(--black)); z-index:1; }
 .hero-content { position:relative; z-index:2; text-align:center; padding:0 24px; max-width:960px; }
 .hero-logo { width:280px; max-width:80vw; margin:0 auto 32px; filter:invert(1); animation:glow 3s ease-in-out infinite alternate; }
@@ -893,19 +893,18 @@ function initScrollEffects() {
 }
 
 function initHeroScene() {
+  try {
   const THREE = (window as any).THREE;
   if (!THREE) return;
   const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement;
   if (!canvas) return;
 
   const scene = new THREE.Scene();
-  const hero = canvas.parentElement!;
-  const w = hero.clientWidth, h = hero.clientHeight;
-  const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.z = 6;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, premultipliedAlpha: false });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setClearColor(0x000000, 0);
-  renderer.setSize(w, h, false);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   const geo = new THREE.IcosahedronGeometry(2, 1);
@@ -937,14 +936,14 @@ function initHeroScene() {
     positions[i*3] = (Math.random()-0.5)*24; positions[i*3+1] = (Math.random()-0.5)*24; positions[i*3+2] = (Math.random()-0.5)*24;
     const c = holoColors[Math.floor(Math.random()*holoColors.length)];
     colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
-    sizes[i] = 0.02 + Math.random() * 0.06;
+    sizes[i] = 0.04 + Math.random() * 0.12;
     phases[i] = Math.random() * Math.PI * 2;
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   pGeo.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
-  const pMat = new THREE.PointsMaterial({ size: 0.05, map: starTexture, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending });
+  const pMat = new THREE.PointsMaterial({ size: 0.12, map: starTexture, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending });
   const points = new THREE.Points(pGeo, pMat);
   scene.add(points);
 
@@ -960,14 +959,14 @@ function initHeroScene() {
   }
   const sGeo = new THREE.BufferGeometry();
   sGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
-  const bgStars = new THREE.Points(sGeo, new THREE.PointsMaterial({ size: 0.3, map: starTexture, color: 0xffffff, transparent: true, opacity: 0.5, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+  const bgStars = new THREE.Points(sGeo, new THREE.PointsMaterial({ size: 0.6, map: starTexture, color: 0xffffff, transparent: true, opacity: 0.5, sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending }));
   scene.add(bgStars);
 
-  function animate() {
+  const animate = () => {
     requestAnimationFrame(animate);
     const t = Date.now() * 0.001;
     mesh.rotation.x = t * 0.06; mesh.rotation.y = t * 0.08;
-    mesh.position.y = Math.sin(t * 0.8) * 0.2;
+    mesh.position.y = Math.sin(t * 0.4) * 0.1;
     points.rotation.y = t * 0.012;
     points.rotation.x = Math.sin(t * 0.008) * 0.05;
     bgStars.rotation.y = t * 0.003;
@@ -980,13 +979,13 @@ function initHeroScene() {
     }
     pSizes.needsUpdate = true;
     renderer.render(scene, camera);
-  }
+  };
   animate();
 
   window.addEventListener("resize", () => {
-    const rw = hero.clientWidth, rh = hero.clientHeight;
-    camera.aspect = rw / rh;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(rw, rh, false);
+    renderer.setSize(window.innerWidth, window.innerHeight);
   });
+  } catch (e) { console.error("Hero scene error:", e); }
 }
