@@ -207,9 +207,12 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .media-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.6s ease, filter 0.35s ease; filter:brightness(0.78) saturate(0.9); }
 .media-tile:hover .media-thumb img { transform:scale(1.05); filter:brightness(0.9) saturate(1); }
 .media-gradient { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 55%, rgba(0,0,0,0) 100%); opacity:0.95; }
-.media-badge { position:absolute; top:10px; left:10px; padding:4px 8px; border-radius:999px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12); font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.78); }
-.media-duration { position:absolute; bottom:10px; right:10px; padding:3px 6px; border-radius:6px; background:rgba(0,0,0,0.65); font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.06em; }
-.media-meta { padding:14px 14px 16px; }
+.media-badge { position:absolute; top:10px; left:10px; padding:4px 8px; border-radius:999px; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12); font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.78); opacity:0; transition:opacity 0.3s ease; }
+.media-tile:hover .media-badge { opacity:1; }
+.media-duration { position:absolute; bottom:10px; right:10px; padding:3px 6px; border-radius:6px; background:rgba(0,0,0,0.65); font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.06em; opacity:0; transition:opacity 0.3s ease; }
+.media-tile:hover .media-duration { opacity:1; }
+.media-meta { padding:14px 14px 16px; max-height:0; overflow:hidden; padding:0 14px; opacity:0; transition:max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease; }
+.media-tile:hover .media-meta { max-height:80px; padding:14px 14px 16px; opacity:1; }
 .media-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:6px; letter-spacing:-0.01em; }
 .media-sub { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(232,200,120,0.6); }
 .media-note { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; color:rgba(136,136,136,0.65); margin-top:10px; }
