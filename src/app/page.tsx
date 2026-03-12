@@ -344,7 +344,7 @@ function HeroSection() {
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Technology.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
-          17+ years helping teams adopt new tools, skills, and technologies. Strategic product leader operating at the intersection of AI, product experience, and creator platforms. Turning emerging technology into practical systems people can actually use at scale.
+          17+ years helping teams adopt new tools, skills, and technologies. Strategic operator at the intersection of AI, product experience, and creator platforms. Turning emerging technology into practical systems people can actually use at scale.
         </p>
         <p className="hero-tags animate-fade-up delay-3">AI Enablement · Learning &amp; Development · Program Design · Creative Production</p>
         <div className="scroll-indicator animate-fade-up delay-4">
