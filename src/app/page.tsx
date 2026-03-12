@@ -169,9 +169,9 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 @media(max-width:768px) {
   .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
   .nav-links { display:none; }
-  .timeline { padding-left:32px; }
+  .timeline { padding-left:24px; }
   .timeline::before { left:0; }
-  .timeline-dot { left:0; }
+  .timeline-dot { left:-24px; transform:translateX(-3.5px); }
   .video-grid { grid-template-columns:1fr !important; }
   .two-col { grid-template-columns:1fr !important; }
 }
@@ -662,12 +662,12 @@ function SkillsSection() {
     {
       label: "AI & Emerging Technology",
       color: "rgba(168,224,176,0.6)",
-      items: ["AI Enablement", "Creator Platforms", "AI Workflow Design", "Human-AI Collaboration", "Web-Based 3D Development"],
+      items: ["AI Enablement", "Creator Platforms", "AI Workflow Design", "Human-AI Collaboration", "Web-Based 3D Development", "Blockchain & Web3"],
     },
     {
       label: "Product & Platform Experience",
       color: "rgba(136,200,232,0.6)",
-      items: ["Product Strategy", "Digital Identity Systems", "Feature Adoption Strategy", "Creator Experience Design", "Cross-Functional Leadership", "Platform Product Development"],
+      items: ["Product Strategy", "Digital Identity Systems", "Feature Adoption Strategy", "Creator Experience Design", "Cross-Functional Leadership", "Platform Product Development", "UX Strategy"],
     },
     {
       label: "Learning & Development",
@@ -684,7 +684,7 @@ function SkillsSection() {
   const toolCategories = [
     {
       label: "AI & Automation",
-      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "Cursor", "Codex", "Fal"],
+      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "ChatGPT", "Cursor", "Codex", "Midjourney", "Fal", "Lovable"],
     },
     {
       label: "Creative & Production",
@@ -696,7 +696,7 @@ function SkillsSection() {
     },
     {
       label: "Web3 & Platform",
-      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML"],
+      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML", "Vercel", "GitHub"],
     },
   ];
 
