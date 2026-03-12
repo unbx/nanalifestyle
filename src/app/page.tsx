@@ -30,6 +30,7 @@ export default function Home() {
       <CreativeSection />
       <ProductSection />
       <ExperienceSection />
+      <SkillsSection />
       <ContactSection />
       <SiteScripts />
     </>
@@ -110,7 +111,8 @@ nav a { text-decoration:none; }
 .hero-logo { width:280px; max-width:80vw; margin:0 auto 32px; filter:invert(1); animation:glow 3s ease-in-out infinite alternate; }
 .hero-subtitle { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
 .hero-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(24px,5vw,48px); font-weight:300; letter-spacing:-0.02em; margin-bottom:32px; line-height:1.3; }
-.hero-desc { color:var(--muted); font-size:14px; max-width:560px; margin:0 auto; line-height:1.8; }
+.hero-desc { color:var(--muted); font-size:14px; max-width:640px; margin:0 auto; line-height:1.8; }
+.hero-tags { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,200,120,0.5); margin-top:20px; }
 .scroll-indicator { position:absolute; bottom:48px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; animation:float 2s ease-in-out infinite; }
 .scroll-indicator span { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:rgba(136,136,136,0.5); }
 .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom,rgba(136,136,136,0.5),transparent); }
@@ -234,6 +236,16 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .lightbox-close { position:absolute; top:-48px; right:0; width:36px; height:36px; background:none; border:1px solid rgba(255,255,255,0.15); border-radius:50%; color:white; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
 .lightbox-close:hover { border-color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.05); }
 .lightbox-title { position:absolute; bottom:-40px; left:0; font-family:'Space Grotesk',system-ui,sans-serif; font-size:14px; color:rgba(255,255,255,0.6); }
+.skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+@media(max-width:768px) { .skills-grid { grid-template-columns:1fr; } }
+.skill-category { border:1px solid rgba(42,42,42,0.3); border-radius:12px; padding:28px 32px; background:rgba(26,26,26,0.15); backdrop-filter:blur(4px); transition:all 0.5s; }
+.skill-category:hover { border-color:rgba(168,224,176,0.2); background:rgba(26,26,26,0.25); }
+.skill-category-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:16px; }
+.skill-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.skill-tag { display:inline-block; padding:6px 12px; border:1px solid rgba(42,42,42,0.35); border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; color:rgba(224,224,224,0.65); transition:all 0.3s; background:rgba(10,10,10,0.3); }
+.skill-tag:hover { border-color:rgba(168,224,176,0.35); color:var(--green); }
+.tool-tag { display:inline-block; padding:6px 12px; border:1px solid rgba(42,42,42,0.25); border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; color:rgba(224,224,224,0.5); transition:all 0.3s; background:rgba(10,10,10,0.2); }
+.tool-tag:hover { border-color:rgba(232,200,120,0.3); color:var(--amber); }
 ::-webkit-scrollbar { width:6px; }
 ::-webkit-scrollbar-track { background:var(--black); }
 ::-webkit-scrollbar-thumb { background:#333; border-radius:3px; }
@@ -285,6 +297,7 @@ function Navigation() {
           <a href="#creative" className="nav-link">Creative</a>
           <a href="#product" className="nav-link">Product</a>
           <a href="#experience" className="nav-link">Experience</a>
+          <a href="#skills" className="nav-link">Skills</a>
           <a href="#contact" className="nav-link">Contact</a>
         </div>
       </div>
@@ -305,12 +318,13 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Enabler. <span className="holo-text" style={{ fontWeight: 500 }}>Experience</span> Builder.</span><br />
+          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Experience</span> Builder. <span className="holo-text" style={{ fontWeight: 500 }}>Learning</span> Leader.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Technology.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
-          17+ years across tech, entertainment, retail, and web3. Building at the intersection of culture, creativity, and emerging technology.
+          17+ years helping teams adopt new tools, skills, and technologies. Strategic product leader operating at the intersection of AI, product experience, and creator platforms — turning emerging technology into practical systems people can actually use at scale.
         </p>
+        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Learning &amp; Development · Program Design · Creative Production</p>
         <div className="scroll-indicator animate-fade-up delay-4">
           <span>Scroll</span>
           <div className="scroll-line"></div>
@@ -386,8 +400,8 @@ function CreativeSection() {
           <p className="section-subtitle">NANA LIFESTYLE</p>
         </div>
         <div className="reveal two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, margin: "48px 0 64px" }}>
-          <p style={{ color: "rgba(224,224,224,0.8)", fontSize: 14, lineHeight: 1.8 }}>Co-founded an independent label and creative collective that powered MIKNNA to 10M+ streams, international tours, and collaborations with the Free Nationals, Terrace Martin, Far East Movement, Big K.R.I.T., and TDE.</p>
-          <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.8, borderLeft: "1px solid rgba(232,200,120,0.2)", paddingLeft: 24 }}>Creative Director &amp; CEO via NANA LIFESTYLE — artist development, brand identity, content production, business strategy, touring, merchandising, and publishing.</p>
+          <p style={{ color: "rgba(224,224,224,0.8)", fontSize: 14, lineHeight: 1.8 }}>Built a creative collective, independent label, and consulting studio that helped scale artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
+          <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.8, borderLeft: "1px solid rgba(232,200,120,0.2)", paddingLeft: 24 }}>Co-Founder, NANA LIFESTYLE — creative direction, visual identity, music videos, brand storytelling, label strategy &amp; operations, artist development, and marketing campaigns.</p>
         </div>
         <div className="grid-4 reveal" style={{ marginBottom: 80 }}>
           <div className="stat-card"><div className="stat-value holo-text">10M+</div><div className="stat-label">Streams</div></div>
@@ -473,11 +487,6 @@ function CreativeSection() {
               );
             })}
           </div>
-          {activeType !== "video" && (
-            <div className="media-note">
-              Photo + Web3 tiles are ready — drop assets into `public/` and add items when you’re ready.
-            </div>
-          )}
         </div>
         <div className="reveal" style={{ marginTop: 80 }}>
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)", marginBottom: 32 }}>Discography</p>
@@ -527,13 +536,15 @@ function ProductSection() {
             <div><h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Head of Experience</h3><p className="font-display" style={{ fontSize: 15, color: "rgba(136,200,232,0.8)" }}>CR3 Labs</p></div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jan 2024 - Present</span>
           </div>
-          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Product experience, creator partnerships, BD, community growth, and creative direction on a lean team of four.</p>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, creative direction, and creator ecosystem growth at CR3 Labs, a product studio operating at the intersection of blockchain and AI. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones.</p>
+          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>Product studio · Team of 4 · Remote</p>
           <div style={{ marginBottom: 32 }}>
             {[
-              "Grew the platform to 500+ communities and thousands of active creators and collectors, generating 20,000+ onchain transactions",
-              "Built strategic partnerships with major web3 brands and IPs in Ethereum, ApeChain, and Base ecosystems",
-              "Embedded AI and agentic capabilities into core product experience",
-              "Designed and provided self-serve enablement resources such as product documentation, support content, and user guides for OpenPage (docs.op.xyz), covering creator tools, collector flows, avatars & wearables, developer APIs, and troubleshooting",
+              "Platform Growth — Grew the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions",
+              "AI Workflows — Embedded AI across team workflows and product experience, using AI tools to accelerate concepting, content creation, and automation while architecting agentic user flows within the platform",
+              "Creative Direction — Directed creative vision for the Open Avatar System and Other Page IP, collaborating with 3D artists and developers to bring digital identity systems to life",
+              "Creator Enablement — Wrote and maintained all product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting",
+              "Content & Brand Storytelling — Produced product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators",
             ].map((h, i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text">{h}</span></div>
             ))}
@@ -574,7 +585,7 @@ function ProductSection() {
             <div><h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Founder</h3><p className="font-display" style={{ fontSize: 15, color: "rgba(136,200,232,0.8)" }}>Other Space FM</p></div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jul 2022 - Present</span>
           </div>
-          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Community platform for creators, builders, and artists in web3 and AI. Acquired by CR3 Labs in 2024.</p>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Founded a creator platform and community focused on builders working in web3 and AI. Acquired by CR3 Labs in 2024.</p>
           <div style={{ marginBottom: 24, borderRadius: 16, overflow: "hidden", border: "1px solid rgba(42,42,42,0.8)", background: "black" }}>
             <video
               id="osfm-video"
@@ -587,7 +598,7 @@ function ProductSection() {
             />
           </div>
           <div>
-            {["Created weekly X Spaces and livestreams featuring builders and creators", "Community network became the pipeline for OpenPage partnerships and core creators", "Platform acquired by CR3 Labs in 2024"].map((h, i) => (
+            {["Community Programming — Hosted weekly X Spaces and livestreams featuring creators and builders, with dedicated programming on AI tools and workflows", "Community Development — Built the community network that became the pipeline for creator partnerships and product insights at CR3 Labs", "Brand Strategy — Led content strategy, brand identity, and marketing across social platforms"].map((h, i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text">{h}</span></div>
             ))}
           </div>
@@ -616,10 +627,10 @@ function ExperienceSection() {
             <div style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" as const, marginBottom: 4 }}><h3 className="font-display" style={{ fontSize: 28, fontWeight: 700, color: "white" }}>Enjoy Inc.</h3><span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jul 2016 - Sep 2022</span></div>
               <p className="font-display" style={{ fontSize: 15, color: "rgba(192,160,224,0.7)", marginBottom: 8 }}>Sr. Learning &amp; Development Manager</p>
-              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>$350M+ funded | $1.2B SPAC IPO</p>
+              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>$350M+ funded · $1.2B SPAC valuation · Remote</p>
             </div>
             <div>
-              {["First L&D hire — built the learning function from scratch", "Scaled from 4 U.S. markets to 54+ across three countries", "Led sales enablement contributing to 25% revenue lift", "Cut new hire ramp time by 33% for ~100-person cohorts", "Managed 8 regional facilitators across US and Canada", "Developed partner training with Apple, AT&T, Google, Sonos, Rogers, Magic Leap"].map((h, i) => (
+              {["Onboarding Systems — Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%", "Sales Enablement — Led U.S. sales enablement that contributed to a 25% revenue lift across markets", "Learning Strategy — Built curriculum roadmaps tied to revenue and operational KPIs, partnering with instructional designers on performance-based learning systems", "Leadership — Managed 8 regional facilitators across the US and Canada, building facilitation capability through coaching, calibration, and feedback", "Operational Scale — Enabled nationwide trainer certification and delivery consistency during rapid expansion across 54+ markets", "Enterprise Partnerships — Co-developed partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap", "Change Management — Led operational assessments and facilitated cross-functional workshops during organizational changes"].map((h, i) => (
                 <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text">{h}</span></div>
               ))}
             </div>
@@ -628,11 +639,11 @@ function ExperienceSection() {
             <div className="timeline-dot"></div>
             <div style={{ marginBottom: 24 }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" as const, marginBottom: 4 }}><h3 className="font-display" style={{ fontSize: 28, fontWeight: 700, color: "white" }}>Apple Inc.</h3><span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jul 2005 - Jun 2016</span></div>
-              <p className="font-display" style={{ fontSize: 15, color: "rgba(192,160,224,0.7)", marginBottom: 8 }}>Creative / Instructional Designer / Facilitator</p>
-              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>11 years | 100 → 490 stores | 20+ countries</p>
+              <p className="font-display" style={{ fontSize: 15, color: "rgba(192,160,224,0.7)", marginBottom: 8 }}>Instructional Designer / Facilitator</p>
+              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>Joined at ~100 stores (US only) · Left at ~490 stores across 20+ countries</p>
             </div>
             <div>
-              {["Designed Facilitation Skills learning experience for Global Retail Training", "Developed Apple Business training deployed globally in 11+ languages", "Facilitated New Store Openings at Grand Central (NYC) and Covent Garden (London)", "Trained teams at Cupertino HQ with participants from 10+ countries", "Certified in Final Cut Pro, Logic Pro, and Aperture"].map((h, i) => (
+              {["Global Curriculum Design — Designed facilitation and leadership training for Global Retail Training, with programs deployed across Apple Stores in 11+ languages", "Global Facilitation — Delivered Train-the-Trainer programs at Apple HQ with participants from China, Japan, Germany, Brazil, Italy, the UK, and other regions", "New Store Openings — Facilitated training and onboarding for major store openings including Grand Central (NYC) and Covent Garden (London)", "Market Training — Began as a market trainer supporting onboarding across San Diego and Los Angeles during Apple Retail's rapid U.S. expansion"].map((h, i) => (
                 <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text">{h}</span></div>
               ))}
             </div>
@@ -641,6 +652,95 @@ function ExperienceSection() {
         <div className="reveal" style={{ marginTop: 80, paddingTop: 48, borderTop: "1px solid rgba(42,42,42,0.2)" }}>
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(192,160,224,0.4)", marginBottom: 16 }}>Education</p>
           <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" as const }}><h4 className="font-display" style={{ fontSize: 18, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>San Diego State University</h4><span style={{ color: "var(--muted)", fontSize: 14 }}>B.A. in Art, emphasis in Multimedia (2007)</span></div>
+        </div>
+      </div>
+      <div className="section-divider" style={{ position: "absolute" as const, bottom: 0, left: 0, right: 0 }}></div>
+    </section>
+  );
+}
+
+function SkillsSection() {
+  const skillCategories = [
+    {
+      label: "AI & Emerging Technology",
+      color: "rgba(168,224,176,0.6)",
+      items: ["AI Strategy & Enablement", "Prompt Engineering", "Agentic Workflows", "AI-Assisted Content Creation", "LLM Integration", "Blockchain & Web3"],
+    },
+    {
+      label: "Product & Platform Experience",
+      color: "rgba(136,200,232,0.6)",
+      items: ["Product Vision & Roadmap", "UX Strategy", "Creator Ecosystems", "Cross-Functional Coordination", "Requirements & Specs", "Go-to-Market"],
+    },
+    {
+      label: "Learning & Development",
+      color: "rgba(192,160,224,0.6)",
+      items: ["Instructional Design", "Curriculum Architecture", "Train-the-Trainer", "Sales Enablement", "Onboarding Systems", "Change Management"],
+    },
+    {
+      label: "Creative Direction & Content",
+      color: "rgba(240,160,192,0.6)",
+      items: ["Brand Storytelling", "Visual Identity", "Music Video Direction", "Content Strategy", "Production Management", "Artist Development"],
+    },
+  ];
+
+  const toolCategories = [
+    {
+      label: "AI & Automation",
+      items: ["Claude", "Cursor", "ChatGPT", "Codex CLI", "Midjourney", "v0", "Lovable", "Zapier"],
+    },
+    {
+      label: "Creative & Production",
+      items: ["Adobe Creative Suite", "Final Cut Pro", "Blender", "Figma", "Canva", "Cinema 4D"],
+    },
+    {
+      label: "Learning & Enablement",
+      items: ["Absorb LMS", "Articulate 360", "Notion", "Confluence", "Google Workspace"],
+    },
+    {
+      label: "Web3 & Platform",
+      items: ["Ethereum", "ApeChain", "Three.js", "Next.js", "Vercel", "GitHub"],
+    },
+  ];
+
+  return (
+    <section id="skills" style={{ background: "linear-gradient(to bottom,var(--black),#080d0a,var(--black))" }}>
+      <div className="parallax-shape" data-speed="0.04" style={{ width: 380, height: 380, background: "rgba(168,224,176,0.04)", top: "15%", left: -100 }}></div>
+      <div className="parallax-shape" data-speed="0.03" style={{ width: 300, height: 300, background: "rgba(232,200,120,0.03)", bottom: "20%", right: -80 }}></div>
+      <div className="section-inner">
+        <div className="reveal">
+          <p className="section-label" style={{ color: "rgba(168,224,176,0.6)" }}>04 / Capabilities</p>
+          <h2 className="section-title"><span className="holo-text">Skills & Tools</span></h2>
+          <p className="section-subtitle">What I bring to the table</p>
+        </div>
+        <div className="reveal" style={{ marginTop: 48 }}>
+          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(168,224,176,0.5)", marginBottom: 24 }}>Core Skills</p>
+          <div className="skills-grid">
+            {skillCategories.map((cat) => (
+              <div key={cat.label} className="skill-category">
+                <p className="skill-category-label" style={{ color: cat.color }}>{cat.label}</p>
+                <div className="skill-tags">
+                  {cat.items.map((item) => (
+                    <span key={item} className="skill-tag">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="reveal" style={{ marginTop: 64 }}>
+          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.5)", marginBottom: 24 }}>Tools & Platforms</p>
+          <div className="skills-grid">
+            {toolCategories.map((cat) => (
+              <div key={cat.label} className="skill-category" style={{ borderColor: "rgba(42,42,42,0.2)" }}>
+                <p className="skill-category-label" style={{ color: "rgba(232,200,120,0.5)" }}>{cat.label}</p>
+                <div className="skill-tags">
+                  {cat.items.map((item) => (
+                    <span key={item} className="tool-tag">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className="section-divider" style={{ position: "absolute" as const, bottom: 0, left: 0, right: 0 }}></div>
@@ -854,7 +954,7 @@ function initScrollEffects() {
         const nav = document.getElementById("mainNav");
         nav?.classList.toggle("scrolled", scrollY > 100);
         // Active section
-        const sections = ["hero", "creative", "product", "experience", "contact"];
+        const sections = ["hero", "creative", "product", "experience", "skills", "contact"];
         let active = "hero";
         sections.forEach((id) => {
           const el = document.getElementById(id);
