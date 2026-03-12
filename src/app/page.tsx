@@ -241,7 +241,7 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .filmstrip::-webkit-scrollbar { display:none; }
 .filmstrip-item { flex:0 0 auto; height:180px; position:relative; border-radius:10px; overflow:hidden; cursor:pointer; border:1px solid rgba(42,42,42,0.25); transition:all 0.35s ease; background:var(--card); }
 .filmstrip-item:hover { border-color:rgba(232,200,120,0.35); transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.5); }
-.filmstrip-item img { height:100%; width:auto; display:block; object-fit:cover; transition:filter 0.35s ease; filter:brightness(0.75) saturate(0.85); }
+.filmstrip-item img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; transition:filter 0.35s ease; filter:brightness(0.75) saturate(0.85); }
 .filmstrip-item:hover img { filter:brightness(0.9) saturate(1); }
 .filmstrip-item .film-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, transparent 100%); opacity:0; transition:opacity 0.3s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:12px; }
 .filmstrip-item:hover .film-overlay { opacity:1; }
@@ -370,6 +370,8 @@ function CreativeSection() {
 
   const allMedia: MediaEntry[] = useMemo(() => [
     // Embeddable videos first
+    { id: "Jpl6nM1eeKU", title: "The Uncoding Reveal", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
+    { id: "jAxO1teSuOI", title: "Introducing Wearables & Collectibles on OP", role: "Director & Producer", duration: "", project: "OpenPage" },
     { id: "JwE1hSu5FMw", title: "Summertime Shine", role: "Director", duration: "4:00", project: "NANA LIFESTYLE" },
     { id: "VdzEdMzrlcE", title: "NESS", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
@@ -660,41 +662,41 @@ function SkillsSection() {
     {
       label: "AI & Emerging Technology",
       color: "rgba(168,224,176,0.6)",
-      items: ["AI Strategy & Enablement", "Prompt Engineering", "Agentic Workflows", "AI-Assisted Content Creation", "LLM Integration", "Blockchain & Web3"],
+      items: ["AI Enablement", "Creator Platforms", "AI Workflow Design", "Human-AI Collaboration", "Web-Based 3D Development"],
     },
     {
       label: "Product & Platform Experience",
       color: "rgba(136,200,232,0.6)",
-      items: ["Product Vision & Roadmap", "UX Strategy", "Creator Ecosystems", "Cross-Functional Coordination", "Requirements & Specs", "Go-to-Market"],
+      items: ["Product Strategy", "Digital Identity Systems", "Feature Adoption Strategy", "Creator Experience Design", "Cross-Functional Leadership", "Platform Product Development"],
     },
     {
       label: "Learning & Development",
       color: "rgba(192,160,224,0.6)",
-      items: ["Instructional Design", "Curriculum Architecture", "Train-the-Trainer", "Sales Enablement", "Onboarding Systems", "Change Management"],
+      items: ["Change Management", "AI Enablement Programs", "Leadership Development", "Learning Systems Design", "Sales Enablement Strategy", "Organizational Development"],
     },
     {
       label: "Creative Direction & Content",
       color: "rgba(240,160,192,0.6)",
-      items: ["Brand Storytelling", "Visual Identity", "Music Video Direction", "Content Strategy", "Production Management", "Artist Development"],
+      items: ["Content Strategy", "Creative Direction", "Community Development", "Audio & Visual Storytelling"],
     },
   ];
 
   const toolCategories = [
     {
       label: "AI & Automation",
-      items: ["Claude", "Cursor", "ChatGPT", "Codex CLI", "Midjourney", "v0", "Lovable", "Zapier"],
+      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "Cursor", "Codex", "Fal"],
     },
     {
       label: "Creative & Production",
-      items: ["Adobe Creative Suite", "Final Cut Pro", "Blender", "Figma", "Canva", "Cinema 4D"],
+      items: ["Adobe Creative Suite", "Final Cut Pro", "OBS Studio", "CapCut Pro", "Blender", "Figma", "Paper", "Canva"],
     },
     {
       label: "Learning & Enablement",
-      items: ["Absorb LMS", "Articulate 360", "Notion", "Confluence", "Google Workspace"],
+      items: ["Absorb LMS", "Articulate", "Zendesk", "Notion", "Zoom", "Slack"],
     },
     {
       label: "Web3 & Platform",
-      items: ["Ethereum", "ApeChain", "Three.js", "Next.js", "Vercel", "GitHub"],
+      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML"],
     },
   ];
 
