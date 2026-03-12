@@ -344,7 +344,7 @@ function HeroSection() {
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Technology.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
-          17+ years helping teams adopt new tools, skills, and technologies. Strategic product leader operating at the intersection of AI, product experience, and creator platforms — turning emerging technology into practical systems people can actually use at scale.
+          17+ years helping teams adopt new tools, skills, and technologies. Strategic product leader operating at the intersection of AI, product experience, and creator platforms. Turning emerging technology into practical systems people can actually use at scale.
         </p>
         <p className="hero-tags animate-fade-up delay-3">AI Enablement · Learning &amp; Development · Program Design · Creative Production</p>
         <div className="scroll-indicator animate-fade-up delay-4">
@@ -481,7 +481,7 @@ function CreativeSection() {
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.12em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const }}>Collaborators:</p>
-            {["Free Nationals", "Terrace Martin", "Far East Movement", "Big K.R.I.T.", "Top Dawg Entertainment", "SATICA"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
+            {["Free Nationals", "Terrace Martin", "Far East Movement", "Big K.R.I.T.", "Top Dawg Entertainment", "SATICA", "Herradura Tequila"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
           </div>
           <div style={{ marginTop: 24 }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 12 }}>Discography</p>
@@ -499,6 +499,14 @@ function CreativeSection() {
                   <p className="font-mono" style={{ fontSize: 8, color: "rgba(136,136,136,0.4)" }}>{r.sub}</p>
                 </div>
               ))}
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 10 }}>Popular Songs</p>
+              <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 6 }}>
+                {["On Sight (ft. Free Nationals)", "ONLY ONE (ft. SATICA)", "NESS", "MPH", "Trinity Ave", "On Yo Azz! (ft. Quincy)", "302", "FBG$ (ft. Far East Movement)", "Euphoria", "NIGHTCAP"].map((s) => (
+                  <span key={s} className="font-mono" style={{ fontSize: 9, color: "rgba(224,224,224,0.45)", padding: "3px 8px", border: "1px solid rgba(42,42,42,0.25)", borderRadius: 6, background: "rgba(10,10,10,0.3)" }}>{s}</span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -549,7 +557,7 @@ function ProductSection() {
                   <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </div>
-              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(136,200,232,0.5)", marginBottom: 8 }}>Universal Avatar Platform</p>
+              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(136,200,232,0.5)", marginBottom: 8 }}>3D Avatar &amp; Identity Hub</p>
               <p style={{ color: "var(--muted)", fontSize: 12, lineHeight: 1.6 }}>Turning followers into superfans. Verify fans, prove engagement, reward loyalty.</p>
             </a>
             <a href="https://doppel.fun" target="_blank" rel="noopener noreferrer" className="product-link">
