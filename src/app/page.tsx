@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function Home() {
   useEffect(() => {
@@ -236,6 +236,28 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .lightbox-close { position:absolute; top:-48px; right:0; width:36px; height:36px; background:none; border:1px solid rgba(255,255,255,0.15); border-radius:50%; color:white; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
 .lightbox-close:hover { border-color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.05); }
 .lightbox-title { position:absolute; bottom:-40px; left:0; font-family:'Space Grotesk',system-ui,sans-serif; font-size:14px; color:rgba(255,255,255,0.6); }
+.filmstrip-wrap { position:relative; }
+.filmstrip { display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; padding:8px 0 16px; scrollbar-width:none; -ms-overflow-style:none; }
+.filmstrip::-webkit-scrollbar { display:none; }
+.filmstrip-item { flex:0 0 auto; height:180px; position:relative; border-radius:10px; overflow:hidden; cursor:pointer; border:1px solid rgba(42,42,42,0.25); transition:all 0.35s ease; background:var(--card); }
+.filmstrip-item:hover { border-color:rgba(232,200,120,0.35); transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.5); }
+.filmstrip-item img { height:100%; width:auto; display:block; object-fit:cover; transition:filter 0.35s ease; filter:brightness(0.75) saturate(0.85); }
+.filmstrip-item:hover img { filter:brightness(0.9) saturate(1); }
+.filmstrip-item .film-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, transparent 100%); opacity:0; transition:opacity 0.3s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:12px; }
+.filmstrip-item:hover .film-overlay { opacity:1; }
+.film-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:12px; font-weight:600; color:rgba(255,255,255,0.9); white-space:nowrap; }
+.film-role { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(232,200,120,0.6); margin-top:3px; }
+.film-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.85); width:40px; height:40px; background:rgba(255,255,255,0.1); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:all 0.3s ease; }
+.filmstrip-item:hover .film-play { opacity:1; transform:translate(-50%,-50%) scale(1); }
+.film-play svg { width:14px; height:14px; fill:white; margin-left:2px; }
+.filmstrip-arrow { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; background:rgba(10,10,10,0.7); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1); color:white; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:4; transition:all 0.3s; opacity:0.6; }
+.filmstrip-arrow:hover { opacity:1; border-color:rgba(255,255,255,0.25); background:rgba(26,26,26,0.9); }
+.filmstrip-arrow.left { left:-18px; }
+.filmstrip-arrow.right { right:-18px; }
+.filmstrip-fade-l,.filmstrip-fade-r { position:absolute; top:0; bottom:16px; width:48px; pointer-events:none; z-index:3; }
+.filmstrip-fade-l { left:0; background:linear-gradient(to right,var(--black),transparent); }
+.filmstrip-fade-r { right:0; background:linear-gradient(to left,var(--black),transparent); }
+@media(max-width:768px) { .filmstrip-item { height:140px; } .filmstrip-arrow { display:none; } }
 .skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 @media(max-width:768px) { .skills-grid { grid-template-columns:1fr; } }
 .skill-category { border:1px solid rgba(42,42,42,0.3); border-radius:12px; padding:28px 32px; background:rgba(26,26,26,0.15); backdrop-filter:blur(4px); transition:all 0.5s; }
@@ -335,54 +357,22 @@ function HeroSection() {
 }
 
 function CreativeSection() {
-  type MediaType = "all" | "video" | "photo" | "web3";
-  type MediaItem = {
-    key: string;
-    type: Exclude<MediaType, "all">;
-    title: string;
-    subtitle?: string;
-    thumbSrc?: string;
-    duration?: string;
-    videoId?: string;
-    localVideoSrc?: string;
-    href?: string;
+  const allMedia = useMemo(() => [
+    { id: "4ZLu5G12kAY", title: "Rush", role: "Director & Producer", duration: "3:24", project: "NANA LIFESTYLE" },
+    { id: "ECTwG4yb_BY", title: "NIGHTCAP", role: "Producer", duration: "3:53", project: "NANA LIFESTYLE" },
+    { id: "2w-yQ_Sp5WE", title: "Electric", role: "Producer", duration: "3:50", project: "NANA LIFESTYLE" },
+    { id: "JwE1hSu5FMw", title: "Summertime Shine", role: "Director", duration: "4:00", project: "NANA LIFESTYLE" },
+    { id: "VdzEdMzrlcE", title: "NESS", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
+    { id: "CCcjm7hz5W8", title: "Mona Lisa", role: "Director & Producer", duration: "2:50", project: "NANA LIFESTYLE" },
+    { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
+    { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
+    { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
+  ], []);
+
+  const scrollFilmstrip = (dir: number) => {
+    const el = document.getElementById("filmstrip");
+    if (el) el.scrollBy({ left: dir * 320, behavior: "smooth" });
   };
-
-  const [activeType, setActiveType] = useState<MediaType>("all");
-
-  const videos = [
-    { id: "4ZLu5G12kAY", title: "Rush", role: "Director & Producer", views: "77K", duration: "3:24" },
-    { id: "ECTwG4yb_BY", title: "NIGHTCAP", role: "Producer", views: "26K", duration: "3:53" },
-    { id: "2w-yQ_Sp5WE", title: "Electric", role: "Producer", views: "59K", duration: "3:50" },
-    { id: "JwE1hSu5FMw", title: "Summertime Shine", role: "Director", views: "20K", duration: "4:00" },
-    { id: "VdzEdMzrlcE", title: "NESS", role: "Director & Producer", views: "", duration: "" },
-    { id: "CCcjm7hz5W8", title: "Mona Lisa", role: "Director & Producer", views: "50K", duration: "2:50" },
-    { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", views: "", duration: "" },
-    { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", views: "", duration: "" },
-    { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", views: "", duration: "" },
-  ];
-
-  const mediaItems: MediaItem[] = useMemo(() => {
-    const videoItems: MediaItem[] = videos.map((v) => ({
-      key: `video-${v.id}`,
-      type: "video",
-      title: v.title,
-      subtitle: v.role,
-      duration: v.duration || undefined,
-      videoId: v.id,
-      thumbSrc: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
-    }));
-
-    const photoItems: MediaItem[] = [];
-    const web3Items: MediaItem[] = [];
-
-    return [...videoItems, ...photoItems, ...web3Items];
-  }, [videos]);
-
-  const filteredItems = useMemo(() => {
-    if (activeType === "all") return mediaItems;
-    return mediaItems.filter((m) => m.type === activeType);
-  }, [activeType, mediaItems]);
 
   return (
     <section id="creative" className="scanlines" style={{ background: "linear-gradient(to bottom,var(--black),#0d0a08,var(--black))" }}>
@@ -396,123 +386,91 @@ function CreativeSection() {
       <div className="section-inner">
         <div className="reveal">
           <p className="section-label" style={{ color: "rgba(232,200,120,0.6)" }}>01 / Creative</p>
-          <h2 className="section-title"><span className="holo-text">MEDIA</span></h2>
-          <p className="section-subtitle">NANA LIFESTYLE</p>
+          <h2 className="section-title"><span className="holo-text">Creative Direction</span></h2>
+          <p className="section-subtitle">Visual storytelling, production &amp; brand identity</p>
         </div>
-        <div className="reveal two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, margin: "48px 0 64px" }}>
-          <p style={{ color: "rgba(224,224,224,0.8)", fontSize: 14, lineHeight: 1.8 }}>Built a creative collective, independent label, and consulting studio that helped scale artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
-          <p style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.8, borderLeft: "1px solid rgba(232,200,120,0.2)", paddingLeft: 24 }}>Co-Founder, NANA LIFESTYLE — creative direction, visual identity, music videos, brand storytelling, label strategy &amp; operations, artist development, and marketing campaigns.</p>
-        </div>
-        <div className="grid-4 reveal" style={{ marginBottom: 80 }}>
-          <div className="stat-card"><div className="stat-value holo-text">10M+</div><div className="stat-label">Streams</div></div>
-          <div className="stat-card"><div className="stat-value holo-text">2</div><div className="stat-label">Continental Tours</div></div>
-          <div className="stat-card"><div className="stat-value holo-text">13+</div><div className="stat-label">Years</div></div>
-          <div className="stat-card"><div className="stat-value holo-text">5+</div><div className="stat-label">Releases</div></div>
-        </div>
+        <p className="reveal" style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.8, maxWidth: 720, margin: "48px 0 64px" }}>
+          Directing music videos, shaping brand identities, and producing creative campaigns across music, tech, and culture. From independent label releases to product storytelling for Web3 platforms.
+        </p>
+
+        {/* ---- Filmstrip Gallery ---- */}
         <div className="reveal">
-          <div className="media-toolbar">
-            <div>
-              <h3>Media</h3>
-              <div className="media-count">{filteredItems.length} items</div>
-            </div>
-            <div className="chips" role="tablist" aria-label="Media filters">
-              {([
-                { id: "all" as const, label: "All" },
-                { id: "video" as const, label: "Video" },
-                { id: "photo" as const, label: "Photo" },
-                { id: "web3" as const, label: "Web3" },
-              ]).map((t) => (
+          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20 }}>
+            <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)" }}>Selected Work</p>
+            <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.12em", color: "rgba(136,136,136,0.5)" }}>{allMedia.length} pieces</p>
+          </div>
+          <div className="filmstrip-wrap">
+            <div className="filmstrip-fade-l"></div>
+            <div className="filmstrip-fade-r"></div>
+            <button type="button" className="filmstrip-arrow left" onClick={() => scrollFilmstrip(-1)} aria-label="Scroll left">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <button type="button" className="filmstrip-arrow right" onClick={() => scrollFilmstrip(1)} aria-label="Scroll right">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+            </button>
+            <div className="filmstrip" id="filmstrip">
+              {allMedia.map((m) => (
                 <button
-                  key={t.id}
+                  key={m.id}
                   type="button"
-                  className={"chip" + (activeType === t.id ? " active" : "")}
-                  onClick={() => setActiveType(t.id)}
-                  aria-selected={activeType === t.id}
-                  role="tab"
+                  className="filmstrip-item"
+                  onClick={() => openLightbox(m.id, m.title)}
+                  aria-label={`Play ${m.title}`}
+                  style={{ aspectRatio: "16/9" }}
                 >
-                  {t.label}
+                  <img src={`https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`} alt={m.title} loading="lazy" />
+                  <div className="film-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg></div>
+                  <div className="film-overlay">
+                    <div className="film-title">{m.title}</div>
+                    <div className="film-role">{m.role}</div>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
-
-          <div className="media-grid">
-            {filteredItems.map((m) => {
-              if (m.type === "web3" && m.href) {
-                return (
-                  <a
-                    key={m.key}
-                    href={m.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="media-tile"
-                    aria-label={m.title}
-                  >
-                  <div className="media-thumb">
-                    {m.thumbSrc && <img src={m.thumbSrc} alt={m.title} loading="lazy" />}
-                      <div className="media-gradient"></div>
-                      <div className="media-badge">Web3</div>
-                    </div>
-                    <div className="media-meta">
-                      <div className="media-title">{m.title}</div>
-                      {m.subtitle && <div className="media-sub">{m.subtitle}</div>}
-                    </div>
-                  </a>
-                );
-              }
-
-              return (
-                <button
-                  key={m.key}
-                  type="button"
-                  className="media-tile"
-                  onClick={() => {
-                    if (m.type === "video" && m.videoId) openLightbox(m.videoId, m.title);
-                    else if (m.type === "video" && m.localVideoSrc) openLocalVideoLightbox(m.localVideoSrc, m.title);
-                    if (m.type === "photo" && m.thumbSrc) openImageLightbox(m.thumbSrc, m.title);
-                  }}
-                  aria-label={m.type === "video" ? `Play ${m.title}` : m.title}
-                >
-                  <div className="media-thumb">
-                    {m.thumbSrc && <img src={m.thumbSrc} alt={m.title} loading="lazy" />}
-                    <div className="media-gradient"></div>
-                    <div className="media-badge">{m.type}</div>
-                    {m.duration && <div className="media-duration">{m.duration}</div>}
-                  </div>
-                  <div className="media-meta">
-                    <div className="media-title">{m.title}</div>
-                    {m.subtitle && <div className="media-sub">{m.subtitle}</div>}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
         </div>
-        <div className="reveal" style={{ marginTop: 80 }}>
-          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)", marginBottom: 32 }}>Discography</p>
-          <div className="grid-3" style={{ marginBottom: 64 }}>
+
+        {/* ---- NANA LIFESTYLE Card ---- */}
+        <div className="card reveal" style={{ marginTop: 64 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, marginBottom: 24 }}>
+            <div>
+              <h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Co-Founder &amp; Creative Director</h3>
+              <p className="font-display" style={{ fontSize: 15, color: "rgba(232,200,120,0.8)" }}>NANA LIFESTYLE</p>
+            </div>
+            <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>2012 - Present</span>
+          </div>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Built a creative collective, independent label, and consulting studio. Scaled artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
+          <div style={{ marginBottom: 24 }}>
             {[
-              { title: "Escape (Deluxe)", sub: "MIKNNA · 2021", type: "Album", img: "/escape-deluxe.jpg" },
-              { title: "Pool Haus EP", sub: "MIKNNA x SATICA · 2020", type: "EP", extra: "3M+ streams worldwide", img: "/pool-haus-ep.png" },
-              { title: "50|50 (Side A)", sub: "MIKNNA · 2016", type: "EP", img: "/5050-side-a.jpg" },
-            ].map((r) => (
-              <div key={r.title} className="release-card">
-                <div className="release-art">
-                  {r.img ? <img src={r.img} alt={r.title} /> : <div style={{ padding: 24, textAlign: "center" }}><div className="font-display" style={{ fontSize: 18, fontWeight: 700, color: "rgba(255,255,255,0.8)", marginBottom: 4 }}>{r.title}</div><div className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--muted)" }}>{r.sub}</div></div>}
-                  <div className="release-badge">{r.type}</div>
-                  <div className="release-overlay">
-                    <div className="font-display" style={{ fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: 4 }}>{r.title}</div>
-                    <div className="font-mono" style={{ fontSize: 9, letterSpacing: "0.1em", color: "rgba(232,200,120,0.7)" }}>{r.sub}</div>
-                    {r.extra && <div className="font-mono" style={{ fontSize: 9, color: "var(--muted)", marginTop: 6 }}>{r.extra}</div>}
-                  </div>
-                </div>
-              </div>
+              "Creative Direction — Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists",
+              "Label Strategy — Release planning, distribution, marketing campaigns, and artist development across 5+ releases",
+              "Production — Directed and produced music videos, content campaigns, and visual assets for digital platforms",
+            ].map((h, i) => (
+              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text">{h}</span></div>
             ))}
           </div>
-        </div>
-        <div className="reveal">
-          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.6)", marginBottom: 24 }}>Collaborators &amp; Partners</p>
-          <div>{["Free Nationals", "Terrace Martin", "Far East Movement", "Big K.R.I.T.", "Top Dawg Entertainment", "SATICA"].map((c) => <span key={c} className="pill">{c}</span>)}</div>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
+            <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.12em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const }}>Collaborators:</p>
+            {["Free Nationals", "Terrace Martin", "Far East Movement", "Big K.R.I.T.", "Top Dawg Entertainment", "SATICA"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
+          </div>
+          <div style={{ marginTop: 24 }}>
+            <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 12 }}>Discography</p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const }}>
+              {[
+                { title: "Escape (Deluxe)", sub: "2021", img: "/escape-deluxe.jpg" },
+                { title: "Pool Haus EP", sub: "2020", img: "/pool-haus-ep.png" },
+                { title: "50|50 (Side A)", sub: "2016", img: "/5050-side-a.jpg" },
+              ].map((r) => (
+                <div key={r.title} style={{ width: 80, textAlign: "center" as const }}>
+                  <div style={{ width: 80, height: 80, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(42,42,42,0.3)", marginBottom: 6 }}>
+                    <img src={r.img} alt={r.title} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85) saturate(0.9)" }} />
+                  </div>
+                  <p className="font-mono" style={{ fontSize: 8, color: "rgba(255,255,255,0.5)", lineHeight: 1.3 }}>{r.title}</p>
+                  <p className="font-mono" style={{ fontSize: 8, color: "rgba(136,136,136,0.4)" }}>{r.sub}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="section-divider" style={{ position: "absolute" as const, bottom: 0, left: 0, right: 0 }}></div>
@@ -528,8 +486,8 @@ function ProductSection() {
       <div className="section-inner">
         <div className="reveal">
           <p className="section-label" style={{ color: "rgba(136,200,232,0.6)" }}>02 / Product</p>
-          <h2 className="section-title"><span className="holo-text">CR3 Labs</span></h2>
-          <p className="section-subtitle">Web3, 3D &amp; AI Product Studio</p>
+          <h2 className="section-title"><span className="holo-text">Product Experience</span></h2>
+          <p className="section-subtitle">Building at the intersection of AI, Web3 &amp; creator tools</p>
         </div>
         <div className="card reveal" style={{ margin: "48px 0 32px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, marginBottom: 24 }}>
