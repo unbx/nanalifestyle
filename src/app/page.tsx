@@ -365,6 +365,7 @@ function CreativeSection() {
     project: string;
     href?: string;
     thumb?: string;
+    localVideoSrc?: string;
   };
 
   const allMedia: MediaEntry[] = useMemo(() => [
@@ -374,8 +375,8 @@ function CreativeSection() {
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
     { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
-    // External link (non-embeddable)
-    { id: "herradura", title: "Herradura — Stand with Greatness", role: "Music (MIKNNA)", duration: "", project: "Commercial", href: "https://www.ispot.tv/ad/d8mL/herradura-stand-with-greatness-song-by-miknna", thumb: "/herradura-spot.jpg" },
+    // Local video (commercial spot)
+    { id: "herradura", title: "Herradura — Stand with Greatness", role: "Music (MIKNNA)", duration: "", project: "Commercial", thumb: "/herradura-spot.jpeg", localVideoSrc: "/Herradura - Stand With Greatness - MIKNNA spot.mp4" },
     // VEVO videos at end (redirect to YouTube)
     { id: "4ZLu5G12kAY", title: "Rush", role: "Director & Producer", duration: "3:24", project: "NANA LIFESTYLE" },
     { id: "ECTwG4yb_BY", title: "NIGHTCAP", role: "Producer", duration: "3:53", project: "NANA LIFESTYLE" },
@@ -426,7 +427,9 @@ function CreativeSection() {
               {allMedia.map((m) => {
                 const thumbSrc = m.thumb || `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`;
                 const handleClick = () => {
-                  if (m.href) {
+                  if (m.localVideoSrc) {
+                    openLocalVideoLightbox(m.localVideoSrc, m.title);
+                  } else if (m.href) {
                     window.open(m.href, "_blank", "noopener,noreferrer");
                   } else {
                     openLightbox(m.id, m.title);
@@ -443,11 +446,7 @@ function CreativeSection() {
                 >
                   <img src={thumbSrc} alt={m.title} loading="lazy" />
                   <div className="film-play">
-                    {m.href ? (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" style={{ width: 14, height: 14, marginLeft: 0 }}><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14" /></svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg>
-                    )}
+                    <svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg>
                   </div>
                   <div className="film-overlay">
                     <div className="film-title">{m.title}</div>
