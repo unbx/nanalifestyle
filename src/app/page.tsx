@@ -357,16 +357,30 @@ function HeroSection() {
 }
 
 function CreativeSection() {
-  const allMedia = useMemo(() => [
-    { id: "4ZLu5G12kAY", title: "Rush", role: "Director & Producer", duration: "3:24", project: "NANA LIFESTYLE" },
-    { id: "ECTwG4yb_BY", title: "NIGHTCAP", role: "Producer", duration: "3:53", project: "NANA LIFESTYLE" },
-    { id: "2w-yQ_Sp5WE", title: "Electric", role: "Producer", duration: "3:50", project: "NANA LIFESTYLE" },
+  type MediaEntry = {
+    id: string;
+    title: string;
+    role: string;
+    duration: string;
+    project: string;
+    href?: string;
+    thumb?: string;
+  };
+
+  const allMedia: MediaEntry[] = useMemo(() => [
+    // Embeddable videos first
     { id: "JwE1hSu5FMw", title: "Summertime Shine", role: "Director", duration: "4:00", project: "NANA LIFESTYLE" },
     { id: "VdzEdMzrlcE", title: "NESS", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
-    { id: "CCcjm7hz5W8", title: "Mona Lisa", role: "Director & Producer", duration: "2:50", project: "NANA LIFESTYLE" },
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
     { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
+    // External link (non-embeddable)
+    { id: "herradura", title: "Herradura — Stand with Greatness", role: "Music (MIKNNA)", duration: "", project: "Commercial", href: "https://www.ispot.tv/ad/d8mL/herradura-stand-with-greatness-song-by-miknna", thumb: "/herradura-spot.jpg" },
+    // VEVO videos at end (redirect to YouTube)
+    { id: "4ZLu5G12kAY", title: "Rush", role: "Director & Producer", duration: "3:24", project: "NANA LIFESTYLE" },
+    { id: "ECTwG4yb_BY", title: "NIGHTCAP", role: "Producer", duration: "3:53", project: "NANA LIFESTYLE" },
+    { id: "2w-yQ_Sp5WE", title: "Electric", role: "Producer", duration: "3:50", project: "NANA LIFESTYLE" },
+    { id: "CCcjm7hz5W8", title: "Mona Lisa", role: "Director & Producer", duration: "2:50", project: "NANA LIFESTYLE" },
   ], []);
 
   const scrollFilmstrip = (dir: number) => {
@@ -409,23 +423,40 @@ function CreativeSection() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
             </button>
             <div className="filmstrip" id="filmstrip">
-              {allMedia.map((m) => (
+              {allMedia.map((m) => {
+                const thumbSrc = m.thumb || `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`;
+                const handleClick = () => {
+                  if (m.href) {
+                    window.open(m.href, "_blank", "noopener,noreferrer");
+                  } else {
+                    openLightbox(m.id, m.title);
+                  }
+                };
+                return (
                 <button
                   key={m.id}
                   type="button"
                   className="filmstrip-item"
-                  onClick={() => openLightbox(m.id, m.title)}
-                  aria-label={`Play ${m.title}`}
+                  onClick={handleClick}
+                  aria-label={m.href ? `View ${m.title}` : `Play ${m.title}`}
                   style={{ aspectRatio: "16/9" }}
                 >
-                  <img src={`https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`} alt={m.title} loading="lazy" />
-                  <div className="film-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg></div>
+                  <img src={thumbSrc} alt={m.title} loading="lazy" />
+                  <div className="film-play">
+                    {m.href ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" style={{ width: 14, height: 14, marginLeft: 0 }}><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14" /></svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg>
+                    )}
+                  </div>
                   <div className="film-overlay">
                     <div className="film-title">{m.title}</div>
                     <div className="film-role">{m.role}</div>
+                    {m.project !== "NANA LIFESTYLE" && <div className="font-mono" style={{ fontSize: 8, color: "rgba(136,136,136,0.5)", marginTop: 2 }}>{m.project}</div>}
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
