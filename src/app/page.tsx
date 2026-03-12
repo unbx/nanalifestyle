@@ -318,7 +318,7 @@ function Navigation() {
           <a href="#hero" className="nav-link active">NANA</a>
           <a href="#creative" className="nav-link">Creative</a>
           <a href="#product" className="nav-link">Product</a>
-          <a href="#experience" className="nav-link">Experience</a>
+          <a href="#experience" className="nav-link">Enterprise</a>
           <a href="#skills" className="nav-link">Skills</a>
           <a href="#contact" className="nav-link">Contact</a>
         </div>
@@ -614,11 +614,11 @@ function ExperienceSection() {
       <div className="parallax-shape" data-speed="0.025" style={{ width: 350, height: 350, background: "rgba(168,224,176,0.03)", bottom: "15%", right: -100 }}></div>
       <div className="section-inner">
         <div className="reveal">
-          <p className="section-label" style={{ color: "rgba(192,160,224,0.6)" }}>03 / Experience</p>
-          <h2 className="section-title"><span className="holo-text">Enterprise</span></h2>
-          <p className="section-subtitle">L&amp;D, Enablement &amp; Experience Design</p>
+          <p className="section-label" style={{ color: "rgba(192,160,224,0.6)" }}>03 / Enterprise</p>
+          <h2 className="section-title"><span className="holo-text">Learning &amp; Enablement</span></h2>
+          <p className="section-subtitle">Designing how organizations learn, grow &amp; adapt</p>
         </div>
-        <p className="reveal" style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.8, maxWidth: 720, margin: "48px 0 64px" }}>17+ years designing learning experiences and scaling enablement programs at some of the most recognized brands in tech.</p>
+        <p className="reveal" style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.8, maxWidth: 720, margin: "48px 0 64px" }}>17+ years designing learning experiences and scaling enablement programs. Bringing enterprise L&amp;D, and leadership experience to the next generation of tools. Designing how teams onboard, upskill, and adopt emerging technology at scale.</p>
         <div className="timeline">
           <div className="timeline-item reveal">
             <div className="timeline-dot"></div>
@@ -628,8 +628,8 @@ function ExperienceSection() {
               <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>$350M+ funded · $1.2B SPAC valuation · Remote</p>
             </div>
             <div>
-              {["Onboarding Systems — Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%", "Sales Enablement — Led U.S. sales enablement that contributed to a 25% revenue lift across markets", "Learning Strategy — Built curriculum roadmaps tied to revenue and operational KPIs, partnering with instructional designers on performance-based learning systems", "Leadership — Managed 8 regional facilitators across the US and Canada, building facilitation capability through coaching, calibration, and feedback", "Operational Scale — Enabled nationwide trainer certification and delivery consistency during rapid expansion across 54+ markets", "Enterprise Partnerships — Co-developed partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap", "Change Management — Led operational assessments and facilitated cross-functional workshops during organizational changes"].map((h, i) => (
-                <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text">{h}</span></div>
+              {[["Onboarding Systems", "Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%"], ["Sales Enablement", "Led U.S. sales enablement that contributed to a 25% revenue lift across markets"], ["Learning Strategy", "Built curriculum roadmaps tied to revenue and operational KPIs, partnering with instructional designers on performance-based learning systems"], ["Leadership", "Managed 8 regional facilitators across the US and Canada, building facilitation capability through coaching, calibration, and feedback"], ["Operational Scale", "Enabled nationwide trainer certification and delivery consistency during rapid expansion across 54+ markets"], ["Enterprise Partnerships", "Co-developed partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap"], ["Change Management", "Led operational assessments and facilitated cross-functional workshops during organizational changes"]].map(([label, desc], i) => (
+                <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
               ))}
             </div>
           </div>
@@ -641,15 +641,18 @@ function ExperienceSection() {
               <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>Joined at ~100 stores (US only) · Left at ~490 stores across 20+ countries</p>
             </div>
             <div>
-              {["Global Curriculum Design — Designed facilitation and leadership training for Global Retail Training, with programs deployed across Apple Stores in 11+ languages", "Global Facilitation — Delivered Train-the-Trainer programs at Apple HQ with participants from China, Japan, Germany, Brazil, Italy, the UK, and other regions", "New Store Openings — Facilitated training and onboarding for major store openings including Grand Central (NYC) and Covent Garden (London)", "Market Training — Began as a market trainer supporting onboarding across San Diego and Los Angeles during Apple Retail's rapid U.S. expansion"].map((h, i) => (
-                <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text">{h}</span></div>
+              {[["Global Curriculum Design", "Designed facilitation and leadership training for Global Retail Training, with programs deployed across Apple Stores in 11+ languages"], ["Global Facilitation", "Delivered Train-the-Trainer programs at Apple HQ with participants from China, Japan, Germany, Brazil, Italy, the UK, and other regions"], ["New Store Openings", "Facilitated training and onboarding for major store openings including Grand Central (NYC) and Covent Garden (London)"], ["Market Training", "Began as a market trainer supporting onboarding across San Diego and Los Angeles during Apple Retail's rapid U.S. expansion"]].map(([label, desc], i) => (
+                <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
               ))}
             </div>
           </div>
         </div>
-        <div className="reveal" style={{ marginTop: 80, paddingTop: 48, borderTop: "1px solid rgba(42,42,42,0.2)" }}>
-          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase" as const, color: "rgba(192,160,224,0.4)", marginBottom: 16 }}>Education</p>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" as const }}><h4 className="font-display" style={{ fontSize: 18, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>San Diego State University</h4><span style={{ color: "var(--muted)", fontSize: 14 }}>B.A. in Art, emphasis in Multimedia (2007)</span></div>
+        <div className="reveal" style={{ marginTop: 80 }}>
+          <div style={{ border: "1px solid rgba(42,42,42,0.3)", borderRadius: 12, padding: "28px 32px", background: "rgba(26,26,26,0.15)", backdropFilter: "blur(4px)" }}>
+            <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase" as const, color: "rgba(192,160,224,0.4)", marginBottom: 12 }}>Education</p>
+            <h4 className="font-display" style={{ fontSize: 18, fontWeight: 500, color: "rgba(255,255,255,0.85)", marginBottom: 6 }}>San Diego State University</h4>
+            <p style={{ color: "var(--muted)", fontSize: 14 }}>B.A. in Art, emphasis in Multimedia (2007)</p>
+          </div>
         </div>
       </div>
       <div className="section-divider" style={{ position: "absolute" as const, bottom: 0, left: 0, right: 0 }}></div>
