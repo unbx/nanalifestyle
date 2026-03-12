@@ -403,11 +403,11 @@ function CreativeSection() {
       <div className="section-inner">
         <div className="reveal">
           <p className="section-label" style={{ color: "rgba(232,200,120,0.6)" }}>01 / Creative</p>
-          <h2 className="section-title"><span className="holo-text">Creative Direction</span></h2>
+          <h2 className="section-title"><span className="holo-text">Direction &amp; Production</span></h2>
           <p className="section-subtitle">Visual storytelling, production &amp; brand identity</p>
         </div>
         <p className="reveal" style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.8, maxWidth: 720, margin: "48px 0 64px" }}>
-          Directing music videos, shaping brand identities, and producing creative campaigns across music, tech, and culture. From independent label releases to product storytelling for Web3 platforms.
+          Directing music videos, shaping brand identities, and producing Grammy-nominated creative campaigns across music, tech, and culture. From independent label releases to product storytelling for Web3 platforms.
         </p>
 
         {/* ---- Filmstrip Gallery ---- */}
@@ -526,7 +526,7 @@ function ProductSection() {
       <div className="section-inner">
         <div className="reveal">
           <p className="section-label" style={{ color: "rgba(136,200,232,0.6)" }}>02 / Product</p>
-          <h2 className="section-title"><span className="holo-text">Product Experience</span></h2>
+          <h2 className="section-title"><span className="holo-text">Product Development</span></h2>
           <p className="section-subtitle">Building at the intersection of AI, Web3 &amp; creator tools</p>
         </div>
         <div className="card reveal" style={{ margin: "48px 0 32px" }}>
@@ -709,8 +709,8 @@ function SkillsSection() {
       <div className="parallax-shape" data-speed="0.03" style={{ width: 300, height: 300, background: "rgba(232,200,120,0.03)", bottom: "20%", right: -80 }}></div>
       <div className="section-inner">
         <div className="reveal">
-          <p className="section-label" style={{ color: "rgba(168,224,176,0.6)" }}>04 / Capabilities</p>
-          <h2 className="section-title"><span className="holo-text">Skills & Tools</span></h2>
+          <p className="section-label" style={{ color: "rgba(168,224,176,0.6)" }}>04 / Skills</p>
+          <h2 className="section-title"><span className="holo-text">Capabilities &amp; Tools</span></h2>
           <p className="section-subtitle">What I bring to the table</p>
         </div>
         <div className="reveal" style={{ marginTop: 48 }}>
