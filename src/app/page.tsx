@@ -407,7 +407,7 @@ function CreativeSection() {
           <p className="section-subtitle">Visual storytelling, production &amp; brand identity</p>
         </div>
         <p className="reveal" style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.8, maxWidth: 720, margin: "48px 0 64px" }}>
-          Directing music videos, shaping brand identities, and producing Grammy-nominated creative campaigns across music, tech, and culture. From independent label releases to product storytelling for Web3 platforms.
+          Directing videos, shaping brand identities, and producing creative work across music, tech, and culture. From Grammy-nominated music and independent label releases to product storytelling for Web3 platforms.
         </p>
 
         {/* ---- Filmstrip Gallery ---- */}
@@ -476,7 +476,7 @@ function CreativeSection() {
             {[
               ["Creative Direction", "Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists"],
               ["Label Strategy", "Release planning, distribution, marketing campaigns, and artist development across 5+ releases"],
-              ["Production", "Directed and produced music videos, content campaigns, and visual assets for digital platforms"],
+              ["Audio & Visual Production", "Directed and produced music videos, content campaigns, and visual assets for digital platforms"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
@@ -588,10 +588,11 @@ function ProductSection() {
             <video
               id="osfm-video"
               src="/osfm-abducted-062625.mov"
+              autoPlay
               muted
               playsInline
               loop
-              preload="metadata"
+              preload="auto"
               style={{ width: "100%", display: "block" }}
             />
           </div>
