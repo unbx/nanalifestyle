@@ -532,7 +532,7 @@ function ProductSection() {
             <div><h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Head of Experience</h3><p className="font-display" style={{ fontSize: 15, color: "rgba(136,200,232,0.8)" }}>CR3 Labs</p></div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jan 2024 - Present</span>
           </div>
-          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, creative direction, and creator ecosystem growth at CR3 Labs, a product studio operating at the intersection of blockchain and AI. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones.</p>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, quality assurance, creative production and creator ecosystem growth at CR3 Labs, an AI & 3D product studio. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones.</p>
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>AI & 3D Product Studio</p>
           <div style={{ marginBottom: 32 }}>
             {[
