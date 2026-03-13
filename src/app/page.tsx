@@ -536,11 +536,11 @@ function ProductSection() {
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>Product studio · Team of 4 · Remote</p>
           <div style={{ marginBottom: 32 }}>
             {[
-              ["Platform Growth", "Grew the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
+              ["Platform Growth", "Grows the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
               ["AI Workflows", "Applies AI tools across concepting, content creation, and automation workflows while architecting agentic workflows within the platform"],
               ["Quality Assurance", "Oversees the creator avatar and wearable submission pipeline, reviewing 3D assets for guideline compliance, delivering creator and technical feedback, and building custom QA tooling to streamline the review process"],
-              ["Creator Enablement", "Wrote and maintained product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting"],
-              ["Content & Brand Storytelling", "Produced product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators"],
+              ["Creator Enablement", "Writes and maintains product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting"],
+              ["Content & Brand Storytelling", "Produces product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
@@ -596,9 +596,9 @@ function ProductSection() {
           </div>
           <div>
             {[
-              ["Community Programming", "Hosted weekly X Spaces and livestreams featuring creators and builders, with dedicated programming on AI tools and workflows"],
-              ["Community Development", "Built the community network that became the pipeline for creator partnerships and product insights at CR3 Labs"],
-              ["Brand Strategy", "Led content strategy, brand identity, and marketing across social platforms"],
+              ["Community Programming", "Hosts weekly X Spaces and livestreams featuring creators and builders, with dedicated programming on AI tools and workflows"],
+              ["Community Development", "Builds the community network that became the pipeline for creator partnerships and product insights at CR3 Labs"],
+              ["Brand Strategy", "Leads content strategy, brand identity, and marketing across social platforms"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
