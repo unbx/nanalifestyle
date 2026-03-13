@@ -533,7 +533,7 @@ function ProductSection() {
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jan 2024 - Present</span>
           </div>
           <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, creative direction, and creator ecosystem growth at CR3 Labs, a product studio operating at the intersection of blockchain and AI. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones.</p>
-          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>Product studio · Team of 4 · Remote</p>
+          <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>AI & 3D Product Studio</p>
           <div style={{ marginBottom: 32 }}>
             {[
               ["Platform Growth", "Grows the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
