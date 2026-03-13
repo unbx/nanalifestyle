@@ -499,22 +499,14 @@ function CreativeSection() {
                 { title: "Electric", sub: "MIKNNA", img: "/MIKNNA-Electric.webp", href: "https://music.apple.com/us/album/electric-single/1534064975" },
                 { title: "Mission", sub: "MIKNNA", img: "/MIKNNA-Mission.webp", href: "https://music.apple.com/us/album/mission-single/1538066884" },
               ].map((r) => (
-                <a key={r.title} href={r.href} target="_blank" rel="noopener noreferrer" style={{ width: 80, minWidth: 80, textAlign: "center" as const, textDecoration: "none", display: "block" }}>
-                  <div style={{ width: 80, height: 80, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(42,42,42,0.3)", marginBottom: 6 }}>
+                <a key={r.title} href={r.href} target="_blank" rel="noopener noreferrer" style={{ width: 150, minWidth: 150, textAlign: "center" as const, textDecoration: "none", display: "block" }}>
+                  <div style={{ width: 150, height: 150, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(42,42,42,0.3)", marginBottom: 6 }}>
                     <img src={r.img} alt={r.title} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85) saturate(0.9)" }} />
                   </div>
                   <p className="font-mono" style={{ fontSize: 8, color: "rgba(255,255,255,0.5)", lineHeight: 1.3 }}>{r.title}</p>
                   <p className="font-mono" style={{ fontSize: 8, color: "rgba(136,136,136,0.4)" }}>{r.sub}</p>
                 </a>
               ))}
-            </div>
-            <div style={{ marginTop: 16 }}>
-              <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 10 }}>Popular Songs</p>
-              <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 6 }}>
-                {["On Sight (ft. Free Nationals)", "ONLY ONE (ft. SATICA)", "NESS", "MPH", "Trinity Ave", "On Yo Azz! (ft. Quincy)", "302", "FBG$ (ft. Far East Movement)", "Euphoria", "NIGHTCAP"].map((s) => (
-                  <span key={s} className="font-mono" style={{ fontSize: 9, color: "rgba(224,224,224,0.45)", padding: "3px 8px", border: "1px solid rgba(42,42,42,0.25)", borderRadius: 6, background: "rgba(10,10,10,0.3)" }}>{s}</span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -681,12 +673,12 @@ function SkillsSection() {
     {
       label: "Product & Platform Experience",
       color: "rgba(136,200,232,0.6)",
-      items: ["Product Strategy", "Digital Identity Systems", "Feature Adoption Strategy", "Creator Experience Design", "Cross-Functional Leadership", "Platform Product Development", "UX Strategy"],
+      items: ["Product Strategy", "Digital Identity Systems", "Feature Adoption Strategy", "Creator Experience Design", "Cross-Functional Leadership", "Platform Product Development", "UX Strategy", "Quality Assurance", "Test Automation"],
     },
     {
       label: "Learning & Development",
       color: "rgba(192,160,224,0.6)",
-      items: ["Change Management", "AI Enablement Programs", "Leadership Development", "Learning Systems Design", "Sales Enablement Strategy", "Organizational Development"],
+      items: ["Change Management", "AI Enablement Programs", "Leadership Development", "Learning Systems Design", "Sales Enablement Strategy", "Organizational Development", "Process Documentation", "Technical Writing"],
     },
     {
       label: "Creative Direction & Content",
@@ -706,11 +698,11 @@ function SkillsSection() {
     },
     {
       label: "Learning & Enablement",
-      items: ["Absorb LMS", "Articulate", "Zendesk", "Notion", "Zoom", "Slack"],
+      items: ["Absorb LMS", "Articulate", "Zendesk", "Notion", "Mintlify", "Zoom", "Slack"],
     },
     {
       label: "Web3 & Platform",
-      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML", "Vercel", "GitHub"],
+      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML", "Vercel", "GitHub", "Custom QA Tooling"],
     },
   ];
 
