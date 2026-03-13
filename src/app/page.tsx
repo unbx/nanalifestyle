@@ -558,7 +558,7 @@ function ProductSection() {
                 </svg>
               </div>
               <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(136,200,232,0.5)", marginBottom: 8 }}>3D Avatar &amp; Identity Hub</p>
-              <p style={{ color: "var(--muted)", fontSize: 12, lineHeight: 1.6 }}>Turning followers into superfans. Verify fans, prove engagement, reward loyalty.</p>
+              <p style={{ color: "var(--muted)", fontSize: 12, lineHeight: 1.6 }}>The 3D social collecting platform</p>
             </a>
             <a href="https://doppel.fun" target="_blank" rel="noopener noreferrer" className="product-link">
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -571,8 +571,8 @@ function ProductSection() {
                   <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </div>
-              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(136,200,232,0.5)", marginBottom: 8 }}>AI-Agent Built 3D Spaces</p>
-              <p style={{ color: "var(--muted)", fontSize: 12, lineHeight: 1.6 }}>Intersection of 3D, blockchain, and AI agents.</p>
+              <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(136,200,232,0.5)", marginBottom: 8 }}>Realtime 3D spaces built by AI-agents</p>
+              <p style={{ color: "var(--muted)", fontSize: 12, lineHeight: 1.6 }}>Collaborative multi-agent 3D world building</p>
             </a>
           </div>
         </div>
