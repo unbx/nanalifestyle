@@ -475,9 +475,9 @@ function CreativeSection() {
           <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Built a creative collective, independent label, and consulting studio. Scaled artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
           <div style={{ marginBottom: 24 }}>
             {[
-              ["Creative Direction", "Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists"],
-              ["Label Strategy", "Built and operated an independent label supporting release planning, marketing campaigns, artist development, and international touring"],
-              ["Audio & Visual Production", "Directed and produced music videos, content campaigns, and multimedia assets for digital platforms"],
+              ["Creative Direction", "Led visual identity, music videos, and brand storytelling across releases, photography, social media, and marketing campaigns"],
+              ["Label Strategy & Management", "Built and operated an independent label handling distribution, release strategy, publishing placement, and international touring"],
+              ["Audio & Visual Production", "Produced music, designed album artwork and merchandise, and created video and graphic content across digital platforms"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
