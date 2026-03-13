@@ -537,7 +537,7 @@ function ProductSection() {
           <div style={{ marginBottom: 32 }}>
             {[
               ["Platform Growth", "Grew the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
-              ["AI Workflows", "Embedded AI across team workflows and product experience, using AI tools to accelerate concepting, content creation, and automation while architecting agentic user flows within the platform"],
+              ["AI Workflows", "Applies AI tools across concepting, content creation, and automation workflows while architecting agentic user flows within the platform"],
               ["Creative Direction", "Directed creative vision for the Open Avatar System and Other Page IP, collaborating with 3D artists and developers to bring digital identity systems to life"],
               ["Creator Enablement", "Wrote and maintained all product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting"],
               ["Content & Brand Storytelling", "Produced product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators"],
