@@ -683,7 +683,7 @@ function SkillsSection() {
     {
       label: "Creative Direction & Content",
       color: "rgba(240,160,192,0.6)",
-      items: ["Content Strategy", "Creative Direction", "Community Development", "Audio & Visual Storytelling"],
+      items: ["Content Strategy", "Creative Direction", "Community Development", "Audio & Visual Storytelling", "Photography", "Videography", "Post-Production", "Storyboarding"],
     },
   ];
 
