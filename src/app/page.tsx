@@ -484,7 +484,7 @@ function CreativeSection() {
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.12em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const }}>Collaborators:</p>
-            {["Free Nationals", "Terrace Martin", "Far East Movement", "Big K.R.I.T.", "Top Dawg Entertainment", "SATICA", "Herradura Tequila"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
+            {["Free Nationals", "Terrace Martin", "Far East Movement", "1500 or Nothin'", "TDE", "SATICA", "Herradura Tequila"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
           </div>
           <div style={{ marginTop: 24 }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 12 }}>Discography</p>
