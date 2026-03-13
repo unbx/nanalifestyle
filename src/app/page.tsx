@@ -258,6 +258,7 @@ section { position:relative; padding:128px 0; overflow:hidden; }
 .filmstrip-fade-l { left:0; background:linear-gradient(to right,var(--black),transparent); }
 .filmstrip-fade-r { right:0; background:linear-gradient(to left,var(--black),transparent); }
 @media(max-width:768px) { .filmstrip-item { height:140px; } .filmstrip-arrow { display:none; } }
+.discography-scroll::-webkit-scrollbar { display:none; }
 .skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 @media(max-width:768px) { .skills-grid { grid-template-columns:1fr; } }
 .skill-category { border:1px solid rgba(42,42,42,0.3); border-radius:12px; padding:28px 32px; background:rgba(26,26,26,0.15); backdrop-filter:blur(4px); transition:all 0.5s; }
@@ -476,7 +477,7 @@ function CreativeSection() {
             {[
               ["Creative Direction", "Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists"],
               ["Label Strategy", "Release planning, distribution, marketing campaigns, and artist development across 5+ releases"],
-              ["Audio & Visual Production", "Directed and produced music videos, content campaigns, and visual assets for digital platforms"],
+              ["Audio & Visual Production", "Directed and produced music videos, content campaigns, and multimedia assets for digital platforms"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
@@ -487,19 +488,24 @@ function CreativeSection() {
           </div>
           <div style={{ marginTop: 24 }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 12 }}>Discography</p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const }}>
+            <div className="discography-scroll" style={{ display: "flex", gap: 12, overflowX: "auto" as const, paddingBottom: 8, scrollbarWidth: "none" as const }}>
               {[
-                { title: "Escape (Deluxe)", sub: "2021", img: "/escape-deluxe.jpg" },
-                { title: "Pool Haus EP", sub: "2020", img: "/pool-haus-ep.png" },
-                { title: "50|50 (Side A)", sub: "2016", img: "/5050-side-a.jpg" },
+                { title: "Escape (Deluxe)", sub: "2024", img: "/escape-deluxe.webp", href: "https://music.apple.com/us/album/escape-deluxe/1724222560" },
+                { title: "Pool Haus EP", sub: "2020", img: "/pool-haus-ep.png", href: "https://music.apple.com/us/album/pool-haus-single/1512539743" },
+                { title: "50|50 (Side A)", sub: "2016", img: "/5050-side-a.jpg", href: "https://music.apple.com/us/album/5050-side-a-ep/1535535780" },
+                { title: "On Sight", sub: "Free Nationals ft. MIKNNA, JID, Kadhja Bonet", img: "/On Sight - Free Nationals feat MIKNNA.png", href: "https://music.apple.com/us/album/on-sight-single/1479788732" },
+                { title: "MPH", sub: "MIKNNA", img: "/MIKNNA - MPH.jpg", href: "https://music.apple.com/us/album/mph-single/1534066291" },
+                { title: "Only One", sub: "MIKNNA & Satica", img: "/Only One - MIKNNA Satica.png", href: "https://music.apple.com/us/album/only-one-single/1490484226" },
+                { title: "Electric", sub: "MIKNNA", img: "/MIKNNA-Electric.webp", href: "https://music.apple.com/us/album/electric-single/1534064975" },
+                { title: "Mission", sub: "MIKNNA", img: "/MIKNNA-Mission.webp", href: "https://music.apple.com/us/album/mission-single/1538066884" },
               ].map((r) => (
-                <div key={r.title} style={{ width: 80, textAlign: "center" as const }}>
+                <a key={r.title} href={r.href} target="_blank" rel="noopener noreferrer" style={{ width: 80, minWidth: 80, textAlign: "center" as const, textDecoration: "none", display: "block" }}>
                   <div style={{ width: 80, height: 80, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(42,42,42,0.3)", marginBottom: 6 }}>
                     <img src={r.img} alt={r.title} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.85) saturate(0.9)" }} />
                   </div>
                   <p className="font-mono" style={{ fontSize: 8, color: "rgba(255,255,255,0.5)", lineHeight: 1.3 }}>{r.title}</p>
                   <p className="font-mono" style={{ fontSize: 8, color: "rgba(136,136,136,0.4)" }}>{r.sub}</p>
-                </div>
+                </a>
               ))}
             </div>
             <div style={{ marginTop: 16 }}>
