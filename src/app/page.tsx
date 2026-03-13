@@ -466,7 +466,7 @@ function CreativeSection() {
         <div className="card reveal" style={{ marginTop: 64 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, marginBottom: 24 }}>
             <div>
-              <h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Co-Founder &amp; Creative Director</h3>
+              <h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Founder</h3>
               <p className="font-display" style={{ fontSize: 15, color: "rgba(232,200,120,0.8)" }}>NANA LIFESTYLE</p>
             </div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>2012 - Present</span>
@@ -474,11 +474,11 @@ function CreativeSection() {
           <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Built a creative collective, independent label, and consulting studio. Scaled artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
           <div style={{ marginBottom: 24 }}>
             {[
-              "Creative Direction — Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists",
-              "Label Strategy — Release planning, distribution, marketing campaigns, and artist development across 5+ releases",
-              "Production — Directed and produced music videos, content campaigns, and visual assets for digital platforms",
-            ].map((h, i) => (
-              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text">{h}</span></div>
+              ["Creative Direction", "Music videos, visual identity, and brand storytelling for MIKNNA and collaborating artists"],
+              ["Label Strategy", "Release planning, distribution, marketing campaigns, and artist development across 5+ releases"],
+              ["Production", "Directed and produced music videos, content campaigns, and visual assets for digital platforms"],
+            ].map(([label, desc], i) => (
+              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
@@ -538,13 +538,13 @@ function ProductSection() {
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>Product studio · Team of 4 · Remote</p>
           <div style={{ marginBottom: 32 }}>
             {[
-              "Platform Growth — Grew the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions",
-              "AI Workflows — Embedded AI across team workflows and product experience, using AI tools to accelerate concepting, content creation, and automation while architecting agentic user flows within the platform",
-              "Creative Direction — Directed creative vision for the Open Avatar System and Other Page IP, collaborating with 3D artists and developers to bring digital identity systems to life",
-              "Creator Enablement — Wrote and maintained all product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting",
-              "Content & Brand Storytelling — Produced product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators",
-            ].map((h, i) => (
-              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text">{h}</span></div>
+              ["Platform Growth", "Grew the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
+              ["AI Workflows", "Embedded AI across team workflows and product experience, using AI tools to accelerate concepting, content creation, and automation while architecting agentic user flows within the platform"],
+              ["Creative Direction", "Directed creative vision for the Open Avatar System and Other Page IP, collaborating with 3D artists and developers to bring digital identity systems to life"],
+              ["Creator Enablement", "Wrote and maintained all product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting"],
+              ["Content & Brand Storytelling", "Produced product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators"],
+            ].map(([label, desc], i) => (
+              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
           </div>
           <div className="grid-2">
@@ -596,8 +596,12 @@ function ProductSection() {
             />
           </div>
           <div>
-            {["Community Programming — Hosted weekly X Spaces and livestreams featuring creators and builders, with dedicated programming on AI tools and workflows", "Community Development — Built the community network that became the pipeline for creator partnerships and product insights at CR3 Labs", "Brand Strategy — Led content strategy, brand identity, and marketing across social platforms"].map((h, i) => (
-              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text">{h}</span></div>
+            {[
+              ["Community Programming", "Hosted weekly X Spaces and livestreams featuring creators and builders, with dedicated programming on AI tools and workflows"],
+              ["Community Development", "Built the community network that became the pipeline for creator partnerships and product insights at CR3 Labs"],
+              ["Brand Strategy", "Led content strategy, brand identity, and marketing across social platforms"],
+            ].map(([label, desc], i) => (
+              <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
           </div>
         </div>
