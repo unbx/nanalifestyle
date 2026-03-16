@@ -333,8 +333,8 @@ function HeroSection() {
     <section id="hero">
       <canvas id="hero-canvas"></canvas>
       <div className="hero-overlay"></div>
-      <div className="parallax-shape visible" data-speed="0.03" style={{ width: 400, height: 400, background: "rgba(240,160,192,0.06)", top: "10%", right: -100 }}></div>
-      <div className="parallax-shape visible" data-speed="0.05" style={{ width: 300, height: 300, background: "rgba(136,200,232,0.05)", bottom: "20%", left: -80 }}></div>
+      <div className="parallax-shape visible" data-speed="0.03" style={{ width: 400, height: 400, background: "rgba(240,160,192,0.12)", top: "10%", right: -100 }}></div>
+      <div className="parallax-shape visible" data-speed="0.05" style={{ width: 300, height: 300, background: "rgba(136,200,232,0.10)", bottom: "20%", left: -80 }}></div>
       <div className="hero-content">
         <div className="animate-fade-up">
           <NanaLogo className="hero-logo" width={280} />
