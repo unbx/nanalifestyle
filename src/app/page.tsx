@@ -342,7 +342,7 @@ function HeroSection() {
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
           <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Experience</span> Builder. <span className="holo-text" style={{ fontWeight: 500 }}>Learning</span> Leader.</span><br />
-          Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Technology.
+          Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
           Strategic operator at the intersection of AI, product experience, and creator platforms. Helping teams adopt new tools, skills, and technologies. Turning emerging tech into practical systems people can actually use at scale.
