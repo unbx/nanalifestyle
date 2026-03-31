@@ -27,8 +27,8 @@ export default function Footer() {
             <span className="holo-text">Let&apos;s Build Something</span>
           </h2>
           <p className="text-nana-muted text-sm md:text-base max-w-xl mx-auto mb-12 leading-relaxed">
-            Open to creative collaborations, product roles, and conversations
-            about culture, technology, and what&apos;s next.
+            Open to creative technology roles, studio partnerships, and conversations
+            about culture, AI, and what&apos;s next.
           </p>
         </motion.div>
 

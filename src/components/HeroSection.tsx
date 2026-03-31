@@ -49,12 +49,12 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="font-display text-2xl md:text-4xl lg:text-5xl font-light tracking-tight mb-8"
         >
-          Creative Producer.{" "}
-          <span className="holo-text font-medium">Experience Builder.</span>
+          Creative Technologist.{" "}
+          <span className="holo-text font-medium">Strategic Operator.</span>
           <br />
           Culture{" "}
           <span className="text-nana-muted font-light">&times;</span>{" "}
-          Technology.
+          Emerging Tech.
         </motion.h1>
 
         <motion.p
