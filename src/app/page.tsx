@@ -341,7 +341,7 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Experience</span> Builder. <span className="holo-text" style={{ fontWeight: 500 }}>Learning</span> Leader.</span><br />
+          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Technologist. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
