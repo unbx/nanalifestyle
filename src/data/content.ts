@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Sean Nana",
   brand: "NANA LIFESTYLE",
-  tagline: "Creative Producer. Experience Builder. Culture x Emerging Tech.",
+  tagline: "Creative Technologist. Strategic Operator. Culture × Emerging Tech.",
   email: "holler.back@me.com",
   socials: {
     twitter: "https://x.com/seannana",
@@ -14,7 +14,7 @@ export const creativeWork = {
   title: "Creative",
   subtitle: "MIKNNA / NANA LIFESTYLE",
   description:
-    "Co-founded an independent label and creative collective that powered MIKNNA to 10M+ streams, international tours, and collaborations with the Free Nationals, Terrace Martin, Far East Movement, Big K.R.I.T., and TDE.",
+    "Built a creative collective, independent label, and production studio. Directed and produced video, visual, and brand content across music, tech, and culture, scaling Grammy-nominated MIKNNA to 10M+ streams, international touring, and collaborations across the entertainment scene.",
   role: "Creative Director & CEO via NANA LIFESTYLE — artist development, brand identity, content production, business strategy, touring, merchandising, and publishing.",
   stats: [
     { value: "10M+", label: "Streams" },
@@ -48,10 +48,12 @@ export const creativeWork = {
   collaborators: [
     "Free Nationals",
     "Terrace Martin",
+    "RAC",
     "Far East Movement",
-    "Big K.R.I.T.",
+    "1500 or Nothin'",
     "Top Dawg Entertainment",
     "SATICA",
+    "Herradura Tequila",
   ],
   videos: [
     {
@@ -77,7 +79,7 @@ export const productWork = {
   title: "Product",
   subtitle: "Cr3 Labs / Web3 & AI",
   description:
-    "Head of Experience at a product studio building on the edge of blockchain and AI. Partnered with Yuga Labs and ApeChain. Bridging creators, communities, and emerging technology.",
+    "Lead product experience, creative direction, and creator ecosystem growth at CR3 Labs, an AI and 3D product studio. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones while reporting directly to the founder.",
   roles: [
     {
       company: "CR3 Labs",
@@ -85,13 +87,14 @@ export const productWork = {
       period: "Jan 2024 - Present",
       url: "https://cr3labs.com",
       description:
-        "Product experience, creator partnerships, BD, community growth, and creative direction on a lean team of four.",
+        "Lead product experience, creative direction, and creator ecosystem growth while reporting directly to the founder.",
       highlights: [
-        "Grew platform to 500+ creators and thousands of active collectors",
-        "20,000+ onchain transactions generated",
-        "Strategic partnerships with Yuga Labs, ApeChain, and major Web3 IPs",
-        "Embedded AI and agentic capabilities into core product experience",
-        "Authored all product documentation for OpenPage (docs.op.xyz)",
+        "Produces product demos, tutorials, workflow walkthroughs, workshops, and social content",
+        "Designs and applies AI tools across concepting, content creation, and automation workflows",
+        "Writes and maintains all product documentation, creator guides, and onboarding materials",
+        "Translates community insights and creator feedback directly into product decisions",
+        "Grows the platform to 500+ communities and thousands of collectors, generating 20,000+ onchain transactions",
+        "Oversees the creator submission pipeline, reviewing 3D assets for guideline compliance",
       ],
       products: [
         {
@@ -113,11 +116,11 @@ export const productWork = {
       title: "Founder",
       period: "Jul 2022 - Present",
       description:
-        "Community platform for creators, builders, and artists in web3 and AI. Acquired by CR3 Labs in 2024.",
+        "Founded a creator platform and community focused on builders working in AI and blockchain. Acquired by CR3 Labs in 2024.",
       highlights: [
-        "Created weekly X Spaces and livestreams featuring builders and creators",
-        "Community network became the pipeline for CR3 Labs partnerships",
-        "Platform acquired by CR3 Labs in 2024",
+        "Hosts weekly X Spaces and livestreams featuring creators and builders",
+        "Built the community network that became the pipeline for creator partnerships at CR3 Labs",
+        "Leads content strategy, brand identity, and marketing across social platforms",
       ],
     },
   ],
@@ -133,27 +136,26 @@ export const experienceWork = {
       company: "Enjoy Inc.",
       title: "Sr. Learning & Development Manager",
       period: "Jul 2016 - Sep 2022",
-      context: "$350M+ funded | $1.2B SPAC valuation | Founded by Ron Johnson",
+      context: "$350M+ funded | $1.2B SPAC valuation | Remote",
       highlights: [
-        "First L&D hire — built the learning function from scratch",
-        "Scaled from 4 U.S. markets to 54+ across three countries",
-        "Led sales enablement contributing to 25% revenue lift",
-        "Cut new hire ramp time by 33% for ~100-person cohorts",
-        "Managed 8 regional facilitators across US and Canada",
-        "Co-developed partner training with Apple, AT&T, Google, Sonos, Rogers, Magic Leap",
+        "Co-developed enterprise partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap",
+        "Led U.S. sales enablement that contributed to a 25% revenue lift across U.S. markets",
+        "Built curriculum roadmaps tied to revenue and operational KPIs",
+        "Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%",
+        "Managed a team of 8 regional facilitators across the US and Canada",
+        "Led operational assessments and facilitated cross-functional workshops during organizational changes",
       ],
     },
     {
       company: "Apple Inc.",
-      title: "Creative / Instructional Designer / Facilitator",
+      title: "Instructional Designer / Facilitator",
       period: "Jul 2005 - Jun 2016",
-      context: "11 years | 100 → 490 stores | 20+ countries",
+      context: "Joined at ~100 stores (US only) · Left at ~490 stores across 20+ countries",
       highlights: [
-        "Designed Facilitation Skills learning experience for Global Retail Training",
-        "Developed Apple Business training deployed globally in 11+ languages",
-        "Facilitated New Store Openings at Grand Central (NYC) and Covent Garden (London)",
-        "Trained teams at Cupertino HQ with participants from 10+ countries",
-        "Certified in Final Cut Pro, Logic Pro, and Aperture",
+        "Designed facilitation and solutions training for Global Retail Training, deploying programs in 11+ languages",
+        "Led Train-the-Trainer programs at Apple HQ for international teams",
+        "Facilitated training for major product launches and flagship store openings",
+        "Supported onboarding and product readiness across California markets during rapid expansion",
       ],
     },
   ],

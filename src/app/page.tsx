@@ -472,19 +472,19 @@ function CreativeSection() {
             </div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>2012 - Present</span>
           </div>
-          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Built a creative collective, independent label, and consulting studio. Scaled artist MIKNNA to 10M+ streams, international touring, and collaborations across the modern jazz, hip-hop, and electronic scene.</p>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Built a creative collective, independent label, and production studio. Directed and produced video, visual, and brand content across music, tech, and culture, scaling Grammy-nominated MIKNNA to 10M+ streams, international touring, and collaborations across the entertainment scene.</p>
           <div style={{ marginBottom: 24 }}>
             {[
-              ["Creative Direction", "Led visual identity, music videos, and brand storytelling across releases, photography, social media, and marketing campaigns"],
-              ["Label Strategy & Management", "Built and operated an independent label handling distribution, release strategy, publishing placement, and international touring"],
-              ["Audio & Visual Production", "Produced music, designed album artwork and merchandise, and created video and graphic content across digital platforms"],
+              ["Creative Production & Direction", "Directed music videos, led visual identity, and produced brand storytelling across releases, photography, social media, and marketing campaigns"],
+              ["Strategy & Management", "Built and operated an independent label managing distribution, release strategy, merchandise, and international touring logistics"],
+              ["Artist Development & Partnerships", "Developed multiple artists, including growing Grammy-nominated MIKNNA into an internationally touring act with collaborations including the Free Nationals, RAC, Terrace Martin, and Herradura Tequila"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(232,200,120,0.5)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" as const }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.12em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const }}>Collaborators:</p>
-            {["Free Nationals", "Terrace Martin", "Far East Movement", "1500 or Nothin'", "TDE", "SATICA", "Herradura Tequila"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
+            {["Free Nationals", "Terrace Martin", "RAC", "Far East Movement", "1500 or Nothin'", "TDE", "SATICA", "Herradura Tequila"].map((c) => <span key={c} className="pill" style={{ margin: 0, padding: "5px 12px", fontSize: 10 }}>{c}</span>)}
           </div>
           <div style={{ marginTop: 24 }}>
             <p className="font-mono" style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(232,200,120,0.4)", marginBottom: 12 }}>Discography</p>
@@ -532,15 +532,16 @@ function ProductSection() {
             <div><h3 className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "white", marginBottom: 4 }}>Head of Experience</h3><p className="font-display" style={{ fontSize: 15, color: "rgba(136,200,232,0.8)" }}>CR3 Labs</p></div>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.15em", color: "var(--muted)" }}>Jan 2024 - Present</span>
           </div>
-          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, quality assurance, creative production and creator ecosystem growth at CR3 Labs, an AI & 3D product studio. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones.</p>
+          <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 8 }}>Lead product experience, creative direction, and creator ecosystem growth at CR3 Labs, an AI and 3D product studio. Partner with engineering to shape product vision, define requirements, coordinate across marketing and partnerships, and drive key milestones while reporting directly to the founder.</p>
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.5)", textTransform: "uppercase" as const, marginBottom: 24 }}>AI & 3D Product Studio</p>
           <div style={{ marginBottom: 32 }}>
             {[
-              ["Platform Growth", "Grows the platform to 500+ creators and communities and thousands of collectors, generating 20,000+ onchain transactions"],
-              ["AI Workflows", "Applies AI tools across concepting, content creation, and automation workflows while architecting agentic workflows within the platform"],
-              ["Quality Assurance", "Oversees the creator avatar and wearable submission pipeline, reviewing 3D assets for guideline compliance, delivering creator and technical feedback, and building custom QA tooling to streamline the review process"],
-              ["Creator Enablement", "Writes and maintains product documentation and creator guides covering creator tooling, avatars, wearables, APIs, and troubleshooting"],
-              ["Content & Brand Storytelling", "Produces product demos, tutorials, workflows, workshops, and social content translating new features into practical guidance for creators"],
+              ["Content & Brand Storytelling", "Produces product demos, tutorials, workflow walkthroughs, workshops, and social content that translate new features and capabilities into practical, visual guidance for creators and partners"],
+              ["AI Workflows", "Designs and applies AI tools across concepting, content creation, and automation workflows while architecting agentic pipelines within the platform"],
+              ["Creator Enablement & Onboarding", "Writes and maintains all product documentation, creator guides, and onboarding materials covering tooling, APIs, avatars, wearables, and troubleshooting"],
+              ["Product Development", "Translates community insights and creator feedback directly into product decisions, bridging creators, engineering, and product development"],
+              ["Platform Growth", "Grows the platform to 500+ communities and thousands of collectors, generating 20,000+ onchain transactions"],
+              ["Quality Assurance", "Oversees the creator submission pipeline, reviewing 3D assets for guideline compliance, delivering feedback, and building custom QA tooling to streamline review"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
             ))}
@@ -630,8 +631,9 @@ function ExperienceSection() {
               <p className="font-display" style={{ fontSize: 15, color: "rgba(192,160,224,0.7)", marginBottom: 8 }}>Sr. Learning &amp; Development Manager</p>
               <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>$350M+ funded · $1.2B SPAC valuation · Remote</p>
             </div>
+            <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Early L&amp;D hire at a retail-tech startup founded by a former Apple SVP and Creative Director. Built and scaled the learning function as the company expanded from 4 to 54+ markets across the U.S., Canada, and UK.</p>
             <div>
-              {[["Onboarding Systems", "Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%"], ["Sales Enablement", "Led U.S. sales enablement that contributed to a 25% revenue lift across markets"], ["Learning Strategy", "Built curriculum roadmaps tied to revenue and operational KPIs, partnering with instructional designers on performance-based learning systems"], ["Leadership", "Managed 8 regional facilitators across the US and Canada, building facilitation capability through coaching, calibration, and feedback"], ["Operational Scale", "Enabled nationwide trainer certification and delivery consistency during rapid expansion across 54+ markets"], ["Enterprise Partnerships", "Co-developed partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap"], ["Change Management", "Led operational assessments and facilitated cross-functional workshops during organizational changes"]].map(([label, desc], i) => (
+              {[["Enterprise Partnerships", "Co-developed enterprise partner training with Apple, AT&T, Google, Sonos, Rogers, BT/EE, and Magic Leap"], ["Sales Enablement", "Led U.S. sales enablement that contributed to a 25% revenue lift across U.S. markets"], ["Learning Strategy", "Built curriculum roadmaps tied to revenue and operational KPIs, partnering with instructional designers on performance-based learning systems"], ["Onboarding Systems", "Designed and delivered onboarding for ~100 new hires per cohort, cutting ramp time by 33%"], ["Leadership", "Managed a team of 8 regional facilitators across the US and Canada, building facilitation capability through coaching, calibration, and feedback"], ["Change Management", "Led operational assessments and facilitated cross-functional workshops during organizational changes, helping leadership identify themes and evolve team structures, processes, and operating models"]].map(([label, desc], i) => (
                 <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
               ))}
             </div>
@@ -643,8 +645,9 @@ function ExperienceSection() {
               <p className="font-display" style={{ fontSize: 15, color: "rgba(192,160,224,0.7)", marginBottom: 8 }}>Instructional Designer / Facilitator</p>
               <p className="font-mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "rgba(136,136,136,0.6)", textTransform: "uppercase" as const }}>Joined at ~100 stores (US only) · Left at ~490 stores across 20+ countries</p>
             </div>
+            <p style={{ color: "rgba(224,224,224,0.7)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>Progressed from market trainer to global curriculum designer at Apple headquarters over 11 years, building programs that helped teams understand, present, and sell new products and technologies as Apple Retail scaled from 100 to nearly 500 stores worldwide.</p>
             <div>
-              {[["Global Curriculum Design", "Designed facilitation and leadership training for Global Retail Training, with programs deployed across Apple Stores in 11+ languages"], ["Global Facilitation", "Delivered Train-the-Trainer programs at Apple HQ with participants from China, Japan, Germany, Brazil, Italy, the UK, and other regions"], ["New Store Openings", "Facilitated training and onboarding for major store openings including Grand Central (NYC) and Covent Garden (London)"], ["Market Training", "Began as a market trainer supporting onboarding across San Diego and Los Angeles during Apple Retail's rapid U.S. expansion"]].map(([label, desc], i) => (
+              {[["Global Training & Presentations", "Designed facilitation and solutions training for Global Retail Training, deploying programs across Apple Stores in 11+ languages"], ["International Facilitation", "Led Train-the-Trainer programs at Apple HQ for teams from China, Japan, Germany, Brazil, Italy, the UK, and other markets"], ["Product & Store Launch", "Facilitated training for major product launches and flagship store openings including Grand Central (NYC) and Covent Garden (London)"], ["Market Readiness", "Supported onboarding and product readiness across California markets during Apple Retail's rapid U.S. expansion"]].map(([label, desc], i) => (
                 <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(192,160,224,0.4)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
               ))}
             </div>
@@ -668,7 +671,7 @@ function SkillsSection() {
     {
       label: "AI & Emerging Technology",
       color: "rgba(168,224,176,0.6)",
-      items: ["AI Enablement", "Creator Platforms", "AI Workflow Design", "Human-AI Collaboration", "Web-Based 3D Development", "Blockchain & Web3"],
+      items: ["AI Enablement", "Creator Platforms", "Human-AI Collaboration", "Agentic Workflow Design", "Web-Based 3D Development"],
     },
     {
       label: "Product & Platform Experience",
@@ -690,7 +693,7 @@ function SkillsSection() {
   const toolCategories = [
     {
       label: "AI & Automation",
-      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "ChatGPT", "Cursor", "Codex", "Midjourney", "Fal", "Lovable"],
+      items: ["MidJourney", "Perplexity", "ChatGPT", "ComfyUI", "Claude", "Cursor", "n8n", "Fal"],
     },
     {
       label: "Creative & Production",
@@ -698,11 +701,11 @@ function SkillsSection() {
     },
     {
       label: "Learning & Enablement",
-      items: ["Absorb LMS", "Articulate", "Zendesk", "Notion", "Mintlify", "Zoom", "Slack"],
+      items: ["Absorb LMS", "Articulate", "Zendesk", "Notion", "Zoom", "Slack"],
     },
     {
       label: "Web3 & Platform",
-      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Base", "MML", "Vercel", "GitHub", "Custom QA Tooling"],
+      items: ["Ethereum", "ApeChain", "X Spaces", "Discord", "Three.js", "Github", "Vercel", "Base", "MML"],
     },
   ];
 
