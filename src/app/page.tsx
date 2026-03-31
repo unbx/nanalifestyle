@@ -341,13 +341,13 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Technologist. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
+          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Experience</span> Builder. <span className="holo-text" style={{ fontWeight: 500 }}>Learning</span> Leader.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
-          Strategic operator at the intersection of AI, creative production, and creator platforms. Builds the bridge between creators and AI-powered workflows. Translates technical capability into practical outcomes for studios, creators, and enterprise partners.
+          Strategic operator at the intersection of AI, product experience, and creator platforms. Helping teams adopt new tools, skills, and technologies. Turning emerging tech into practical systems people can actually use at scale.
         </p>
-        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Creative Production · Product Experience · Partner Development</p>
+        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Learning &amp; Development · Program Design · Creative Production</p>
         <div className="scroll-indicator animate-fade-up delay-4">
           <span>Scroll</span>
           <div className="scroll-line"></div>
@@ -690,7 +690,7 @@ function SkillsSection() {
   const toolCategories = [
     {
       label: "AI & Automation",
-      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "ChatGPT", "Cursor", "Codex", "Midjourney", "ComfyUI", "Fal", "n8n", "Lovable"],
+      items: ["OpenClaw", "Antigravity", "Perplexity", "Claude", "ChatGPT", "Cursor", "Codex", "Midjourney", "Fal", "Lovable"],
     },
     {
       label: "Creative & Production",
@@ -760,7 +760,7 @@ function ContactSection() {
         <div className="reveal">
           <NanaLogo width={96} className="" />
           <h2 className="font-display" style={{ fontSize: "clamp(28px,5vw,48px)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 24, marginTop: 32 }}><span className="holo-text">Let&apos;s Build Together</span></h2>
-          <p style={{ color: "var(--muted)", fontSize: 14, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.8 }}>Open to creative technology roles, studio partnerships, and conversations about culture, AI, and what&apos;s next.</p>
+          <p style={{ color: "var(--muted)", fontSize: 14, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.8 }}>Open to creative collaborations, product roles, and conversations about culture, technology, and what&apos;s next.</p>
         </div>
         <div className="reveal" style={{ marginBottom: 64 }}><a href="mailto:holler.back@me.com" className="contact-btn">holler.back@me.com</a></div>
         <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 80 }}>

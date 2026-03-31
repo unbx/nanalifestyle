@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "NANA LIFESTYLE | Sean Nana",
   description:
-    "Strategic operator at the intersection of AI, creative production, and creator platforms. Builds the bridge between creators and AI-powered workflows.",
+    "Strategic operator at the intersection of AI, product experience, and creator platforms. Helping teams adopt new tools, skills, and technologies.",
   keywords: [
     "Sean Nana",
     "NANA LIFESTYLE",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "OpenPage",
     "AI Enablement",
     "Product Development",
-    "Creative Technology",
+    "Learning & Development",
     "Web3",
     "Creative Direction",
   ],
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NANA LIFESTYLE | Sean Nana",
     description:
-      "Strategic operator at the intersection of AI, creative production, and creator platforms.",
+      "Strategic operator at the intersection of AI, product experience, and creator platforms.",
     url: "https://nanalifestyle.com",
     siteName: "NANA LIFESTYLE",
     type: "website",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NANA LIFESTYLE | Sean Nana",
     description:
-      "Strategic operator at the intersection of AI, creative production, and creator platforms.",
+      "Strategic operator at the intersection of AI, product experience, and creator platforms.",
     images: ["https://nanalifestyle.com/og-image.jpg"],
   },
 };

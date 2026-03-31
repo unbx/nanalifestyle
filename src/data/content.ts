@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Sean Nana",
   brand: "NANA LIFESTYLE",
-  tagline: "Creative Technologist. Strategic Operator. Culture × Emerging Tech.",
+  tagline: "Creative Producer. Experience Builder. Culture x Emerging Tech.",
   email: "holler.back@me.com",
   socials: {
     twitter: "https://x.com/seannana",
