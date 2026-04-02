@@ -60,7 +60,7 @@ function Head() {
   --border: #2a2a2a; --text: #e0e0e0; --muted: #888;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; background:var(--black); color:var(--text); }
+html { scroll-behavior:smooth; background:var(--black); color:var(--text); overflow-x:hidden; }
 body { font-family:'Inter',system-ui,sans-serif; overflow-x:hidden; }
 body::after {
   content:''; position:fixed; top:-100%; left:-100%;
@@ -111,6 +111,8 @@ nav a { text-decoration:none; }
 .hero-logo { width:280px; max-width:80vw; margin:0 auto 32px; filter:invert(1); animation:glow 3s ease-in-out infinite alternate; }
 .hero-subtitle { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
 .hero-title { font-family:'Space Grotesk',system-ui,sans-serif; font-size:clamp(24px,5vw,48px); font-weight:300; letter-spacing:-0.02em; margin-bottom:32px; line-height:1.3; }
+.hero-title-line { white-space:nowrap; }
+@media (max-width:768px) { .hero-title-line { white-space:normal; } }
 .hero-desc { color:var(--muted); font-size:14px; max-width:640px; margin:0 auto; line-height:1.8; }
 .hero-tags { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,200,120,0.5); margin-top:20px; }
 .scroll-indicator { position:absolute; bottom:48px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; animation:float 2s ease-in-out infinite; }
@@ -341,7 +343,7 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span style={{ whiteSpace: "nowrap" }}><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Technologist. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
+          <span className="hero-title-line"><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Technologist. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
@@ -547,10 +549,10 @@ function ProductSection() {
             ))}
           </div>
           <div className="grid-2">
-            <a href="https://op.xyz" target="_blank" rel="noopener noreferrer" className="product-link">
+            <a href="https://openpage.fun" target="_blank" rel="noopener noreferrer" className="product-link">
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <img
-                  src="/op-logotype-url-white.svg"
+                  src="/op-logo-white-openpage.png"
                   alt="OpenPage"
                   style={{ height: 32, width: "auto", display: "block" }}
                 />
