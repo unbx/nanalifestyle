@@ -343,13 +343,13 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span className="hero-title-line"><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Technologist. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
+          <span className="hero-title-line"><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Operator. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Enabler.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
-          Strategic operator at the intersection of AI, product experience, and creator platforms. Helping teams adopt new tools, skills, and technologies. Turning emerging tech into practical systems people can actually use at scale.
+          Creative &amp; strategic operator building at the intersection of AI, product experience, and creator platforms. Enabling teams to adopt new tools, skills, and technologies. Turning emerging tech into practical systems people can use at scale.
         </p>
-        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Learning &amp; Development · Program Design · Creative Production</p>
+        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Creative Production · Product Experience · Partner Development</p>
         <div className="scroll-indicator animate-fade-up delay-4">
           <span>Scroll</span>
           <div className="scroll-line"></div>
