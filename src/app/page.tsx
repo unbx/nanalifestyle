@@ -542,7 +542,7 @@ function ProductSection() {
               ["AI Workflows", "Designs and applies AI tools across concepting, content creation, and automation workflows while architecting agentic pipelines within the platform"],
               ["Creator Enablement & Onboarding", "Writes and maintains all product documentation, creator guides, and onboarding materials covering tooling, APIs, avatars, wearables, and troubleshooting"],
               ["Product Development", "Translates community insights and creator feedback directly into product decisions, bridging creators, engineering, and product development"],
-              ["Platform Growth", "Grows the platform to 500+ communities and thousands of collectors, generating 20,000+ onchain transactions"],
+              ["Platform Growth", "Over 25,000+ users across 500+ creator communities and collectors spanning multiple onchain ecosystems"],
               ["Quality Assurance", "Oversees the creator submission pipeline, reviewing 3D assets for guideline compliance, delivering feedback, and building custom QA tooling to streamline review"],
             ].map(([label, desc], i) => (
               <div key={i} className="highlight"><span className="highlight-dot" style={{ background: "rgba(136,200,232,0.6)" }}></span><span className="highlight-text"><strong style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{label}</strong> <span style={{ color: "rgba(224,224,224,0.5)" }}>{desc}</span></span></div>
