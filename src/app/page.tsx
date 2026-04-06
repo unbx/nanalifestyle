@@ -402,7 +402,7 @@ function CreativeSection() {
     <section id="creative" className="scanlines" style={{ background: "linear-gradient(to bottom,var(--black),#0d0a08,var(--black))" }}>
       <div className="bg-video-wrapper">
         <video autoPlay muted loop playsInline preload="auto" style={{ position: "absolute", top: "50%", left: "50%", width: "180%", height: "180%", transform: "translate(-50%,-50%)", objectFit: "cover", pointerEvents: "none", opacity: 0.15, filter: "grayscale(40%) blur(1px)" }}>
-          <source src="/Hapa fused.MOV" type="video/quicktime" />
+          <source src="/Hapa fused.mp4" type="video/mp4" />
         </video>
         <div className="bg-video-overlay"></div>
       </div>
