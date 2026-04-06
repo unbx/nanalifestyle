@@ -373,7 +373,11 @@ function CreativeSection() {
   };
 
   const allMedia: MediaEntry[] = useMemo(() => [
-    // Embeddable videos first
+    // Fuser Studio pieces
+    { id: "milli-fused-1", title: "the jungle didn't take him. it welcomed him back.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Milli fused botanical still 1.JPG", localVideoSrc: "/Milli Fused 1.MOV" },
+    { id: "hapa-fused", title: "doesn't know where she is, but she's here, now.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Hapa fused.MOV" },
+    { id: "milli-fused-2", title: "below the surface, nothing is bored.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Milli fused thumb.png", localVideoSrc: "/Milli Fused 2.MOV" },
+    // Embeddable videos
     { id: "Jpl6nM1eeKU", title: "The Uncoding Reveal", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "jAxO1teSuOI", title: "Introducing Wearables & Collectibles on OP", role: "Director & Producer", duration: "", project: "OpenPage" },
     { id: "JwE1hSu5FMw", title: "Summertime Shine", role: "Director", duration: "4:00", project: "NANA LIFESTYLE" },
@@ -381,13 +385,6 @@ function CreativeSection() {
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
     { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
-    // Fuser Studio pieces
-    { id: "hapa-fused", title: "doesn't know where she is, but she's here, now.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Hapa fused.MOV" },
-    { id: "milli-fused-1", title: "the jungle didn't take him. it welcomed him back.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Milli fused botanical still 1.JPG", localVideoSrc: "/Milli Fused 1.MOV" },
-    { id: "milli-fused-2", title: "below the surface, nothing is bored.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Milli Fused 2.MOV" },
-    // Photo stills
-    { id: "hapa-fused-still", title: "Hapa Fused", role: "Creative Direction", duration: "", project: "Fuser Studio", imageSrc: "/Hapa Fused biolum still 2.JPG" },
-    { id: "milli-fused-still", title: "Milli Fused", role: "Creative Direction", duration: "", project: "Fuser Studio", imageSrc: "/Milli fused botanical still 1.JPG" },
     // Local video (commercial spot)
     { id: "herradura", title: "Herradura — Stand with Greatness", role: "Music (MIKNNA)", duration: "", project: "Commercial", thumb: "/herradura-spot.jpeg", localVideoSrc: "/Herradura - Stand With Greatness - MIKNNA spot.mp4" },
     // VEVO videos at end (redirect to YouTube)
