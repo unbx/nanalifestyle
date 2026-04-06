@@ -376,7 +376,6 @@ function CreativeSection() {
     // Fuser Studio pieces
     { id: "milli-fused-1", title: "the jungle didn't take him. it welcomed him back.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Milli fused botanical still 1.JPG", localVideoSrc: "/Milli Fused 1.MOV" },
     { id: "hapa-fused", title: "doesn't know where she is, but she's here, now.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Hapa fused.MOV" },
-    { id: "milli-fused-2", title: "below the surface, nothing is bored.", role: "Creative Director", duration: "", project: "NANA LIFESTYLE", thumb: "/Milli fused thumb.png", localVideoSrc: "/Milli Fused 2.MOV" },
     // Embeddable videos
     { id: "Jpl6nM1eeKU", title: "The Uncoding Reveal", role: "Director & Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "jAxO1teSuOI", title: "Introducing Wearables & Collectibles on OP", role: "Director & Producer", duration: "", project: "OpenPage" },
@@ -403,7 +402,7 @@ function CreativeSection() {
     <section id="creative" className="scanlines" style={{ background: "linear-gradient(to bottom,var(--black),#0d0a08,var(--black))" }}>
       <div className="bg-video-wrapper">
         <video autoPlay muted loop playsInline preload="auto" style={{ position: "absolute", top: "50%", left: "50%", width: "180%", height: "180%", transform: "translate(-50%,-50%)", objectFit: "cover", pointerEvents: "none", opacity: 0.15, filter: "grayscale(40%) blur(1px)" }}>
-          <source src="/Milli Fused 2.MOV" type="video/quicktime" />
+          <source src="/Hapa fused.MOV" type="video/quicktime" />
         </video>
         <div className="bg-video-overlay"></div>
       </div>
