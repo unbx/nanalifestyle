@@ -369,6 +369,7 @@ function CreativeSection() {
     href?: string;
     thumb?: string;
     localVideoSrc?: string;
+    imageSrc?: string;
   };
 
   const allMedia: MediaEntry[] = useMemo(() => [
@@ -380,6 +381,13 @@ function CreativeSection() {
     { id: "XXWFJhYZslo", title: "VICE (ft. Autumn in June)", role: "Director & DP", duration: "", project: "NANA LIFESTYLE" },
     { id: "VjA5YoKVc1w", title: "Euphoria ft. ATOSA", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
     { id: "u-XltTtOtdU", title: "MPH (Lyric Video)", role: "Producer", duration: "", project: "NANA LIFESTYLE" },
+    // Fuser Studio pieces
+    { id: "hapa-fused", title: "doesn't know where she is, but she's here, now.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Hapa fused.MOV" },
+    { id: "milli-fused-1", title: "the jungle didn't take him. it welcomed him back.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Milli fused botanical still 1.JPG", localVideoSrc: "/Milli Fused 1.MOV" },
+    { id: "milli-fused-2", title: "below the surface, nothing is bored.", role: "Creative Direction", duration: "", project: "Fuser Studio", thumb: "/Hapa Fused biolum still 2.JPG", localVideoSrc: "/Milli Fused 2.MOV" },
+    // Photo stills
+    { id: "hapa-fused-still", title: "Hapa Fused", role: "Creative Direction", duration: "", project: "Fuser Studio", imageSrc: "/Hapa Fused biolum still 2.JPG" },
+    { id: "milli-fused-still", title: "Milli Fused", role: "Creative Direction", duration: "", project: "Fuser Studio", imageSrc: "/Milli fused botanical still 1.JPG" },
     // Local video (commercial spot)
     { id: "herradura", title: "Herradura — Stand with Greatness", role: "Music (MIKNNA)", duration: "", project: "Commercial", thumb: "/herradura-spot.jpeg", localVideoSrc: "/Herradura - Stand With Greatness - MIKNNA spot.mp4" },
     // VEVO videos at end (redirect to YouTube)
@@ -397,7 +405,9 @@ function CreativeSection() {
   return (
     <section id="creative" className="scanlines" style={{ background: "linear-gradient(to bottom,var(--black),#0d0a08,var(--black))" }}>
       <div className="bg-video-wrapper">
-        <iframe id="bg-video" src="https://www.youtube.com/embed/VdzEdMzrlcE?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=VdzEdMzrlcE&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+        <video autoPlay muted loop playsInline preload="auto" style={{ position: "absolute", top: "50%", left: "50%", width: "180%", height: "180%", transform: "translate(-50%,-50%)", objectFit: "cover", pointerEvents: "none", opacity: 0.15, filter: "grayscale(40%) blur(1px)" }}>
+          <source src="/Milli Fused 2.MOV" type="video/quicktime" />
+        </video>
         <div className="bg-video-overlay"></div>
       </div>
       <div className="parallax-shape" data-speed="0.04" style={{ width: 500, height: 500, background: "rgba(232,200,120,0.04)", top: "5%", left: -150 }}></div>
@@ -430,9 +440,11 @@ function CreativeSection() {
             </button>
             <div className="filmstrip" id="filmstrip">
               {allMedia.map((m) => {
-                const thumbSrc = m.thumb || `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`;
+                const thumbSrc = m.imageSrc || m.thumb || `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`;
                 const handleClick = () => {
-                  if (m.localVideoSrc) {
+                  if (m.imageSrc) {
+                    openImageLightbox(m.imageSrc, m.title);
+                  } else if (m.localVideoSrc) {
                     openLocalVideoLightbox(m.localVideoSrc, m.title);
                   } else if (m.href) {
                     window.open(m.href, "_blank", "noopener,noreferrer");
@@ -450,9 +462,9 @@ function CreativeSection() {
                   style={{ aspectRatio: "16/9" }}
                 >
                   <img src={thumbSrc} alt={m.title} loading="lazy" />
-                  <div className="film-play">
+                  {!m.imageSrc && <div className="film-play">
                     <svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19" /></svg>
-                  </div>
+                  </div>}
                   <div className="film-overlay">
                     <div className="film-title">{m.title}</div>
                     <div className="film-role">{m.role}</div>
