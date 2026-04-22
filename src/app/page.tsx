@@ -349,7 +349,7 @@ function HeroSection() {
         <p className="hero-desc animate-fade-up delay-3">
           Creative &amp; strategic operator building at the intersection of AI, product experience, and creator platforms. Enabling teams to adopt new tools, skills, and technologies. Turning emerging tech into practical systems people can use at scale.
         </p>
-        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Creative Production · Product Experience · Partner Development</p>
+        <p className="hero-tags animate-fade-up delay-3">AI Enablement · Creative Production · Product Experience · Design Systems</p>
         <div className="scroll-indicator animate-fade-up delay-4">
           <span>Scroll</span>
           <div className="scroll-line"></div>
