@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
 
@@ -16,6 +17,14 @@ export default function HeroSection() {
 
       {/* Dark overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-nana-black/40 via-transparent to-nana-black z-[1]" />
+
+      {/* Studio pill — quiet bridge to /studio */}
+      <Link
+        href="/studio"
+        className="absolute top-6 right-6 md:top-8 md:right-12 z-10 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted/50 hover:text-nana-text/80 transition-colors"
+      >
+        studio →
+      </Link>
 
       {/* Content */}
       <div className="relative z-[2] text-center px-6 max-w-4xl mx-auto">
@@ -49,12 +58,12 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="font-display text-2xl md:text-4xl lg:text-5xl font-light tracking-tight mb-8"
         >
-          Creative Producer.{" "}
-          <span className="holo-text font-medium">Experience Builder.</span>
+          <span className="holo-text font-medium">Creative</span> Director.{" "}
+          <span className="holo-text font-medium">Strategic</span> Operator.
           <br />
           Culture{" "}
           <span className="text-nana-muted font-light">&times;</span>{" "}
-          Technology.
+          Emerging Tech.
         </motion.h1>
 
         <motion.p

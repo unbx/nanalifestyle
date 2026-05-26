@@ -1,0 +1,901 @@
+{
+  "meta": {
+    "name": "Doppel World Style Guide",
+    "version": "2.0",
+    "description": "Flexible style guide for building 3D environments that feel distinctly Doppel. Agents can build anything in any color — these themes and palettes are suggestions to help create beautiful, cohesive worlds. Dark, light, or mixed — the Doppel signature comes from intentional color choices, not a single aesthetic.",
+    "aesthetic": "Intentional and expressive. Doppel worlds range from neon-on-black cyberpunk to sun-drenched pastels. What unites them is craft: deliberate palettes, atmospheric depth, and that signature Pulse green showing up in meaningful moments.",
+    "updated": "2026-02-27"
+  },
+
+  "core_palette": {
+    "dark_foundation": {
+      "description": "Near-black base tones for worlds that lean into darkness. Neons earn their glow by contrast against these.",
+      "colors": {
+        "void":  { "hex": "#060608", "rgb": [6, 6, 8],     "role": "Sky, deep space, emptiness. The classic Doppel background." },
+        "abyss": { "hex": "#0D0D16", "rgb": [13, 13, 22],  "role": "Ground plane, world canvas. Primary dark surface." },
+        "dusk":  { "hex": "#1A1A28", "rgb": [26, 26, 40],  "role": "Terrain, base block surfaces. Mid-dark structural." },
+        "slate": { "hex": "#2A2A40", "rgb": [42, 42, 64],  "role": "Structures, mid-layer blocks. Architectural elements." }
+      }
+    },
+
+    "light_foundation": {
+      "description": "Warm light tones for open, bright, or inviting worlds. Pair with soft neons or full-strength accents for different vibes.",
+      "colors": {
+        "cloud":   { "hex": "#F5F2EA", "rgb": [245, 242, 234], "role": "Sky, open space, bright backgrounds. Warm paper-white." },
+        "pearl":   { "hex": "#E8E4D8", "rgb": [232, 228, 216], "role": "Ground plane, light canvas. Primary light surface." },
+        "mist":    { "hex": "#D0CCC0", "rgb": [208, 204, 192], "role": "Terrain, paths, light structural surfaces." },
+        "stone":   { "hex": "#9A96A0", "rgb": [154, 150, 160], "role": "Structures, shadows on light surfaces. Cool-toned mid." },
+        "graphite":{ "hex": "#5A5668", "rgb": [90, 86, 104],   "role": "Text, details, deep shadows in light worlds." }
+      }
+    },
+
+    "shared_neutrals": {
+      "description": "Neutrals that work across both dark and light foundations.",
+      "colors": {
+        "bone":  { "hex": "#EDE8DC", "rgb": [237, 232, 220], "role": "Logo, UI text on dark, highlights. The warm white." },
+        "ink":   { "hex": "#1A1A28", "rgb": [26, 26, 40],   "role": "Text on light backgrounds. Same as Dusk — bridges both worlds." }
+      }
+    },
+
+    "electric_neons": {
+      "description": "Full-strength neons. Maximum saturation, maximum energy. Best on dark foundations or as small punchy accents on light ones.",
+      "colors": {
+        "neon_cyan":    { "hex": "#0BFFF0", "rgb": [11, 255, 240],  "glow_radius": "large",  "role": "Player glow, portals, tech structures, water, active blocks." },
+        "neon_magenta": { "hex": "#FF0ACD", "rgb": [255, 10, 205],  "glow_radius": "large",  "role": "Flora, neon grass, bloom zones, social areas, rift edges." },
+        "neon_yellow":  { "hex": "#F5FF0A", "rgb": [245, 255, 10],  "glow_radius": "large",  "role": "Fire, loot, neon signs, rewards, market highlights." }
+      }
+    },
+
+    "soft_neons": {
+      "description": "Desaturated, pastel-shifted versions of the electric neons. These sit beautifully on light foundations and create softer, more approachable worlds while still feeling distinctly Doppel.",
+      "colors": {
+        "soft_cyan":    { "hex": "#7AE8E0", "rgb": [122, 232, 224], "role": "Pools, glass, gentle tech. The calm version of electric cyan." },
+        "soft_magenta": { "hex": "#E87ABE", "rgb": [232, 122, 190], "role": "Blossoms, fabric, warm social. Softer flora." },
+        "soft_yellow":  { "hex": "#E8E07A", "rgb": [232, 224, 122], "role": "Sunlight, sand, warm highlights. Gentle warmth." },
+        "soft_pulse":   { "hex": "#A8E870", "rgb": [168, 232, 112], "role": "Soft brand presence, meadow grass, growth indicators." },
+        "soft_ember":   { "hex": "#E8A870", "rgb": [232, 168, 112], "role": "Warm lanterns, terracotta, gentle firelight." },
+        "soft_rift":    { "hex": "#B880E8", "rgb": [184, 128, 232], "role": "Lavender mist, gentle mystery, soft portals." },
+        "soft_nova":    { "hex": "#70B8E8", "rgb": [112, 184, 232], "role": "Daytime sky, gentle water, soft info." },
+        "soft_flux":    { "hex": "#E87A7A", "rgb": [232, 122, 122], "role": "Sunset, gentle warning, rose tones." }
+      }
+    },
+
+    "vivid_midtones": {
+      "description": "Bold, saturated colors at 70-85% intensity. The missing middle between soft pastels and electric neons. These are the jewel tones, earth tones, and rich hues that carry real visual weight on light foundations — think poster art, Studio Ghibli palettes, or a well-designed mural. Perfect as primary colors in light themes or strong secondary accents in dark ones.",
+      "colors": {
+        "teal":       { "hex": "#0A8A7A", "rgb": [10, 138, 122],   "role": "Deep water, jewel pools, rich glass. The sophisticated cyan." },
+        "emerald":    { "hex": "#1A9A50", "rgb": [26, 154, 80],    "role": "Dense canopy, gem facets, lush terrain. Distinct from Pulse green." },
+        "sapphire":   { "hex": "#2060D0", "rgb": [32, 96, 208],    "role": "Deep sky, royal structures, stained glass. Richer than Nova." },
+        "ruby":       { "hex": "#C82048", "rgb": [200, 32, 72],    "role": "Bold markers, regal banners, dramatic flowers. Bolder than Flux." },
+        "amethyst":   { "hex": "#7838A8", "rgb": [120, 56, 168],   "role": "Mystic stone, wisteria clusters, rare structures. Deep Rift." },
+        "coral":      { "hex": "#E86050", "rgb": [232, 96, 80],    "role": "Warm accents, clay roofs, sunset structures. Lively warmth." },
+        "terracotta": { "hex": "#C06A3A", "rgb": [192, 106, 58],   "role": "Earth walls, pottery, warm ground. Grounding weight." },
+        "marigold":   { "hex": "#D09810", "rgb": [208, 152, 16],   "role": "Rich gold, treasure, sunlit banners. Warm opulence." },
+        "indigo":     { "hex": "#3848B0", "rgb": [56, 72, 176],    "role": "Deep twilight, dyed fabric, ocean depths. Blue-violet anchor." },
+        "burgundy":   { "hex": "#8A2040", "rgb": [138, 32, 64],    "role": "Wine, velvet, aged wood. Warmth with gravitas." }
+      }
+    },
+
+    "pulse_brand": {
+      "description": "Doppel's signature color. The heartbeat. Works across any foundation — on dark it glows electric, on light it pops fresh.",
+      "base": { "hex": "#B8FF5C", "rgb": [184, 255, 92], "hsl": [86, 100, 68] },
+      "tints_and_shades": {
+        "100": { "hex": "#F0FFD4", "role": "Extreme tint, highlights, light theme backgrounds" },
+        "200": { "hex": "#D4FFAA", "role": "Light, UI text on dark, gentle glow" },
+        "base": { "hex": "#B8FF5C", "role": "Brand base value" },
+        "600": { "hex": "#8ECC38", "role": "Pressed, hover dark, natural green" },
+        "700": { "hex": "#5A8A18", "role": "Shadow, deep terrain, foliage dark" },
+        "900": { "hex": "#2A4A06", "role": "Background tint, base tone" }
+      },
+      "hue_neighbors": {
+        "surge":  { "hex": "#5FFF5C", "role": "Pulse to pure green. Max growth, rare terrain, life zones." },
+        "volt":   { "hex": "#B8FF00", "role": "Pulse max saturation. Speed zones, electric terrain, power-ups." },
+        "charge": { "hex": "#DEFF0A", "role": "Pulse to yellow. Energy, neon signage, highlights." },
+        "mint":   { "hex": "#80FFB8", "role": "Pulse to teal. Calm zones, healing terrain, safe blocks." }
+      },
+      "usage": "Primary CTA, active states, reward glow, logo mark, gain indicators. The one constant across all Doppel worlds."
+    },
+
+    "signal_accents": {
+      "description": "Semantic accent colors. Each carries meaning. Available in both electric and soft variants above.",
+      "colors": {
+        "ember": { "hex": "#FF6D00", "rgb": [255, 109, 0],  "role": "Fire, campfire, market heat. Warmth." },
+        "rift":  { "hex": "#A020FF", "rgb": [160, 32, 255], "role": "Rare portals, mystery zones. Something special." },
+        "flux":  { "hex": "#FF2020", "rgb": [255, 32, 32],  "role": "Danger, volatility, market dips. Trouble." },
+        "nova":  { "hex": "#00AAFF", "rgb": [0, 170, 255],  "role": "Info, sky zones, cold terrain. Calm blue." }
+      }
+    }
+  },
+
+  "world_themes": {
+    "dark_themes": [
+      {
+        "id": "tech_forest",
+        "name": "Tech Forest",
+        "foundation": "dark",
+        "tagline": "Magenta flora, cyan glow, dark void. The default Doppel look.",
+        "mood": ["alien", "bioluminescent", "mysterious", "serene-but-electric"],
+        "primary_colors": ["#FF0ACD", "#0BFFF0"],
+        "secondary_colors": ["#1A1A28", "#060608"],
+        "accent": "#B8FF5C",
+        "lighting": {
+          "ambient": { "color": "#0A0A1A", "intensity": 0.15 },
+          "key_light": { "color": "#0BFFF0", "intensity": 0.6, "direction": "overhead-left" },
+          "fill_light": { "color": "#FF0ACD", "intensity": 0.3, "direction": "ground-up" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#0D0D16", "density": "medium", "start": 30, "end": 200 },
+        "skybox": { "type": "gradient", "top": "#060608", "horizon": "#1A1A28", "glow_source": "none" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["dark crystalline blocks", "glowing cyan cracks in terrain", "magenta bioluminescent trees"],
+          "texture_style": "smooth matte with emissive veins"
+        },
+        "materials": {
+          "primary_surface": "dark matte with subtle noise",
+          "glow_elements": "emissive neon, soft bloom, slight subsurface scatter",
+          "foliage": "translucent magenta with inner glow",
+          "water": "dark reflective with cyan caustics"
+        },
+        "particles": ["floating cyan motes", "magenta fireflies", "faint pulse-green spores"],
+        "sound_mood": "ambient electronic hum, distant chimes, synthetic birdsong"
+      },
+      {
+        "id": "neon_market",
+        "name": "Neon Market",
+        "foundation": "dark",
+        "tagline": "Yellow neon signs, pulse gains, ember fire. Hot market zones.",
+        "mood": ["bustling", "commercial", "electric", "night-city"],
+        "primary_colors": ["#F5FF0A", "#B8FF5C"],
+        "secondary_colors": ["#FF6D00", "#0D0D16"],
+        "accent": "#FF0ACD",
+        "lighting": {
+          "ambient": { "color": "#0D0810", "intensity": 0.1 },
+          "key_light": { "color": "#F5FF0A", "intensity": 0.7, "direction": "signage-scattered" },
+          "fill_light": { "color": "#FF6D00", "intensity": 0.35, "direction": "ground-level" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#0D0D16", "density": "light", "start": 50, "end": 250 },
+        "skybox": { "type": "gradient", "top": "#060608", "horizon": "#1A1018", "glow_source": "distant city haze, warm" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["cobblestone-dark streets", "glowing yellow signage", "ember-lit market stalls"],
+          "texture_style": "worn industrial with neon overlays"
+        },
+        "materials": {
+          "primary_surface": "rough dark concrete, metal grating",
+          "glow_elements": "bright neon tube signs, LED strips, holographic price displays",
+          "structures": "dark steel and glass with yellow/green reflections",
+          "fire_elements": "ember-orange flame with volumetric glow"
+        },
+        "particles": ["floating price tickers (pulse green)", "ember sparks", "neon sign flicker"],
+        "sound_mood": "market chatter, electronic cash registers, sizzling food stalls, bass-heavy lo-fi"
+      },
+      {
+        "id": "rift_zone",
+        "name": "Rift Zone",
+        "foundation": "dark",
+        "tagline": "Rift purple, magenta edge, flux red. High-stakes rare events.",
+        "mood": ["dangerous", "unstable", "rare", "high-stakes", "dramatic"],
+        "primary_colors": ["#A020FF", "#FF0ACD"],
+        "secondary_colors": ["#FF2020", "#060608"],
+        "accent": "#F5FF0A",
+        "lighting": {
+          "ambient": { "color": "#080410", "intensity": 0.08 },
+          "key_light": { "color": "#A020FF", "intensity": 0.8, "direction": "rift-center-radial" },
+          "fill_light": { "color": "#FF2020", "intensity": 0.4, "direction": "pulsing-omni" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#0A0616", "density": "heavy", "start": 10, "end": 120 },
+        "skybox": { "type": "void", "top": "#060608", "horizon": "#0A0616", "glow_source": "rift tear in sky, purple/magenta lightning" },
+        "terrain": {
+          "ground": "#060608",
+          "features": ["fractured floating terrain", "glowing rift cracks (purple)", "red lava-like energy seams"],
+          "texture_style": "shattered obsidian with emissive fractures"
+        },
+        "materials": {
+          "primary_surface": "cracked dark stone, glossy volcanic glass",
+          "glow_elements": "pulsing rift purple, unstable magenta edges",
+          "danger_elements": "flux red veins, molten energy pools",
+          "rare_objects": "crystalline structures with inner purple glow"
+        },
+        "particles": ["purple lightning arcs", "red energy sparks", "floating shattered terrain fragments"],
+        "sound_mood": "deep rumble, electrical crackling, distant thunder, unstable energy hum"
+      },
+      {
+        "id": "crystal_depths",
+        "name": "Crystal Depths",
+        "foundation": "dark",
+        "tagline": "Submerged caverns, cyan bioluminescence, deep ocean pressure.",
+        "mood": ["submerged", "ancient", "bioluminescent", "pressurized", "contemplative"],
+        "primary_colors": ["#0BFFF0", "#00AAFF"],
+        "secondary_colors": ["#0D0D16", "#1A1A28"],
+        "accent": "#80FFB8",
+        "lighting": {
+          "ambient": { "color": "#040810", "intensity": 0.12 },
+          "key_light": { "color": "#0BFFF0", "intensity": 0.5, "direction": "scattered-below" },
+          "fill_light": { "color": "#00AAFF", "intensity": 0.25, "direction": "overhead-diffuse" },
+          "emissive_surfaces": true,
+          "caustics": true
+        },
+        "fog": { "color": "#060D16", "density": "heavy", "start": 15, "end": 100 },
+        "skybox": { "type": "underwater", "top": "#040810", "horizon": "#0D1A28", "glow_source": "faint surface light above, deep blue" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["crystal formations (cyan/mint)", "dark cave walls", "bioluminescent coral", "underwater trenches"],
+          "texture_style": "wet stone, translucent crystal, smooth organic"
+        },
+        "materials": {
+          "primary_surface": "dark wet rock, slightly reflective",
+          "glow_elements": "translucent cyan crystals with inner light, bioluminescent organisms",
+          "water": "dark deep blue with cyan caustics and light shafts",
+          "organic": "soft mint-glowing kelp and coral"
+        },
+        "particles": ["rising bubbles", "floating bioluminescent plankton (cyan)", "slow drifting sediment"],
+        "sound_mood": "deep water pressure, whale-like calls, crystalline chimes, muffled currents"
+      },
+      {
+        "id": "solar_wastes",
+        "name": "Solar Wastes",
+        "foundation": "dark",
+        "tagline": "Scorched desert, ember heat haze, yellow warning signs.",
+        "mood": ["desolate", "hot", "survival", "post-industrial", "blinding"],
+        "primary_colors": ["#FF6D00", "#F5FF0A"],
+        "secondary_colors": ["#2A2A40", "#1A1A28"],
+        "accent": "#FF2020",
+        "lighting": {
+          "ambient": { "color": "#1A1008", "intensity": 0.25 },
+          "key_light": { "color": "#FF6D00", "intensity": 0.9, "direction": "harsh-overhead" },
+          "fill_light": { "color": "#F5FF0A", "intensity": 0.2, "direction": "reflected-ground" },
+          "emissive_surfaces": false,
+          "heat_distortion": true
+        },
+        "fog": { "color": "#1A1008", "density": "light-haze", "start": 80, "end": 400 },
+        "skybox": { "type": "gradient", "top": "#1A1008", "horizon": "#FF6D00", "glow_source": "massive low sun, ember-colored" },
+        "terrain": {
+          "ground": "#1A1A28",
+          "features": ["cracked dry earth", "rusted metal structures", "half-buried machinery", "yellow warning markers"],
+          "texture_style": "rough sandblasted, oxidized metal, cracked earth"
+        },
+        "materials": {
+          "primary_surface": "dusty matte, cracked clay, sun-bleached surfaces",
+          "glow_elements": "ember-hot metal edges, glowing exhaust vents, neon yellow warning strips",
+          "structures": "rusted steel, corrugated metal, industrial decay",
+          "sand": "dark granular with orange reflected light"
+        },
+        "particles": ["heat shimmer", "drifting sand/dust", "ember sparks from vents", "distant mirage distortion"],
+        "sound_mood": "howling wind, creaking metal, distant industrial drone, crackling heat"
+      },
+      {
+        "id": "frozen_circuit",
+        "name": "Frozen Circuit",
+        "foundation": "dark",
+        "tagline": "Ice-locked technology, cyan frost, crystalline logic.",
+        "mood": ["cold", "precise", "digital", "preserved", "silent"],
+        "primary_colors": ["#0BFFF0", "#80FFB8"],
+        "secondary_colors": ["#0D0D16", "#060608"],
+        "accent": "#00AAFF",
+        "lighting": {
+          "ambient": { "color": "#060810", "intensity": 0.2 },
+          "key_light": { "color": "#80FFB8", "intensity": 0.5, "direction": "diffuse-overhead" },
+          "fill_light": { "color": "#0BFFF0", "intensity": 0.3, "direction": "ice-reflections" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#060D12", "density": "medium-frost", "start": 25, "end": 150 },
+        "skybox": { "type": "overcast-glow", "top": "#060608", "horizon": "#0D1A20", "glow_source": "diffuse aurora, cyan-mint" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["ice sheets with circuit patterns below", "frozen server towers", "crystalline data structures"],
+          "texture_style": "glossy ice, frosted glass, circuit-etched surfaces"
+        },
+        "materials": {
+          "primary_surface": "dark ice, translucent frost layers",
+          "glow_elements": "circuit lines glowing cyan beneath ice, frozen LED strips",
+          "structures": "dark metal encased in clear ice, preserved technology",
+          "ice": "thick translucent with internal mint/cyan glow"
+        },
+        "particles": ["drifting snowflakes", "frozen data fragments (tiny cyan glyphs)", "ice crystal shimmer"],
+        "sound_mood": "wind over ice, digital beeps muffled by frost, cracking ice, crystalline resonance"
+      },
+      {
+        "id": "bloom_garden",
+        "name": "Bloom Garden",
+        "foundation": "dark",
+        "tagline": "Explosive organic growth, magenta blooms, pulse-green overgrowth.",
+        "mood": ["lush", "organic", "overgrown", "vibrant", "alive"],
+        "primary_colors": ["#FF0ACD", "#B8FF5C"],
+        "secondary_colors": ["#5FFF5C", "#1A1A28"],
+        "accent": "#DEFF0A",
+        "lighting": {
+          "ambient": { "color": "#0A0D08", "intensity": 0.18 },
+          "key_light": { "color": "#B8FF5C", "intensity": 0.55, "direction": "canopy-filtered" },
+          "fill_light": { "color": "#FF0ACD", "intensity": 0.35, "direction": "ground-bloom-up" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#0A0D08", "density": "medium-humid", "start": 20, "end": 130 },
+        "skybox": { "type": "canopy", "top": "#060608", "horizon": "#1A2818", "glow_source": "light filtering through dense magenta/green canopy" },
+        "terrain": {
+          "ground": "#1A1A28",
+          "features": ["massive magenta flower clusters", "pulse-green vines and moss", "bioluminescent mushrooms", "overgrown dark structures"],
+          "texture_style": "organic soft, mossy, layered foliage"
+        },
+        "materials": {
+          "primary_surface": "dark earth covered in glowing moss",
+          "glow_elements": "magenta flower petals with inner light, pulse-green vine bioluminescence",
+          "foliage": "translucent magenta/green leaves, volumetric light through canopy",
+          "organic_structures": "living architecture — buildings consumed by glowing plant life"
+        },
+        "particles": ["floating magenta petals", "pulse-green pollen", "charge-yellow fireflies", "drifting seed pods"],
+        "sound_mood": "rustling leaves, dripping water, organic pulses, synthetic nature chorus"
+      },
+      {
+        "id": "shadow_arcade",
+        "name": "Shadow Arcade",
+        "foundation": "dark",
+        "tagline": "Retro-neon gaming district, magenta and yellow on pitch black.",
+        "mood": ["retro", "playful", "competitive", "nostalgic-future", "glitchy"],
+        "primary_colors": ["#FF0ACD", "#F5FF0A"],
+        "secondary_colors": ["#060608", "#0D0D16"],
+        "accent": "#0BFFF0",
+        "lighting": {
+          "ambient": { "color": "#060608", "intensity": 0.05 },
+          "key_light": { "color": "#FF0ACD", "intensity": 0.6, "direction": "neon-sign-scattered" },
+          "fill_light": { "color": "#F5FF0A", "intensity": 0.4, "direction": "screen-glow" },
+          "emissive_surfaces": true,
+          "flicker": true
+        },
+        "fog": { "color": "#060608", "density": "minimal", "start": 60, "end": 300 },
+        "skybox": { "type": "void", "top": "#060608", "horizon": "#060608", "glow_source": "none — pure blackness with distant neon" },
+        "terrain": {
+          "ground": "#060608",
+          "features": ["glowing grid floor lines", "arcade cabinet monoliths", "pixel-art neon murals", "floating score displays"],
+          "texture_style": "flat matte black with sharp neon edges, pixel grid overlay"
+        },
+        "materials": {
+          "primary_surface": "pure matte black — absorbs everything",
+          "glow_elements": "razor-sharp neon outlines (magenta/yellow), CRT screen glow",
+          "structures": "geometric black blocks with neon edge lighting",
+          "screens": "emissive displays showing abstract patterns and scores"
+        },
+        "particles": ["pixel dust", "glitch artifacts (brief color tears)", "score number pop-ups"],
+        "sound_mood": "8-bit melodies, arcade beeps, bass drops, synthwave backing"
+      },
+      {
+        "id": "ember_forge",
+        "name": "Ember Forge",
+        "foundation": "dark",
+        "tagline": "Volcanic industrial, molten metal, red danger and orange firelight.",
+        "mood": ["industrial", "volcanic", "dangerous", "productive", "intense"],
+        "primary_colors": ["#FF6D00", "#FF2020"],
+        "secondary_colors": ["#2A2A40", "#060608"],
+        "accent": "#F5FF0A",
+        "lighting": {
+          "ambient": { "color": "#100804", "intensity": 0.1 },
+          "key_light": { "color": "#FF6D00", "intensity": 0.8, "direction": "forge-fire-below" },
+          "fill_light": { "color": "#FF2020", "intensity": 0.3, "direction": "lava-flow" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#100804", "density": "smoke-heavy", "start": 10, "end": 80 },
+        "skybox": { "type": "volcanic", "top": "#060608", "horizon": "#1A0808", "glow_source": "volcanic eruption glow, distant lava rivers" },
+        "terrain": {
+          "ground": "#1A1A28",
+          "features": ["obsidian rock", "flowing lava channels (ember/flux)", "forge structures", "metal foundry platforms"],
+          "texture_style": "rough basalt, molten cracks, hammered metal"
+        },
+        "materials": {
+          "primary_surface": "dark volcanic rock, rough and angular",
+          "glow_elements": "molten lava (ember gradient), red-hot metal surfaces",
+          "structures": "heavy dark iron, industrial machinery, pipes and vents",
+          "liquid": "slow-flowing lava with ember surface and flux-red undertone"
+        },
+        "particles": ["ember sparks rising", "volcanic ash falling", "heat shimmer", "molten metal droplets"],
+        "sound_mood": "hammering metal, bubbling lava, furnace roar, deep mechanical rhythm"
+      },
+      {
+        "id": "void_drift",
+        "name": "Void Drift",
+        "foundation": "dark",
+        "tagline": "Deep space emptiness, distant stars, purple nebulae, absolute silence.",
+        "mood": ["isolated", "vast", "cosmic", "meditative", "weightless"],
+        "primary_colors": ["#A020FF", "#00AAFF"],
+        "secondary_colors": ["#060608", "#0D0D16"],
+        "accent": "#0BFFF0",
+        "lighting": {
+          "ambient": { "color": "#040408", "intensity": 0.05 },
+          "key_light": { "color": "#A020FF", "intensity": 0.35, "direction": "nebula-diffuse" },
+          "fill_light": { "color": "#00AAFF", "intensity": 0.2, "direction": "starfield" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#040408", "density": "none-to-minimal", "start": 200, "end": 1000 },
+        "skybox": { "type": "deep-space", "top": "#060608", "horizon": "#060608", "glow_source": "purple nebula clouds, distant star clusters" },
+        "terrain": {
+          "ground": null,
+          "features": ["floating asteroid platforms", "abandoned space stations", "crystalline debris fields", "energy tethers between platforms"],
+          "texture_style": "smooth dark metal, cratered rock, translucent energy bridges"
+        },
+        "materials": {
+          "primary_surface": "dark spacecraft hull, matte with subtle wear",
+          "glow_elements": "purple nebula light, nova-blue holographic waypoints",
+          "structures": "derelict tech platforms with fading power (flickering lights)",
+          "space_objects": "translucent cyan energy fields, rift-purple wormhole edges"
+        },
+        "particles": ["distant stars", "drifting space dust", "faint nebula wisps (purple)", "occasional meteor streaks"],
+        "sound_mood": "near silence, deep space drone, distant radio static, ethereal pads"
+      },
+      {
+        "id": "pulse_meadow",
+        "name": "Pulse Meadow",
+        "foundation": "dark",
+        "tagline": "Open fields of pulse-green energy, peaceful and rewarding.",
+        "mood": ["peaceful", "rewarding", "open", "growth", "optimistic"],
+        "primary_colors": ["#B8FF5C", "#D4FFAA"],
+        "secondary_colors": ["#1A1A28", "#0D0D16"],
+        "accent": "#80FFB8",
+        "lighting": {
+          "ambient": { "color": "#080D08", "intensity": 0.2 },
+          "key_light": { "color": "#B8FF5C", "intensity": 0.6, "direction": "broad-overhead" },
+          "fill_light": { "color": "#D4FFAA", "intensity": 0.3, "direction": "ground-glow" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#080D08", "density": "light-atmospheric", "start": 60, "end": 300 },
+        "skybox": { "type": "gradient", "top": "#060608", "horizon": "#1A2818", "glow_source": "diffuse pulse-green aurora band" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["rolling hills of glowing pulse-green grass", "scattered reward crystals", "gentle streams with mint glow"],
+          "texture_style": "soft organic, low-poly grass, gentle undulation"
+        },
+        "materials": {
+          "primary_surface": "dark ground with dense pulse-green grass overlay",
+          "glow_elements": "grass tips emit soft pulse light, reward crystals with inner glow",
+          "water": "dark surface with mint reflection and pulse-green light from below",
+          "structures": "minimal — natural stones with faint pulse veins"
+        },
+        "particles": ["pulse-green grass sway", "floating reward motes", "mint fireflies at night", "gentle charge-yellow sparks"],
+        "sound_mood": "gentle wind through grass, crystal chimes, positive synth pads, distant melody"
+      },
+      {
+        "id": "neon_jungle",
+        "name": "Neon Jungle",
+        "foundation": "dark",
+        "tagline": "Dense tropical overgrowth meets full-spectrum neon. Overwhelming sensory.",
+        "mood": ["dense", "overwhelming", "tropical", "chaotic", "maximalist"],
+        "primary_colors": ["#5FFF5C", "#FF0ACD", "#0BFFF0"],
+        "secondary_colors": ["#1A1A28", "#060608"],
+        "accent": "#F5FF0A",
+        "lighting": {
+          "ambient": { "color": "#080A08", "intensity": 0.1 },
+          "key_light": { "color": "#0BFFF0", "intensity": 0.5, "direction": "canopy-gaps" },
+          "fill_light": { "color": "#FF0ACD", "intensity": 0.45, "direction": "undergrowth" },
+          "emissive_surfaces": true,
+          "god_rays": true
+        },
+        "fog": { "color": "#080A08", "density": "heavy-humid", "start": 8, "end": 60 },
+        "skybox": { "type": "canopy-dense", "top": "#060608", "horizon": "#060608", "glow_source": "barely visible — dense canopy blocks sky" },
+        "terrain": {
+          "ground": "#0D0D16",
+          "features": ["massive tree trunks", "layered canopy at multiple heights", "vine networks", "hidden pools", "neon fungal growths"],
+          "texture_style": "rough bark, wet leaves, dense undergrowth"
+        },
+        "materials": {
+          "primary_surface": "dark humus and wet rock",
+          "glow_elements": "full spectrum — cyan vines, magenta flowers, surge-green moss, yellow fungus",
+          "foliage": "dense multi-layered, each layer a different neon accent",
+          "water": "dark still pools with multicolor reflections"
+        },
+        "particles": ["heavy pollen (multi-color)", "rain droplets", "insect swarms (tiny cyan dots)", "mist rising from pools"],
+        "sound_mood": "dense insect chorus, dripping water, distant animal calls, layered ambient textures"
+      },
+      {
+        "id": "data_stream",
+        "name": "Data Stream",
+        "foundation": "dark",
+        "tagline": "Inside the machine. Flowing data rivers, holographic architecture.",
+        "mood": ["digital", "abstract", "flowing", "systematic", "transcendent"],
+        "primary_colors": ["#0BFFF0", "#B8FF5C"],
+        "secondary_colors": ["#060608", "#0D0D16"],
+        "accent": "#A020FF",
+        "lighting": {
+          "ambient": { "color": "#040608", "intensity": 0.08 },
+          "key_light": { "color": "#0BFFF0", "intensity": 0.6, "direction": "data-flow-direction" },
+          "fill_light": { "color": "#B8FF5C", "intensity": 0.25, "direction": "node-points" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#040608", "density": "none", "start": 0, "end": 0 },
+        "skybox": { "type": "matrix", "top": "#060608", "horizon": "#060608", "glow_source": "infinite grid receding in all directions" },
+        "terrain": {
+          "ground": "#060608",
+          "features": ["flowing data rivers (cyan light streams)", "node intersections", "holographic architecture", "floating code fragments"],
+          "texture_style": "wireframe, grid, translucent holographic"
+        },
+        "materials": {
+          "primary_surface": "invisible/transparent grid floor",
+          "glow_elements": "flowing cyan data particles, pulse-green node highlights, rift-purple portals",
+          "structures": "holographic wireframe buildings, translucent with visible internal data",
+          "paths": "glowing cyan lines that pulse with traffic"
+        },
+        "particles": ["streaming data characters (cyan)", "node pulse waves", "holographic glitch fragments", "connecting light beams"],
+        "sound_mood": "digital flow, processing hum, data transfer whooshes, crystalline pings"
+      },
+      {
+        "id": "midnight_bazaar",
+        "name": "Midnight Bazaar",
+        "foundation": "dark",
+        "tagline": "Underground trading, ember lanterns, magenta silks, shadowy dealings.",
+        "mood": ["secretive", "exotic", "warm-dark", "social", "mysterious"],
+        "primary_colors": ["#FF6D00", "#FF0ACD"],
+        "secondary_colors": ["#1A1A28", "#2A2A40"],
+        "accent": "#F5FF0A",
+        "lighting": {
+          "ambient": { "color": "#0D0808", "intensity": 0.08 },
+          "key_light": { "color": "#FF6D00", "intensity": 0.5, "direction": "lantern-point-sources" },
+          "fill_light": { "color": "#FF0ACD", "intensity": 0.2, "direction": "fabric-diffuse" },
+          "emissive_surfaces": true,
+          "point_lights_many": true
+        },
+        "fog": { "color": "#0D0808", "density": "medium-smoke", "start": 15, "end": 100 },
+        "skybox": { "type": "underground", "top": "#0D0D16", "horizon": "#0D0D16", "glow_source": "none — underground/enclosed space" },
+        "terrain": {
+          "ground": "#1A1A28",
+          "features": ["narrow winding paths", "stacked market stalls", "hanging fabric canopies (magenta)", "ember lanterns on chains"],
+          "texture_style": "worn stone, fabric, aged wood, metalwork"
+        },
+        "materials": {
+          "primary_surface": "worn stone and packed earth",
+          "glow_elements": "ember lanterns (warm point lights), magenta fabric glow-through, yellow price holographics",
+          "structures": "layered stalls, stacked containers, hanging wares",
+          "fabric": "translucent magenta/purple drapes catching lantern light"
+        },
+        "particles": ["floating ember sparks from lanterns", "incense smoke", "dust motes in light beams"],
+        "sound_mood": "hushed trading, clinking coins, distant music, crackling flame"
+      },
+      {
+        "id": "surge_spire",
+        "name": "Surge Spire",
+        "foundation": "dark",
+        "tagline": "Vertical cityscape, towering green-lit spires, vertiginous heights.",
+        "mood": ["vertical", "ambitious", "futuristic", "awe-inspiring", "competitive"],
+        "primary_colors": ["#5FFF5C", "#B8FF5C"],
+        "secondary_colors": ["#060608", "#1A1A28"],
+        "accent": "#0BFFF0",
+        "lighting": {
+          "ambient": { "color": "#040808", "intensity": 0.1 },
+          "key_light": { "color": "#5FFF5C", "intensity": 0.65, "direction": "spire-top-down" },
+          "fill_light": { "color": "#B8FF5C", "intensity": 0.3, "direction": "building-edge-strips" },
+          "emissive_surfaces": true
+        },
+        "fog": { "color": "#040808", "density": "heavy-below", "start": 0, "end": 60, "note": "fog sits at low elevation, clear at heights" },
+        "skybox": { "type": "gradient", "top": "#060608", "horizon": "#040808", "glow_source": "surge-green glow from the spire peaks" },
+        "terrain": {
+          "ground": "#060608",
+          "features": ["impossibly tall spire buildings", "connecting sky bridges", "vertical gardens (pulse-green)", "cloud-level platforms"],
+          "texture_style": "sleek dark metal, illuminated edge strips, glass and steel"
+        },
+        "materials": {
+          "primary_surface": "dark glass and polished metal",
+          "glow_elements": "surge-green building edges, pulse-green window arrays, cyan elevator shafts",
+          "structures": "towering geometric spires with internal green lighting",
+          "glass": "dark tinted with green reflections from neighboring spires"
+        },
+        "particles": ["cloud wisps at mid-height", "falling rain at lower levels", "surge-green light beams between spires"],
+        "sound_mood": "wind at height, distant traffic below, elevator hum, architectural resonance"
+      }
+    ],
+
+    "light_themes": [
+      {
+        "id": "cloudtop_citadel",
+        "name": "Cloudtop Citadel",
+        "foundation": "light",
+        "tagline": "White marble, open sky, pulse-green banners. Aspirational and clean.",
+        "mood": ["aspirational", "clean", "monumental", "open", "heavenly"],
+        "primary_colors": ["#F5F2EA", "#E8E4D8"],
+        "secondary_colors": ["#D0CCC0", "#9A96A0"],
+        "accent": "#B8FF5C",
+        "accent_secondary": "#0BFFF0",
+        "lighting": {
+          "ambient": { "color": "#E8E4E0", "intensity": 0.6 },
+          "key_light": { "color": "#F5F0E0", "intensity": 1.0, "direction": "high-sun-overhead" },
+          "fill_light": { "color": "#D0E8F0", "intensity": 0.4, "direction": "sky-bounce" },
+          "emissive_surfaces": false,
+          "ambient_occlusion": true
+        },
+        "fog": { "color": "#F0EDE6", "density": "light-atmospheric", "start": 80, "end": 400 },
+        "skybox": { "type": "open-sky", "top": "#D0E8F5", "horizon": "#F5F2EA", "glow_source": "warm sun, scattered clouds" },
+        "terrain": {
+          "ground": "#E8E4D8",
+          "features": ["white marble platforms", "wide ceremonial steps", "columned walkways", "pulse-green garden accents"],
+          "texture_style": "smooth stone, polished marble, clean geometric"
+        },
+        "materials": {
+          "primary_surface": "warm white stone, subtle grain texture",
+          "accent_elements": "pulse-green banners, teal water features, marigold trim details",
+          "structures": "marble and light stone with clean edges, sapphire mosaic inlays",
+          "vegetation": "emerald topiary, vine accents on columns",
+          "water": "clear reflective pools with teal tint"
+        },
+        "particles": ["drifting cloud wisps", "gentle leaf fall (soft pulse green)", "sunlight dust motes"],
+        "sound_mood": "wind through columns, distant bells, bird calls, fountain water"
+      },
+      {
+        "id": "sakura_grid",
+        "name": "Sakura Grid",
+        "foundation": "light",
+        "tagline": "Soft pink blooms on warm cream. Digital garden meets zen temple.",
+        "mood": ["serene", "elegant", "romantic", "digital-natural", "zen"],
+        "primary_colors": ["#E87ABE", "#F5F2EA"],
+        "secondary_colors": ["#E8E4D8", "#D0CCC0"],
+        "accent": "#A8E870",
+        "accent_secondary": "#B880E8",
+        "lighting": {
+          "ambient": { "color": "#F0E8E0", "intensity": 0.55 },
+          "key_light": { "color": "#F0E0E8", "intensity": 0.85, "direction": "soft-diffuse-overhead" },
+          "fill_light": { "color": "#E8E0F0", "intensity": 0.35, "direction": "ambient-bounce" },
+          "emissive_surfaces": false,
+          "soft_shadows": true
+        },
+        "fog": { "color": "#F0E8E8", "density": "light-dreamy", "start": 60, "end": 300 },
+        "skybox": { "type": "pastel-gradient", "top": "#E0D8F0", "horizon": "#F5F2EA", "glow_source": "diffuse warm light, no visible sun" },
+        "terrain": {
+          "ground": "#E8E4D8",
+          "features": ["zen garden gravel paths", "wooden bridges", "blossom trees", "reflecting pools", "grid-pattern stone tiles"],
+          "texture_style": "smooth wood, raked gravel, clean stone, organic curves"
+        },
+        "materials": {
+          "primary_surface": "warm cream stone, light wood",
+          "accent_elements": "ruby-pink blossoms, emerald moss, amethyst lanterns",
+          "structures": "light wooden frames, paper screens, curved rooflines with burgundy trim",
+          "vegetation": "blossom trees with ruby-tipped petals, emerald moss on stones",
+          "water": "still reflective pools, gentle ripples, clear with pink petal reflections"
+        },
+        "particles": ["falling blossom petals (soft magenta)", "gentle breeze ripples", "soft pulse-green fireflies at dusk"],
+        "sound_mood": "wind chimes, flowing water, rustling leaves, bamboo clacking"
+      },
+      {
+        "id": "solar_plaza",
+        "name": "Solar Plaza",
+        "foundation": "light",
+        "tagline": "Sun-drenched marketplace. Warm terracotta, yellow banners, lively trade.",
+        "mood": ["warm", "bustling", "welcoming", "sun-drenched", "festive"],
+        "primary_colors": ["#E8E07A", "#E8A870"],
+        "secondary_colors": ["#E8E4D8", "#D0CCC0"],
+        "accent": "#B8FF5C",
+        "accent_secondary": "#FF6D00",
+        "lighting": {
+          "ambient": { "color": "#F0E8D0", "intensity": 0.65 },
+          "key_light": { "color": "#F5E8C0", "intensity": 1.1, "direction": "warm-overhead-sun" },
+          "fill_light": { "color": "#E8D8C0", "intensity": 0.4, "direction": "ground-bounce-warm" },
+          "emissive_surfaces": false,
+          "hard_shadows": true
+        },
+        "fog": { "color": "#F0EBE0", "density": "minimal-heat", "start": 100, "end": 500 },
+        "skybox": { "type": "clear-warm", "top": "#C0D8E8", "horizon": "#F0E8D0", "glow_source": "bright warm sun" },
+        "terrain": {
+          "ground": "#E8E4D8",
+          "features": ["terracotta-tiled plazas", "market stall canopies", "fountain centerpieces", "potted plants"],
+          "texture_style": "warm clay, worn cobblestone, fabric awnings, ceramic"
+        },
+        "materials": {
+          "primary_surface": "warm sandstone, terracotta tiles, light plaster",
+          "accent_elements": "marigold market banners, terracotta lanterns, pulse-green produce displays",
+          "structures": "arched doorways with terracotta tile, stucco walls, coral-painted clay pots, wooden carts",
+          "vegetation": "olive trees, flowering vines, emerald herb gardens",
+          "fabric": "dyed canopies in marigold, coral, and warm white"
+        },
+        "particles": ["dust motes in sunbeams", "market confetti on breeze", "steam from food stalls"],
+        "sound_mood": "lively market chatter, guitar strings, clinking ceramics, laughing"
+      },
+      {
+        "id": "mint_haven",
+        "name": "Mint Haven",
+        "foundation": "light",
+        "tagline": "Cyan-mint pools, white stone, healing sanctuary. Breathe.",
+        "mood": ["healing", "restorative", "spa", "calm", "pristine"],
+        "primary_colors": ["#7AE8E0", "#80FFB8"],
+        "secondary_colors": ["#F5F2EA", "#E8E4D8"],
+        "accent": "#A8E870",
+        "accent_secondary": "#70B8E8",
+        "lighting": {
+          "ambient": { "color": "#E0F0F0", "intensity": 0.6 },
+          "key_light": { "color": "#E0F0F0", "intensity": 0.8, "direction": "soft-overhead" },
+          "fill_light": { "color": "#D0F0E8", "intensity": 0.4, "direction": "water-reflections" },
+          "emissive_surfaces": false,
+          "caustics": true
+        },
+        "fog": { "color": "#E8F0F0", "density": "mist-gentle", "start": 50, "end": 250 },
+        "skybox": { "type": "soft-blue", "top": "#C0E0F0", "horizon": "#F0F5F2", "glow_source": "diffuse, overcast-bright" },
+        "terrain": {
+          "ground": "#F5F2EA",
+          "features": ["white stone terraces", "shallow mint pools", "stepping stone paths", "moss gardens"],
+          "texture_style": "smooth white stone, polished, organic curves"
+        },
+        "materials": {
+          "primary_surface": "white marble, smooth river stone",
+          "accent_elements": "teal water, emerald moss, soft pulse-green plants",
+          "structures": "minimal white pavilions with teal accent trim, open-air shelters, bamboo screens",
+          "vegetation": "lush emerald moss, soft pulse-green ferns, water lilies",
+          "water": "crystal clear with deep teal tint, visible pebble floor"
+        },
+        "particles": ["gentle mist from pools", "floating pollen (soft pulse)", "water droplets on leaves"],
+        "sound_mood": "trickling water, soft wind, distant birdsong, resonant bowls"
+      },
+      {
+        "id": "prism_fields",
+        "name": "Prism Fields",
+        "foundation": "light",
+        "tagline": "Full-spectrum color on white canvas. Creative playground, no limits.",
+        "mood": ["creative", "playful", "joyful", "experimental", "colorful"],
+        "primary_colors": ["#E87ABE", "#7AE8E0", "#E8E07A"],
+        "secondary_colors": ["#F5F2EA", "#E8E4D8"],
+        "accent": "#B8FF5C",
+        "accent_secondary": "#B880E8",
+        "lighting": {
+          "ambient": { "color": "#F0F0F0", "intensity": 0.7 },
+          "key_light": { "color": "#F5F5F5", "intensity": 0.9, "direction": "bright-diffuse" },
+          "fill_light": { "color": "#E8E0F0", "intensity": 0.3, "direction": "multi-color-bounce" },
+          "emissive_surfaces": false,
+          "color_bleed": true
+        },
+        "fog": { "color": "#F5F2F0", "density": "minimal", "start": 100, "end": 500 },
+        "skybox": { "type": "bright-clean", "top": "#D0E0F8", "horizon": "#F5F2EA", "glow_source": "bright daylight, scattered prismatic light" },
+        "terrain": {
+          "ground": "#F5F2EA",
+          "features": ["white canvas platforms", "multicolor sculptural blocks", "rainbow gradient paths", "creative workshop spaces"],
+          "texture_style": "clean matte white, colorful accents, playful geometric"
+        },
+        "materials": {
+          "primary_surface": "clean white matte — the canvas for color",
+          "accent_elements": "full vivid spectrum — ruby, sapphire, emerald, marigold, amethyst — mixed with soft neons",
+          "structures": "white geometric forms with bold vivid faces, painted surfaces",
+          "vegetation": "stylized colorful plants in emerald, teal, and coral",
+          "special": "prismatic glass that refracts light into rainbow patterns, indigo shadow pools"
+        },
+        "particles": ["rainbow confetti", "floating colored orbs (soft neon mix)", "prismatic light beams"],
+        "sound_mood": "playful synth melodies, creative chimes, positive energy, laughter"
+      },
+      {
+        "id": "dawn_terrace",
+        "name": "Dawn Terrace",
+        "foundation": "light",
+        "tagline": "Golden hour forever. Warm stone, amber light, soft pink horizon.",
+        "mood": ["warm", "golden", "nostalgic", "romantic", "contemplative"],
+        "primary_colors": ["#E8A870", "#E87A7A"],
+        "secondary_colors": ["#E8E4D8", "#D0CCC0"],
+        "accent": "#A8E870",
+        "accent_secondary": "#E8E07A",
+        "lighting": {
+          "ambient": { "color": "#F0E0D0", "intensity": 0.45 },
+          "key_light": { "color": "#F0D0A0", "intensity": 0.9, "direction": "low-angle-golden" },
+          "fill_light": { "color": "#E8C0D0", "intensity": 0.35, "direction": "sky-pink-bounce" },
+          "emissive_surfaces": false,
+          "long_shadows": true
+        },
+        "fog": { "color": "#F0E0D8", "density": "light-golden", "start": 60, "end": 300 },
+        "skybox": { "type": "sunset-gradient", "top": "#D0A8C0", "horizon": "#F0D8B0", "glow_source": "low golden sun near horizon" },
+        "terrain": {
+          "ground": "#E8E4D8",
+          "features": ["terraced hillside gardens", "warm stone balustrades", "long dramatic shadows", "vine-covered pergolas"],
+          "texture_style": "warm weathered stone, aged wood, terracotta, soft moss"
+        },
+        "materials": {
+          "primary_surface": "warm sandstone, honey-colored wood",
+          "accent_elements": "terracotta lanterns beginning to glow, emerald ivy, burgundy-rose flowers, marigold highlights",
+          "structures": "arched terraces with terracotta tile, stone stairways, wrought iron in indigo patina",
+          "vegetation": "warm-toned gardens, emerald leaves catching golden light, coral blooms",
+          "lighting_fixtures": "wrought iron lanterns with soft ember glow"
+        },
+        "particles": ["golden dust motes in sunbeams", "drifting petals (soft flux/rose)", "gentle firefly emergence"],
+        "sound_mood": "distant church bells, evening birdsong, gentle breeze, acoustic guitar"
+      }
+    ]
+  },
+
+  "agent_guidelines": {
+    "philosophy": "These guidelines are suggestions, not rules. The agent is free to build any world in any color. These exist to help — not constrain. When in doubt, be bold and intentional. A Doppel world should feel like someone cared about every color choice.",
+
+    "core_principles": [
+      "Pulse (#B8FF5C) is the Doppel signature. A small touch of it — a banner, a glow, a detail — in any world anchors it as Doppel. It works on dark AND light backgrounds.",
+      "Intentional palettes beat random color. Pick 2-3 colors that work together and commit to them. The themes above are starting points.",
+      "Atmosphere creates immersion. Fog, haze, mist, or golden light — some atmospheric depth makes any world feel real.",
+      "Avoid pure white (#FFFFFF) and pure black (#000000). The named tones (Bone, Cloud, Void, Ink) have subtle warmth or cool tints that feel more considered.",
+      "Colored light is more interesting than white light. Even in bright worlds, tinting the light slightly warm or cool adds character.",
+      "The world should feel like it was designed, not generated. Restraint and consistency matter more than complexity."
+    ],
+
+    "foundation_approaches": {
+      "description": "Choose a foundation approach based on the mood you want. All are valid Doppel aesthetics.",
+      "dark": {
+        "when": "Cyberpunk, mysterious, dramatic, high-contrast, neon-forward worlds",
+        "foundation_colors": "Void, Abyss, Dusk, Slate",
+        "neon_approach": "Full-strength electric neons with glow/bloom. Emissive surfaces. Neons are the light source.",
+        "suggested_ratios": { "foundation": "70-80%", "primary_accent": "10-15%", "secondary_accent": "5-10%", "highlight": "2-5%" }
+      },
+      "light": {
+        "when": "Bright, welcoming, natural, aspirational, warm, serene worlds",
+        "foundation_colors": "Cloud, Pearl, Mist, Stone",
+        "neon_approach": "Vivid midtones for bold color with weight. Soft neons for large gentle areas. Electric neons for small punchy accents. Colored light from sun/sky, not emissive surfaces.",
+        "suggested_ratios": { "foundation": "65-80%", "primary_accent": "10-20%", "secondary_accent": "5-10%", "highlight": "2-5%" }
+      },
+      "mixed": {
+        "when": "Transition zones (sunset/dawn), underground-to-surface, layered environments",
+        "foundation_colors": "Mix dark and light freely — darker at base, lighter at sky, or vice versa",
+        "neon_approach": "Electric neons in dark areas, soft neons in light areas. Creates natural visual hierarchy.",
+        "suggested_ratios": { "foundation": "60-75%", "primary_accent": "12-20%", "secondary_accent": "5-12%", "highlight": "3-8%" }
+      }
+    },
+
+    "color_pairing_suggestions": {
+      "description": "Combinations that tend to work well. Not exhaustive — experiment freely.",
+      "classic_pairings": [
+        "Cyan + Magenta — the iconic Doppel duo",
+        "Pulse + any single neon — brand anchor + color story",
+        "Ember + Yellow — warm market energy",
+        "Rift + Magenta — rare and mysterious",
+        "Nova + Cyan — cool and calm",
+        "Soft Magenta + Soft Pulse — gentle and organic",
+        "Soft Ember + Soft Yellow — sun-drenched warmth",
+        "Soft Cyan + Soft Rift — dreamy and ethereal"
+      ],
+      "vivid_pairings": [
+        "Teal + Marigold — jewel contrast, rich and grounded",
+        "Emerald + Coral — tropical energy, warm and lush",
+        "Sapphire + Marigold — royal opulence, stained glass feel",
+        "Ruby + Indigo — dramatic depth, regal intensity",
+        "Terracotta + Teal — earth meets ocean, natural sophistication",
+        "Amethyst + Emerald — mystic garden, fantasy depth",
+        "Coral + Sapphire — Mediterranean warmth, seaside village",
+        "Burgundy + Marigold — autumn warmth, aged elegance"
+      ],
+      "cross_tier_pairings": [
+        "Vivid Teal + Soft Cyan — depth gradient, shallow-to-deep water",
+        "Vivid Ruby + Soft Magenta — bold bloom anchoring softer petals",
+        "Vivid Emerald + Pulse Green — natural world with Doppel signature",
+        "Vivid Marigold + Electric Yellow — warm glow with neon spark",
+        "Vivid Sapphire + Nova Blue — sky gradient, horizon depth"
+      ],
+      "tips": [
+        "Pick a dominant color and let others support it. Equal intensity across 3+ colors can feel chaotic.",
+        "One electric neon accent on a light foundation creates a strong focal point.",
+        "Vivid midtones carry visual weight on light backgrounds — use them where soft neons feel too timid.",
+        "Soft neons mix beautifully with each other — you can use more simultaneously than electric neons.",
+        "Mix tiers freely: vivid for structures, soft for atmosphere, electric for focal sparks.",
+        "Warm + cool contrast creates visual interest in any foundation."
+      ]
+    },
+
+    "material_suggestions": [
+      "Surfaces should have subtle texture — noise, grain, weathering. Perfect smoothness feels artificial.",
+      "On dark foundations: neon elements glow from within (emissive, bloom, subsurface scatter).",
+      "On light foundations: color comes from the surface material itself and from colored light. Less glow, more pigment.",
+      "Reflective surfaces (water, glass, metal) pick up colors from surroundings — use this for color bleeding.",
+      "Organic elements (plants, flowers) are translucent in dark worlds (inner glow) and opaque in light worlds (solid, painterly)."
+    ],
+
+    "lighting_suggestions": {
+      "dark_worlds": [
+        "Ambient light extremely low. Darkness is the canvas.",
+        "Key light from neon sources. Objects light the world.",
+        "Multiple colored light sources create overlapping pools.",
+        "Deep shadows with subtle color tinting from nearby neons."
+      ],
+      "light_worlds": [
+        "Ambient light is higher — the world is naturally bright.",
+        "Key light is directional (sun, sky). Tint it warm or cool for mood.",
+        "Shadows are softer but can be long and dramatic (golden hour).",
+        "Color comes from materials and subtle light tints, not emissive glow."
+      ]
+    },
+
+    "theme_selection_hints": {
+      "for_trading_spaces": ["neon_market", "midnight_bazaar", "ember_forge", "solar_plaza"],
+      "for_social_spaces": ["bloom_garden", "pulse_meadow", "tech_forest", "sakura_grid", "solar_plaza"],
+      "for_competitive_spaces": ["shadow_arcade", "rift_zone", "surge_spire"],
+      "for_exploration": ["crystal_depths", "void_drift", "neon_jungle", "cloudtop_citadel"],
+      "for_tech_spaces": ["data_stream", "frozen_circuit", "surge_spire"],
+      "for_rare_events": ["rift_zone", "void_drift"],
+      "for_peaceful_areas": ["pulse_meadow", "crystal_depths", "bloom_garden", "mint_haven", "sakura_grid", "dawn_terrace"],
+      "for_danger_zones": ["rift_zone", "ember_forge", "solar_wastes"],
+      "for_creative_spaces": ["prism_fields", "shadow_arcade"],
+      "for_welcoming_spaces": ["cloudtop_citadel", "solar_plaza", "mint_haven", "dawn_terrace"]
+    }
+  }
+}

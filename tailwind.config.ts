@@ -22,6 +22,9 @@ const config: Config = {
           blue: "#88c8e8",
           purple: "#c0a0e0",
         },
+        apeco: {
+          blue: "#0054FA",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],

@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doppel World Style Guide v2.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060608;
+    font-family: 'Syne', sans-serif;
+    color: #EDE8DC;
+    min-height: 100vh;
+    padding: 56px 44px 80px;
+  }
+
+  /* ── HEADER ── */
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: #B8FF5C;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+  h1 .pulse { color: #B8FF5C; text-shadow: 0 0 30px rgba(184,255,92,0.6), 0 0 80px rgba(184,255,92,0.2); }
+  .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: #2A2A3A;
+    margin-top: 14px; letter-spacing: 0.08em;
+  }
+  .gbar {
+    height: 5px; border-radius: 3px; margin-top: 14px;
+    background: linear-gradient(90deg,
+      #0BFFF0 0%, #B8FF5C 18%, #F5FF0A 32%,
+      #FF0ACD 48%, #A020FF 62%, #FF6D00 76%, #FF2020 88%, #EDE8DC 100%);
+    filter: blur(0.3px);
+  }
+  .desc-block {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: #3A3A52; line-height: 1.8;
+    margin-top: 20px; max-width: 800px;
+  }
+
+  /* ── SECTION TAGS ── */
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.45em; color: #1E1E30;
+    text-transform: uppercase;
+    margin: 56px 0 18px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-tag::after { content:''; flex:1; height:1px; background:#0E0E18; }
+
+  /* ── GRIDS ── */
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .grid-8 { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* ── FOUNDATION SWATCH ── */
+  .swatch { border-radius: 10px; overflow: hidden; transition: transform 0.2s ease; }
+  .swatch:hover { transform: translateY(-4px); }
+  .sw-color { height: 90px; position: relative; overflow: hidden; }
+  .sw-color::after {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px);
+  }
+  .sw-info { background:#0D0D16; padding:11px 13px; border-top:1px solid rgba(255,255,255,0.04); }
+  .sw-name { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2px; }
+  .sw-hex { font-family:'Space Mono',monospace; font-size:10px; color:#3A3A52; }
+  .sw-role { font-size:9px; color:#252535; font-family:'Space Mono',monospace; margin-top:4px; line-height:1.4; }
+
+  /* ── LIGHT SWATCH (for light foundation colors) ── */
+  .swatch.light-bg .sw-info { background:#F5F2EA; color:#1A1A28; border-top:1px solid rgba(0,0,0,0.08); }
+  .swatch.light-bg .sw-name { color:#1A1A28; }
+  .swatch.light-bg .sw-hex { color:#5A5668; }
+  .swatch.light-bg .sw-role { color:#5A5668; }
+
+  /* ── CMY CARDS ── */
+  .cmy-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .cmy-card { border-radius: 14px; overflow: hidden; transition: transform 0.2s ease; }
+  .cmy-card:hover { transform: translateY(-6px); }
+  .cmy-color {
+    height: 180px; position: relative;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .cmy-color::before {
+    content:''; position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    z-index:2;
+  }
+  .cmy-color::after {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.12) 0%, transparent 70%);
+    z-index:1;
+  }
+  .cmy-letter { font-size:90px; font-weight:800; position:relative; z-index:3; mix-blend-mode:overlay; opacity:0.25; color:white; user-select:none; }
+  .cmy-info { background:#0D0D16; padding:16px 18px; border-top:1px solid rgba(255,255,255,0.04); }
+  .cmy-name { font-size:15px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:4px; }
+  .cmy-hex { font-family:'Space Mono',monospace; font-size:11px; color:#3A3A52; margin-bottom:6px; }
+  .cmy-role { font-size:9px; color:#2A2A40; font-family:'Space Mono',monospace; line-height:1.6; }
+  .neon-tag {
+    display:inline-block; font-family:'Space Mono',monospace; font-size:8px;
+    letter-spacing:0.25em; padding:3px 8px; border-radius:3px; text-transform:uppercase;
+    margin-top:8px; border:1px solid currentColor;
+  }
+  .glow-c { box-shadow:0 0 40px rgba(11,255,240,0.35),0 0 80px rgba(11,255,240,0.15); }
+  .glow-m { box-shadow:0 0 40px rgba(255,10,205,0.35),0 0 80px rgba(255,10,205,0.15); }
+  .glow-y { box-shadow:0 0 40px rgba(245,255,10,0.35),0 0 80px rgba(245,255,10,0.15); }
+
+  /* ── SOFT NEON CARDS ── */
+  .soft-card { border-radius: 10px; overflow: hidden; transition: transform 0.2s ease; }
+  .soft-card:hover { transform: translateY(-4px); }
+  .soft-color { height: 90px; position: relative; overflow: hidden; background: white; }
+  .soft-color::after {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);
+  }
+  .soft-info { background:#F5F2EA; padding:11px 13px; border-top:1px solid rgba(0,0,0,0.08); color:#1A1A28; }
+  .soft-name { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2px; }
+  .soft-hex { font-family:'Space Mono',monospace; font-size:10px; color:#5A5668; }
+  .soft-role { font-size:9px; color:#5A5668; font-family:'Space Mono',monospace; margin-top:4px; line-height:1.4; }
+
+  /* ── PULSE HERO ── */
+  .pulse-hero { border-radius:14px; overflow:hidden; border:1px solid rgba(184,255,92,0.3); box-shadow:0 0 40px rgba(184,255,92,0.12),0 0 80px rgba(184,255,92,0.06); margin-bottom:12px; }
+  .pulse-hero-color {
+    height:120px; background:linear-gradient(135deg,#B8FF5C,#8EE032);
+    position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .pulse-hero-color::before {
+    content:''; position:absolute; inset:0; z-index:1;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);
+  }
+  .pulse-hero-color span { font-size:70px; font-weight:800; color:rgba(255,255,255,0.12); user-select:none; position:relative; z-index:2; }
+  .pulse-hero-info {
+    background:#0D0D16; padding:18px 22px;
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;
+    border-top:1px solid rgba(255,255,255,0.04);
+  }
+  .sub-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:8px; }
+
+  /* ── NEON SWATCH ── */
+  .ns { border-radius:10px; overflow:hidden; transition:transform 0.2s ease; }
+  .ns:hover { transform:translateY(-4px); }
+  .ns-color { height:90px; position:relative; overflow:hidden; }
+  .ns-color::before {
+    content:''; position:absolute; inset:0; z-index:1;
+    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
+  }
+  .ns-info { background:#0D0D16; padding:11px 13px; border-top:1px solid rgba(255,255,255,0.04); }
+  .ns-name { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:2px; }
+  .ns-hex { font-family:'Space Mono',monospace; font-size:10px; color:#3A3A52; }
+  .ns-role { font-size:9px; color:#252535; font-family:'Space Mono',monospace; margin-top:4px; line-height:1.4; }
+
+  /* ── THEME CARD ── */
+  .theme-card {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0D0D16;
+    border: 1px solid #0E0E18;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .theme-card.light-theme {
+    background: #F5F2EA;
+    border: 1px solid #D0CCC0;
+  }
+  .theme-card:hover {
+    transform: translateY(-4px);
+  }
+  .theme-banner {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px 20px;
+  }
+  .theme-banner::before {
+    content:''; position:absolute; inset:0; z-index:1;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);
+  }
+  .theme-banner::after {
+    content:''; position:absolute; inset:0; z-index:2;
+    background: linear-gradient(to top, rgba(13,13,22,0.9) 0%, transparent 60%);
+  }
+  .theme-banner.light-banner::after {
+    background: linear-gradient(to top, rgba(245,242,234,0.7) 0%, transparent 60%);
+  }
+  .theme-banner-text { position: relative; z-index: 3; }
+  .theme-banner-text h3 {
+    font-size: 22px; font-weight: 800;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .theme-banner.light-banner h3 {
+    color: #1A1A28 !important;
+  }
+  .theme-banner-text .tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: #3A3A52; line-height: 1.4;
+  }
+  .theme-banner.light-banner .tagline {
+    color: #5A5668;
+  }
+  .theme-body { padding: 18px 20px; }
+  .theme-card.light-theme .theme-body { color: #1A1A28; }
+
+  .theme-dots { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; }
+  .theme-dot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
+  .theme-dot-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.2em; color: #2A2A40;
+    text-transform: uppercase; margin-left: 4px;
+  }
+  .theme-card.light-theme .theme-dot-label { color: #5A5668; }
+
+  .mood-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .mood-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.15em;
+    padding: 3px 8px; border-radius: 3px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #3A3A52;
+  }
+  .theme-card.light-theme .mood-tag {
+    background: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.08);
+    color: #5A5668;
+  }
+
+  .theme-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.35em;
+    text-transform: uppercase; color: #1E1E30;
+    margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .theme-section-label::after { content:''; flex:1; height:1px; background:#0E0E18; }
+  .theme-card.light-theme .theme-section-label { color: #5A5668; }
+  .theme-card.light-theme .theme-section-label::after { background: #D0CCC0; }
+
+  .theme-detail {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #2A2A40; line-height: 1.8;
+  }
+  .theme-detail strong { color: #3A3A52; font-weight: 700; }
+  .theme-card.light-theme .theme-detail { color: #5A5668; }
+  .theme-card.light-theme .theme-detail strong { color: #1A1A28; }
+
+  .theme-kv { display: grid; grid-template-columns: 90px 1fr; gap: 2px 12px; margin-bottom: 4px; }
+  .theme-kv .k {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #1E1E30; text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .theme-card.light-theme .theme-kv .k { color: #5A5668; }
+  .theme-kv .v {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #2A2A40; line-height: 1.6;
+  }
+  .theme-card.light-theme .theme-kv .v { color: #5A5668; }
+  .theme-kv .v .hex-inline {
+    display: inline-block; width: 8px; height: 8px; border-radius: 2px;
+    vertical-align: middle; margin-right: 3px;
+  }
+
+  .theme-list {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #2A2A40; line-height: 1.8;
+    list-style: none; padding: 0;
+  }
+  .theme-card.light-theme .theme-list { color: #5A5668; }
+  .theme-list li::before { content: '→ '; color: #1E1E30; }
+  .theme-card.light-theme .theme-list li::before { color: #5A5668; }
+
+  /* ── SKY MINI ── */
+  .sky-mini {
+    height: 40px; border-radius: 6px; overflow: hidden;
+    margin-bottom: 10px; position: relative;
+  }
+  .sky-mini::after {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.05) 2px,rgba(0,0,0,0.05) 3px);
+  }
+
+  /* ── FOG BAR ── */
+  .fog-bar {
+    height: 18px; border-radius: 4px; overflow: hidden;
+    position: relative; margin-bottom: 10px;
+  }
+  .fog-inner {
+    height: 100%; border-radius: 4px;
+    position: relative;
+  }
+  .fog-label {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    font-family: 'Space Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.3);
+  }
+
+  /* ── GUIDELINES ── */
+  .rule-card {
+    background: #0D0D16;
+    border: 1px solid #0E0E18;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rule-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 3px;
+  }
+  .rule-card .rule-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #1E1E30;
+    letter-spacing: 0.2em; margin-bottom: 6px;
+  }
+  .rule-card .rule-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: #3A3A52; line-height: 1.7;
+  }
+
+  .combo-pill {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 4px;
+    margin: 3px 4px 3px 0;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #3A3A52;
+  }
+  .avoid-pill {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 4px;
+    margin: 3px 4px 3px 0;
+    background: rgba(255,32,32,0.04);
+    border: 1px solid rgba(255,32,32,0.15);
+    color: #552020;
+  }
+
+  .ratio-bar-wrap { margin-bottom: 8px; }
+  .ratio-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #2A2A40;
+    margin-bottom: 3px; display: flex; justify-content: space-between;
+  }
+  .ratio-bar { height: 8px; border-radius: 4px; background: #0E0E18; overflow: hidden; }
+  .ratio-fill { height: 100%; border-radius: 4px; }
+
+  .hint-group {
+    background: #0D0D16;
+    border: 1px solid #0E0E18;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+  }
+  .hint-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hint-themes { display: flex; flex-wrap: wrap; gap: 5px; }
+  .hint-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; padding: 3px 8px;
+    border-radius: 3px; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #3A3A52; text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FULL HEX REF TABLE ── */
+  .hex-wrap { background:#0D0D16; border-radius:12px; border:1px solid #0E0E18; overflow:hidden; }
+  .hex-table { width:100%; border-collapse:collapse; }
+  .hex-table tr { border-bottom:1px solid #0E0E18; }
+  .hex-table tr:last-child { border-bottom:none; }
+  .hex-table td { padding:10px 14px; font-family:'Space Mono',monospace; font-size:10px; vertical-align:middle; }
+  .hdot { width:14px; height:14px; border-radius:50%; display:inline-block; }
+  .hn { color:#EDE8DC; font-weight:700; letter-spacing:0.08em; }
+  .hx { color:#3A3A52; }
+  .hr { color:#252535; font-size:9px; }
+
+  /* ── NAV ── */
+  .toc {
+    position: fixed; top: 56px; right: 32px;
+    z-index: 100;
+    background: rgba(13,13,22,0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid #0E0E18;
+    border-radius: 10px;
+    padding: 14px 16px;
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
+    width: 200px;
+  }
+  .toc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.35em;
+    text-transform: uppercase; color: #1E1E30;
+    margin-bottom: 10px;
+  }
+  .toc a {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #2A2A40;
+    text-decoration: none;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: #B8FF5C; }
+  .toc a.indent { padding-left: 12px; font-size: 8px; color: #1E1E30; }
+
+  @media (max-width: 1200px) { .toc { display: none; } }
+  @media (max-width: 900px) {
+    .grid-5, .grid-4, .grid-8, .cmy-row { grid-template-columns: repeat(2, 1fr); }
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .grid-6 { grid-template-columns: repeat(3, 1fr); }
+    .pulse-hero-info { grid-template-columns: 1fr; }
+    body { padding: 32px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="toc">
+  <div class="toc-label">Contents</div>
+  <a href="#foundation-dark">01 Dark Foundation</a>
+  <a href="#foundation-light">02 Light Foundation</a>
+  <a href="#shared">03 Shared Neutrals</a>
+  <a href="#electric">04 Electric Neons</a>
+  <a href="#soft">05 Soft Neons</a>
+  <a href="#vivid">05b Vivid Midtones</a>
+  <a href="#pulse">06 Pulse Brand</a>
+  <a href="#signals">07 Signal Accents</a>
+  <a href="#themes">08 World Themes</a>
+  <a class="indent" href="#dark-themes">Dark Themes (15)</a>
+  <a class="indent" href="#light-themes">Light Themes (6)</a>
+  <a href="#guidelines">09 Agent Guidelines</a>
+  <a href="#ref">10 Full Hex Reference</a>
+</nav>
+
+<!-- HEADER -->
+<div class="eyebrow">Doppel · World Style Guide · v2.0 · Flexible · Agent + Human Reference</div>
+<h1>DOPPEL<br><span class="pulse">WORLDS</span></h1>
+<div class="sub">// intentional palettes · dark to light · 21 realm themes · suggestions not rules</div>
+<div class="gbar"></div>
+<div class="desc-block">
+  Flexible style guide for building 3D environments that feel distinctly Doppel. Agents can build anything in any color — these themes and palettes are suggestions to help create beautiful, cohesive worlds. Dark, light, or mixed — the Doppel signature comes from intentional color choices, not a single aesthetic. Neon bleeds light into darkness. Pastels sit gently on bright foundations. What unites all Doppel worlds is craft: deliberate palettes, atmospheric depth, and meaningful moments where Pulse green appears.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 01 DARK FOUNDATION -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="foundation-dark">01 · Dark Foundation · Near-Black Bases</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Classic near-black tones. Neons earn their glow by contrast. Use these for cyberpunk, mysterious, high-stakes worlds.
+</div>
+<div class="grid-5">
+  <div class="swatch">
+    <div class="sw-color" style="background:#060608;border:1px solid #111120;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#1A1A28;">Void</div><div class="sw-hex">#060608</div><div class="sw-role">Sky · deep space · emptiness</div></div>
+  </div>
+  <div class="swatch">
+    <div class="sw-color" style="background:#0D0D16;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#2A2A40;">Abyss</div><div class="sw-hex">#0D0D16</div><div class="sw-role">Ground plane · world canvas</div></div>
+  </div>
+  <div class="swatch">
+    <div class="sw-color" style="background:#1A1A28;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#6A6A8A;">Dusk</div><div class="sw-hex">#1A1A28</div><div class="sw-role">Terrain · base block surfaces</div></div>
+  </div>
+  <div class="swatch">
+    <div class="sw-color" style="background:#2A2A40;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#9A9ABB;">Slate</div><div class="sw-hex">#2A2A40</div><div class="sw-role">Structures · mid-layer blocks</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 02 LIGHT FOUNDATION -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="foundation-light">02 · Light Foundation · Warm Bright Tones</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Open, bright, inviting tones. Perfect for daytime, natural, welcoming worlds. Pair with soft neons or full-strength accents.
+</div>
+<div class="grid-5">
+  <div class="swatch light-bg">
+    <div class="sw-color" style="background:#F5F2EA;border:1px solid #E0DDCC;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#1A1A28;">Cloud</div><div class="sw-hex">#F5F2EA</div><div class="sw-role">Sky · open space · backgrounds</div></div>
+  </div>
+  <div class="swatch light-bg">
+    <div class="sw-color" style="background:#E8E4D8;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#1A1A28;">Pearl</div><div class="sw-hex">#E8E4D8</div><div class="sw-role">Ground · light canvas · primary surface</div></div>
+  </div>
+  <div class="swatch light-bg">
+    <div class="sw-color" style="background:#D0CCC0;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#1A1A28;">Mist</div><div class="sw-hex">#D0CCC0</div><div class="sw-role">Terrain · paths · structural</div></div>
+  </div>
+  <div class="swatch light-bg">
+    <div class="sw-color" style="background:#9A96A0;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#EDE8DC;">Stone</div><div class="sw-hex">#9A96A0</div><div class="sw-role">Structures · shadows · cool-mid</div></div>
+  </div>
+  <div class="swatch light-bg">
+    <div class="sw-color" style="background:#5A5668;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#EDE8DC;">Graphite</div><div class="sw-hex">#5A5668</div><div class="sw-role">Text · details · deep shadows</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 03 SHARED NEUTRALS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="shared">03 · Shared Neutrals · Dark & Light Bridges</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  These two colors bridge dark and light worlds. Bone works on dark. Ink works on light. Use them for UI, text, logo work across both foundations.
+</div>
+<div class="grid-2" style="max-width:400px;">
+  <div class="swatch">
+    <div class="sw-color" style="background:#EDE8DC;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#1A1A28;">Bone</div><div class="sw-hex">#EDE8DC</div><div class="sw-role">Logo · UI text on dark · highlights</div></div>
+  </div>
+  <div class="swatch">
+    <div class="sw-color" style="background:#1A1A28;"></div>
+    <div class="sw-info"><div class="sw-name" style="color:#EDE8DC;">Ink</div><div class="sw-hex">#1A1A28</div><div class="sw-role">Text on light · Dusk revisited</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 04 ELECTRIC NEONS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="electric">04 · Electric Neons · Full Strength</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Maximum saturation, maximum energy. These glow best on dark foundations or as small punchy accents on light ones.
+</div>
+<div class="cmy-row">
+  <div class="cmy-card glow-c">
+    <div class="cmy-color" style="background:#0BFFF0;box-shadow:inset 0 0 80px rgba(11,255,240,0.3);"><span class="cmy-letter">C</span></div>
+    <div class="cmy-info">
+      <div class="cmy-name" style="color:#0BFFF0;">Neon Cyan</div>
+      <div class="cmy-hex">#0BFFF0</div>
+      <div class="cmy-role">Player glow · portals · tech structures · water · active blocks</div>
+      <div class="neon-tag" style="color:#0BFFF0;">Glow: Large</div>
+    </div>
+  </div>
+  <div class="cmy-card glow-m">
+    <div class="cmy-color" style="background:#FF0ACD;box-shadow:inset 0 0 80px rgba(255,10,205,0.3);"><span class="cmy-letter">M</span></div>
+    <div class="cmy-info">
+      <div class="cmy-name" style="color:#FF0ACD;">Neon Magenta</div>
+      <div class="cmy-hex">#FF0ACD</div>
+      <div class="cmy-role">Flora · neon grass · bloom zones · social · rift edges</div>
+      <div class="neon-tag" style="color:#FF0ACD;">Glow: Large</div>
+    </div>
+  </div>
+  <div class="cmy-card glow-y">
+    <div class="cmy-color" style="background:#F5FF0A;box-shadow:inset 0 0 80px rgba(245,255,10,0.25);"><span class="cmy-letter">Y</span></div>
+    <div class="cmy-info">
+      <div class="cmy-name" style="color:#F5FF0A;">Neon Yellow</div>
+      <div class="cmy-hex">#F5FF0A</div>
+      <div class="cmy-role">Fire · loot · neon signs · rewards · market highlights</div>
+      <div class="neon-tag" style="color:#F5FF0A;">Glow: Large</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 05 SOFT NEONS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="soft">05 · Soft Neons · Pastel Variants</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Desaturated, pastel-shifted versions. Perfect on light foundations. These soft colors mix beautifully together while still feeling distinctly Doppel.
+</div>
+<div class="grid-8">
+  <div class="soft-card">
+    <div class="soft-color" style="background:#7AE8E0;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#7AE8E0;">Soft Cyan</div><div class="soft-hex">#7AE8E0</div><div class="soft-role">Pools · glass · calm tech</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#E87ABE;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#E87ABE;">Soft Magenta</div><div class="soft-hex">#E87ABE</div><div class="soft-role">Blossoms · fabric · social</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#E8E07A;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#B8A850;">Soft Yellow</div><div class="soft-hex">#E8E07A</div><div class="soft-role">Sunlight · sand · warmth</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#A8E870;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#7A8A50;">Soft Pulse</div><div class="soft-hex">#A8E870</div><div class="soft-role">Meadow grass · growth · soft brand</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#E8A870;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#B88050;">Soft Ember</div><div class="soft-hex">#E8A870</div><div class="soft-role">Lanterns · terracotta · firelight</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#B880E8;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#804AC0;">Soft Rift</div><div class="soft-hex">#B880E8</div><div class="soft-role">Lavender · gentle mystery</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#70B8E8;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#5080A0;">Soft Nova</div><div class="soft-hex">#70B8E8</div><div class="soft-role">Sky · gentle water · info</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#E87A7A;"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#A85050;">Soft Flux</div><div class="soft-hex">#E87A7A</div><div class="soft-role">Sunset · rose · gentle warning</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 05b VIVID MIDTONES -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="vivid">05b · Vivid Midtones · Saturated Jewel & Earth Tones</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Bold, saturated colors at 70-85% intensity. The missing middle between soft pastels and electric neons. Jewel tones, earth tones, and rich hues that carry real visual weight on light foundations.
+</div>
+<div class="grid-8">
+  <div class="soft-card">
+    <div class="soft-color" style="background:#0A8A7A;box-shadow:0 0 20px rgba(10,138,122,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#0A8A7A;">Teal</div><div class="soft-hex">#0A8A7A</div><div class="soft-role">Deep water · jewel pools · rich glass</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#1A9A50;box-shadow:0 0 20px rgba(26,154,80,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#1A9A50;">Emerald</div><div class="soft-hex">#1A9A50</div><div class="soft-role">Dense canopy · gem facets · lush terrain</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#2060D0;box-shadow:0 0 20px rgba(32,96,208,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#2060D0;">Sapphire</div><div class="soft-hex">#2060D0</div><div class="soft-role">Deep sky · royal structures · stained glass</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#C82048;box-shadow:0 0 20px rgba(200,32,72,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#C82048;">Ruby</div><div class="soft-hex">#C82048</div><div class="soft-role">Bold markers · regal banners · dramatic flowers</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#7838A8;box-shadow:0 0 20px rgba(120,56,168,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#7838A8;">Amethyst</div><div class="soft-hex">#7838A8</div><div class="soft-role">Mystic stone · wisteria · rare structures</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#E86050;box-shadow:0 0 20px rgba(232,96,80,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#E86050;">Coral</div><div class="soft-hex">#E86050</div><div class="soft-role">Warm accents · clay roofs · sunset</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#C06A3A;box-shadow:0 0 20px rgba(192,106,58,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#C06A3A;">Terracotta</div><div class="soft-hex">#C06A3A</div><div class="soft-role">Earth walls · pottery · warm ground</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#D09810;box-shadow:0 0 20px rgba(208,152,16,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#D09810;">Marigold</div><div class="soft-hex">#D09810</div><div class="soft-role">Rich gold · treasure · sunlit banners</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#3848B0;box-shadow:0 0 20px rgba(56,72,176,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#3848B0;">Indigo</div><div class="soft-hex">#3848B0</div><div class="soft-role">Deep twilight · dyed fabric · ocean depths</div></div>
+  </div>
+  <div class="soft-card">
+    <div class="soft-color" style="background:#8A2040;box-shadow:0 0 20px rgba(138,32,64,0.3);"></div>
+    <div class="soft-info"><div class="soft-name" style="color:#8A2040;">Burgundy</div><div class="soft-hex">#8A2040</div><div class="soft-role">Wine · velvet · aged wood</div></div>
+  </div>
+</div>
+
+<!-- Vivid Midtones Color Pairings -->
+<div style="margin-top:28px;margin-bottom:14px;">
+  <div class="sub-label" style="color:#2A3A1A;margin-bottom:10px;">Vivid Midtones · Color Pairings</div>
+  <div style="font-family:'Space Mono',monospace;font-size:11px;color:#3A3A52;line-height:2.0;">
+    <strong style="color:#0A8A7A;">Teal + Marigold</strong> — jewel contrast, rich and grounded<br>
+    <strong style="color:#1A9A50;">Emerald + Coral</strong> — tropical energy, warm and lush<br>
+    <strong style="color:#2060D0;">Sapphire + Marigold</strong> — royal opulence, stained glass feel<br>
+    <strong style="color:#C82048;">Ruby + Indigo</strong> — dramatic depth, regal intensity<br>
+    <strong style="color:#C06A3A;">Terracotta + Teal</strong> — earth meets ocean, natural sophistication
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 06 PULSE BRAND -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="pulse">06 · Pulse · Doppel Brand Color · Expanded</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Doppel's signature color. The heartbeat. Use it sparingly — it should feel like a reward when it appears. Works on dark AND light backgrounds.
+</div>
+
+<div class="pulse-hero">
+  <div class="pulse-hero-color"><span>PULSE</span></div>
+  <div class="pulse-hero-info">
+    <div>
+      <div class="ns-name" style="color:#B8FF5C;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">Pulse</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#3A3A52;margin-top:4px;">#B8FF5C</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2A3A1A;margin-top:6px;line-height:1.6;">Doppel logo · brand anchor · gains · growth terrain</div>
+    </div>
+    <div>
+      <div class="sub-label" style="color:#2A3A1A;">Values</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#3A3A52;line-height:1.9;">
+        RGB 184 · 255 · 92<br>
+        HSL 86° · 100% · 68%<br>
+        CMYK 28 · 0 · 64 · 0
+      </div>
+    </div>
+    <div>
+      <div class="sub-label" style="color:#2A3A1A;">Use For</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2A3A1A;line-height:1.9;">
+        Primary CTA<br>Active states<br>Reward glow<br>Logo mark<br>Gain indicators
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pulse tints & shades -->
+<div style="margin-bottom:12px;">
+  <div class="sub-label" style="color:#2A3A1A;margin-bottom:10px;">Pulse · Tints & Shades</div>
+  <div class="grid-6">
+    <div class="ns">
+      <div class="ns-color" style="background:#F0FFD4;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;"><div class="ns-name" style="color:#F0FFD4;font-size:10px;">100</div><div class="ns-hex" style="font-size:9px;">#F0FFD4</div><div class="ns-role">Extreme tint · highlight</div></div>
+    </div>
+    <div class="ns">
+      <div class="ns-color" style="background:#D4FFAA;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;"><div class="ns-name" style="color:#D4FFAA;font-size:10px;">200</div><div class="ns-hex" style="font-size:9px;">#D4FFAA</div><div class="ns-role">Light · UI text on dark</div></div>
+    </div>
+    <div class="ns" style="border:1px solid rgba(184,255,92,0.4);box-shadow:0 0 16px rgba(184,255,92,0.15);">
+      <div class="ns-color" style="background:#B8FF5C;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;background:#0D1A08;"><div class="ns-name" style="color:#B8FF5C;font-size:10px;">Base</div><div class="ns-hex" style="font-size:9px;">#B8FF5C</div><div class="ns-role">Brand base value</div></div>
+    </div>
+    <div class="ns">
+      <div class="ns-color" style="background:#8ECC38;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;"><div class="ns-name" style="color:#8ECC38;font-size:10px;">600</div><div class="ns-hex" style="font-size:9px;">#8ECC38</div><div class="ns-role">Pressed · hover dark</div></div>
+    </div>
+    <div class="ns">
+      <div class="ns-color" style="background:#5A8A18;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;"><div class="ns-name" style="color:#5A8A18;font-size:10px;">700</div><div class="ns-hex" style="font-size:9px;">#5A8A18</div><div class="ns-role">Shadow · deep terrain</div></div>
+    </div>
+    <div class="ns">
+      <div class="ns-color" style="background:#2A4A06;height:72px;"></div>
+      <div class="ns-info" style="padding:9px 11px;"><div class="ns-name" style="color:#2A4A06;font-size:10px;">900</div><div class="ns-hex" style="font-size:9px;">#2A4A06</div><div class="ns-role">Background tint · base</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Pulse hue neighbors -->
+<div>
+  <div class="sub-label" style="color:#2A3A1A;margin-bottom:10px;">Pulse · Hue Neighbors & Shifts</div>
+  <div class="grid-4">
+    <div class="ns" style="border:1px solid rgba(95,255,92,0.25);">
+      <div class="ns-color" style="background:#5FFF5C;box-shadow:inset 0 0 20px rgba(95,255,92,0.12);height:82px;"></div>
+      <div class="ns-info"><div class="ns-name" style="color:#5FFF5C;">Surge</div><div class="ns-hex">#5FFF5C</div><div class="ns-role">Pulse → pure green. Max growth, rare terrain.</div></div>
+    </div>
+    <div class="ns" style="border:1px solid rgba(184,255,0,0.25);">
+      <div class="ns-color" style="background:#B8FF00;box-shadow:inset 0 0 20px rgba(184,255,0,0.12);height:82px;"></div>
+      <div class="ns-info"><div class="ns-name" style="color:#B8FF00;">Volt</div><div class="ns-hex">#B8FF00</div><div class="ns-role">Pulse max sat. Speed zones, electric terrain.</div></div>
+    </div>
+    <div class="ns" style="border:1px solid rgba(222,255,10,0.25);">
+      <div class="ns-color" style="background:#DEFF0A;box-shadow:inset 0 0 20px rgba(222,255,10,0.12);height:82px;"></div>
+      <div class="ns-info"><div class="ns-name" style="color:#DEFF0A;">Charge</div><div class="ns-hex">#DEFF0A</div><div class="ns-role">Pulse → yellow. Energy, neon signage.</div></div>
+    </div>
+    <div class="ns" style="border:1px solid rgba(128,255,184,0.25);">
+      <div class="ns-color" style="background:#80FFB8;box-shadow:inset 0 0 20px rgba(128,255,184,0.12);height:82px;"></div>
+      <div class="ns-info"><div class="ns-name" style="color:#80FFB8;">Mint</div><div class="ns-hex">#80FFB8</div><div class="ns-role">Pulse → teal. Calm zones, healing terrain.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 07 SIGNAL ACCENTS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="signals">07 · Signal Accents · Semantic Colors</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:14px;">
+  Accent neons for specific semantic meanings. Each carries intention.
+</div>
+<div class="grid-4">
+  <div class="ns">
+    <div class="ns-color" style="background:#FF6D00;box-shadow:inset 0 0 30px rgba(255,109,0,0.15);"></div>
+    <div class="ns-info"><div class="ns-name" style="color:#FF6D00;">Ember</div><div class="ns-hex">#FF6D00</div><div class="ns-role">Fire · campfire · market heat</div></div>
+  </div>
+  <div class="ns">
+    <div class="ns-color" style="background:#A020FF;box-shadow:inset 0 0 30px rgba(160,32,255,0.15);"></div>
+    <div class="ns-info"><div class="ns-name" style="color:#A020FF;">Rift</div><div class="ns-hex">#A020FF</div><div class="ns-role">Rare portals · mystery zones</div></div>
+  </div>
+  <div class="ns">
+    <div class="ns-color" style="background:#FF2020;box-shadow:inset 0 0 30px rgba(255,32,32,0.15);"></div>
+    <div class="ns-info"><div class="ns-name" style="color:#FF2020;">Flux</div><div class="ns-hex">#FF2020</div><div class="ns-role">Danger · volatility · dips</div></div>
+  </div>
+  <div class="ns">
+    <div class="ns-color" style="background:#00AAFF;box-shadow:inset 0 0 30px rgba(0,170,255,0.15);"></div>
+    <div class="ns-info"><div class="ns-name" style="color:#00AAFF;">Nova</div><div class="ns-hex">#00AAFF</div><div class="ns-role">Info · sky zones · cold terrain</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 08 WORLD THEMES -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="themes">08 · World Themes · 21 Realms Total</div>
+
+<!-- DARK THEMES SECTION -->
+<h2 style="font-size:18px;font-weight:700;color:#B8FF5C;margin:40px 0 24px;text-transform:uppercase;letter-spacing:0.05em;" id="dark-themes">Dark Themes (15 Neon Realms)</h2>
+
+<!-- THEME: Tech Forest -->
+<div class="theme-card" id="theme-tech_forest" style="margin-bottom:16px;">
+  <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #0D0D16 40%, #1A1A28 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(255,10,205,0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(11,255,240,0.12) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#0BFFF0;text-shadow:0 0 20px rgba(11,255,240,0.4);">Tech Forest</h3>
+      <div class="tagline">Magenta flora, cyan glow, dark void. The default Doppel look.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 10px rgba(255,10,205,0.6);"></div>
+      <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 10px rgba(11,255,240,0.6);"></div>
+      <div class="theme-dot" style="background:#1A1A28;"></div>
+      <div class="theme-dot" style="background:#060608;border:1px solid #1A1A28;"></div>
+      <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.4);"></div>
+      <div class="theme-dot-label">accent</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">alien</span><span class="mood-tag">bioluminescent</span><span class="mood-tag">mysterious</span><span class="mood-tag">serene-but-electric</span>
+    </div>
+    <div class="theme-section-label">Lighting</div>
+    <div class="theme-kv">
+      <span class="k">Ambient</span><span class="v"><span class="hex-inline" style="background:#0A0A1A;border:1px solid #222;"></span>#0A0A1A · intensity 0.15</span>
+      <span class="k">Key</span><span class="v"><span class="hex-inline" style="background:#0BFFF0;"></span>#0BFFF0 · 0.6 · overhead-left</span>
+      <span class="k">Fill</span><span class="v"><span class="hex-inline" style="background:#FF0ACD;"></span>#FF0ACD · 0.3 · ground-up</span>
+      <span class="k">Emissive</span><span class="v">Yes</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Ground:</strong> #0D0D16 · smooth matte with emissive veins<br>
+      <strong>Glow:</strong> emissive neon, soft bloom, slight subsurface scatter<br>
+      <strong>Foliage:</strong> translucent magenta with inner glow<br>
+      <strong>Water:</strong> dark reflective with cyan caustics
+    </div>
+    <ul class="theme-list" style="margin-top:8px;">
+      <li>Dark crystalline blocks</li>
+      <li>Glowing cyan cracks in terrain</li>
+      <li>Magenta bioluminescent trees</li>
+    </ul>
+  </div>
+</div>
+
+<!-- THEME: Neon Market -->
+<div class="theme-card" id="theme-neon_market" style="margin-bottom:16px;">
+  <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #0D0D16 40%, #1A1018 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(245,255,10,0.12) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255,109,0,0.1) 0%, transparent 40%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#F5FF0A;text-shadow:0 0 20px rgba(245,255,10,0.4);">Neon Market</h3>
+      <div class="tagline">Yellow neon signs, pulse gains, ember fire. Hot market zones.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#F5FF0A;box-shadow:0 0 10px rgba(245,255,10,0.6);"></div>
+      <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.5);"></div>
+      <div class="theme-dot" style="background:#FF6D00;box-shadow:0 0 8px rgba(255,109,0,0.5);"></div>
+      <div class="theme-dot" style="background:#0D0D16;"></div>
+      <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 8px rgba(255,10,205,0.4);"></div>
+      <div class="theme-dot-label">accent</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">bustling</span><span class="mood-tag">commercial</span><span class="mood-tag">electric</span><span class="mood-tag">night-city</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Ground:</strong> #0D0D16 · worn industrial with neon overlays<br>
+      <strong>Glow:</strong> bright neon tube signs, LED strips, holographic price displays<br>
+      <strong>Structures:</strong> dark steel and glass with yellow/green reflections
+    </div>
+    <ul class="theme-list" style="margin-top:8px;">
+      <li>Cobblestone-dark streets</li>
+      <li>Glowing yellow signage</li>
+      <li>Ember-lit market stalls</li>
+    </ul>
+  </div>
+</div>
+
+<!-- THEME: Rift Zone -->
+<div class="theme-card" id="theme-rift_zone" style="margin-bottom:16px;">
+  <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #0A0616 50%, #060608 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%, rgba(160,32,255,0.2) 0%, transparent 50%), radial-gradient(ellipse at 60% 70%, rgba(255,32,32,0.1) 0%, transparent 40%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#A020FF;text-shadow:0 0 20px rgba(160,32,255,0.5);">Rift Zone</h3>
+      <div class="tagline">Rift purple, magenta edge, flux red. High-stakes rare events.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#A020FF;box-shadow:0 0 10px rgba(160,32,255,0.6);"></div>
+      <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 10px rgba(255,10,205,0.5);"></div>
+      <div class="theme-dot" style="background:#FF2020;box-shadow:0 0 8px rgba(255,32,32,0.5);"></div>
+      <div class="theme-dot" style="background:#060608;border:1px solid #1A1A28;"></div>
+      <div class="theme-dot" style="background:#F5FF0A;box-shadow:0 0 8px rgba(245,255,10,0.4);"></div>
+      <div class="theme-dot-label">accent</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">dangerous</span><span class="mood-tag">unstable</span><span class="mood-tag">rare</span><span class="mood-tag">high-stakes</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Ground:</strong> #060608 · shattered obsidian with emissive fractures<br>
+      <strong>Glow:</strong> pulsing rift purple, unstable magenta edges<br>
+      <strong>Danger:</strong> flux red veins, molten energy pools
+    </div>
+    <ul class="theme-list" style="margin-top:8px;">
+      <li>Fractured floating terrain</li>
+      <li>Glowing rift cracks (purple)</li>
+      <li>Red lava-like energy seams</li>
+    </ul>
+  </div>
+</div>
+
+<!-- THEME: Crystal Depths (remaining dark themes abbreviated for brevity) -->
+<div class="theme-card" id="theme-crystal_depths" style="margin-bottom:16px;">
+  <div class="theme-banner" style="background: linear-gradient(180deg, #040810 0%, #0D0D16 60%, #0D1A28 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 70%, rgba(11,255,240,0.1) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#0BFFF0;text-shadow:0 0 20px rgba(11,255,240,0.3);">Crystal Depths</h3>
+      <div class="tagline">Submerged caverns, cyan bioluminescence, deep blue pressure.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 10px rgba(11,255,240,0.6);"></div>
+      <div class="theme-dot" style="background:#00AAFF;box-shadow:0 0 8px rgba(0,170,255,0.5);"></div>
+      <div class="theme-dot" style="background:#080810;"></div>
+    </div>
+    <div class="mood-tags"><span class="mood-tag">submerged</span><span class="mood-tag">ancient</span><span class="mood-tag">bioluminescent</span><span class="mood-tag">contemplative</span></div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail"><strong>Surface:</strong> dark wet rock with translucent cyan crystals · <strong>Glow:</strong> bioluminescent organisms · <strong>Water:</strong> dark deep blue with cyan caustics</div>
+  </div>
+</div>
+
+<!-- Quick list of remaining dark themes -->
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;">
+  <div class="theme-card" id="theme-solar_wastes" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(135deg, #1A1008 0%, #1A1A28 60%, #060608 100%);">
+      <div class="theme-banner-text"><h3 style="color:#FF6D00;text-shadow:0 0 20px rgba(255,109,0,0.4);">Solar Wastes</h3><div class="tagline">Scorched desert, ember heat haze, yellow warning signs.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#FF6D00;box-shadow:0 0 10px rgba(255,109,0,0.6);"></div>
+        <div class="theme-dot" style="background:#F5FF0A;box-shadow:0 0 8px rgba(245,255,10,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">desolate</span><span class="mood-tag">hot</span><span class="mood-tag">survival</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-frozen_circuit" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(180deg, #060608 0%, #060D12 60%, #0D1A20 100%);">
+      <div class="theme-banner-text"><h3 style="color:#80FFB8;text-shadow:0 0 20px rgba(128,255,184,0.3);">Frozen Circuit</h3><div class="tagline">Ice-locked technology, cyan frost, crystalline logic.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 10px rgba(11,255,240,0.5);"></div>
+        <div class="theme-dot" style="background:#80FFB8;box-shadow:0 0 8px rgba(128,255,184,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">cold</span><span class="mood-tag">precise</span><span class="mood-tag">digital</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-bloom_garden" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #0A0D08 50%, #1A2818 100%);">
+      <div class="theme-banner-text"><h3 style="color:#FF0ACD;text-shadow:0 0 20px rgba(255,10,205,0.4);">Bloom Garden</h3><div class="tagline">Explosive organic growth, magenta blooms, pulse-green overgrowth.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 10px rgba(255,10,205,0.6);"></div>
+        <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">lush</span><span class="mood-tag">organic</span><span class="mood-tag">vibrant</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-shadow_arcade" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: #060608;">
+      <div class="theme-banner-text"><h3 style="color:#FF0ACD;text-shadow:0 0 20px rgba(255,10,205,0.4);">Shadow Arcade</h3><div class="tagline">Retro-neon gaming district, magenta and yellow on pitch black.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 10px rgba(255,10,205,0.6);"></div>
+        <div class="theme-dot" style="background:#F5FF0A;box-shadow:0 0 10px rgba(245,255,10,0.6);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">retro</span><span class="mood-tag">playful</span><span class="mood-tag">glitchy</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-ember_forge" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #100804 50%, #1A0808 100%);">
+      <div class="theme-banner-text"><h3 style="color:#FF6D00;text-shadow:0 0 20px rgba(255,109,0,0.5);">Ember Forge</h3><div class="tagline">Volcanic industrial, molten metal, red danger and orange firelight.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#FF6D00;box-shadow:0 0 10px rgba(255,109,0,0.6);"></div>
+        <div class="theme-dot" style="background:#FF2020;box-shadow:0 0 8px rgba(255,32,32,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">industrial</span><span class="mood-tag">volcanic</span><span class="mood-tag">intense</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-void_drift" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: #060608;">
+      <div class="theme-banner-text"><h3 style="color:#A020FF;text-shadow:0 0 20px rgba(160,32,255,0.3);">Void Drift</h3><div class="tagline">Deep space emptiness, distant stars, purple nebulae, absolute silence.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#A020FF;box-shadow:0 0 10px rgba(160,32,255,0.5);"></div>
+        <div class="theme-dot" style="background:#00AAFF;box-shadow:0 0 8px rgba(0,170,255,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">isolated</span><span class="mood-tag">vast</span><span class="mood-tag">cosmic</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-pulse_meadow" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(180deg, #060608 0%, #080D08 60%, #1A2818 100%);">
+      <div class="theme-banner-text"><h3 style="color:#B8FF5C;text-shadow:0 0 20px rgba(184,255,92,0.4);">Pulse Meadow</h3><div class="tagline">Open fields of pulse-green energy, peaceful and rewarding.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 10px rgba(184,255,92,0.6);"></div>
+        <div class="theme-dot" style="background:#D4FFAA;box-shadow:0 0 8px rgba(212,255,170,0.4);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">peaceful</span><span class="mood-tag">rewarding</span><span class="mood-tag">growth</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-neon_jungle" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(135deg, #060608 0%, #080A08 50%, #060608 100%);">
+      <div class="theme-banner-text"><h3 style="color:#5FFF5C;text-shadow:0 0 20px rgba(95,255,92,0.4);">Neon Jungle</h3><div class="tagline">Dense tropical overgrowth meets full-spectrum neon. Overwhelming sensory.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#5FFF5C;box-shadow:0 0 8px rgba(95,255,92,0.5);"></div>
+        <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 8px rgba(255,10,205,0.5);"></div>
+        <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 8px rgba(11,255,240,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">dense</span><span class="mood-tag">chaotic</span><span class="mood-tag">maximalist</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-data_stream" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: #060608;">
+      <div class="theme-banner-text"><h3 style="color:#0BFFF0;text-shadow:0 0 20px rgba(11,255,240,0.3);">Data Stream</h3><div class="tagline">Inside the machine. Flowing data rivers, holographic architecture.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 10px rgba(11,255,240,0.6);"></div>
+        <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">digital</span><span class="mood-tag">flowing</span><span class="mood-tag">transcendent</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-midnight_bazaar" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(135deg, #0D0808 0%, #1A1A28 50%, #0D0D16 100%);">
+      <div class="theme-banner-text"><h3 style="color:#FF6D00;text-shadow:0 0 20px rgba(255,109,0,0.4);">Midnight Bazaar</h3><div class="tagline">Underground trading, ember lanterns, magenta silks, shadowy dealings.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#FF6D00;box-shadow:0 0 10px rgba(255,109,0,0.6);"></div>
+        <div class="theme-dot" style="background:#FF0ACD;box-shadow:0 0 8px rgba(255,10,205,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">secretive</span><span class="mood-tag">exotic</span><span class="mood-tag">mysterious</span></div>
+    </div>
+  </div>
+
+  <div class="theme-card" id="theme-surge_spire" style="margin-bottom:0;">
+    <div class="theme-banner" style="background: linear-gradient(180deg, #060608 0%, #040808 50%, #060608 100%);">
+      <div class="theme-banner-text"><h3 style="color:#5FFF5C;text-shadow:0 0 20px rgba(95,255,92,0.4);">Surge Spire</h3><div class="tagline">Vertical cityscape, towering green-lit spires, vertiginous heights.</div></div>
+    </div>
+    <div class="theme-body">
+      <div class="theme-dots">
+        <div class="theme-dot" style="background:#5FFF5C;box-shadow:0 0 10px rgba(95,255,92,0.6);"></div>
+        <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.5);"></div>
+      </div>
+      <div class="mood-tags"><span class="mood-tag">vertical</span><span class="mood-tag">ambitious</span><span class="mood-tag">futuristic</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHT THEMES SECTION -->
+<h2 style="font-size:18px;font-weight:700;color:#A8E870;margin:40px 0 24px;text-transform:uppercase;letter-spacing:0.05em;" id="light-themes">Light Themes (6 Bright Realms)</h2>
+
+<!-- THEME: Cloudtop Citadel -->
+<div class="theme-card light-theme" id="theme-cloudtop_citadel" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #F5F2EA 0%, #E8E4D8 40%, #D0E8F5 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(180,255,92,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(11,255,240,0.08) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#0BFFF0;text-shadow:0 0 15px rgba(11,255,240,0.2);">Cloudtop Citadel</h3>
+      <div class="tagline">White marble, open sky, pulse-green banners. Aspirational and clean.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#F5F2EA;border:1px solid #D0CCC0;"></div>
+      <div class="theme-dot" style="background:#E8E4D8;border:1px solid #D0CCC0;"></div>
+      <div class="theme-dot" style="background:#D0CCC0;"></div>
+      <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.4);"></div>
+      <div class="theme-dot" style="background:#0BFFF0;box-shadow:0 0 8px rgba(11,255,240,0.4);"></div>
+      <div class="theme-dot-label">accents</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">aspirational</span><span class="mood-tag">clean</span><span class="mood-tag">monumental</span><span class="mood-tag">open</span><span class="mood-tag">heavenly</span>
+    </div>
+    <div class="theme-section-label">Lighting & Atmosphere</div>
+    <div class="theme-detail">
+      <strong>Key Light:</strong> bright warm sun overhead, intensity 1.0<br>
+      <strong>Fog:</strong> light atmospheric, 80–400 units<br>
+      <strong>Sky:</strong> clear blue-white gradient, scattered clouds
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> warm white stone, smooth marble, clean geometric<br>
+      <strong>Accents:</strong> pulse-green banners, cyan water features, gold trim<br>
+      <strong>Details:</strong> columned walkways, ceremonial steps, light stone
+    </div>
+  </div>
+</div>
+
+<!-- THEME: Sakura Grid -->
+<div class="theme-card light-theme" id="theme-sakura_grid" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #F5F2EA 0%, #E8E4D8 40%, #E0D8F0 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(232,122,190,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(184,128,232,0.08) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#E87ABE;text-shadow:0 0 15px rgba(232,122,190,0.2);">Sakura Grid</h3>
+      <div class="tagline">Soft pink blooms on warm cream. Digital garden meets zen temple.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#E87ABE;box-shadow:0 0 8px rgba(232,122,190,0.3);"></div>
+      <div class="theme-dot" style="background:#F5F2EA;border:1px solid #D0CCC0;"></div>
+      <div class="theme-dot" style="background:#E8E4D8;"></div>
+      <div class="theme-dot" style="background:#A8E870;box-shadow:0 0 8px rgba(168,232,112,0.4);"></div>
+      <div class="theme-dot" style="background:#B880E8;box-shadow:0 0 8px rgba(184,128,232,0.3);"></div>
+      <div class="theme-dot-label">accents</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">serene</span><span class="mood-tag">elegant</span><span class="mood-tag">romantic</span><span class="mood-tag">zen</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> warm cream stone, light wood, raked gravel<br>
+      <strong>Accents:</strong> soft magenta blossoms, soft pulse-green moss, lavender lanterns<br>
+      <strong>Details:</strong> zen garden paths, wooden bridges, reflecting pools, grid patterns
+    </div>
+  </div>
+</div>
+
+<!-- THEME: Solar Plaza -->
+<div class="theme-card light-theme" id="theme-solar_plaza" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #F5E8C0 0%, #E8E4D8 40%, #F0E8D0 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(232,224,122,0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(232,168,112,0.1) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#E8A870;text-shadow:0 0 15px rgba(232,168,112,0.2);">Solar Plaza</h3>
+      <div class="tagline">Sun-drenched marketplace. Warm terracotta, yellow banners, lively trade.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#E8E07A;box-shadow:0 0 8px rgba(232,224,122,0.3);"></div>
+      <div class="theme-dot" style="background:#E8A870;box-shadow:0 0 8px rgba(232,168,112,0.3);"></div>
+      <div class="theme-dot" style="background:#E8E4D8;"></div>
+      <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.3);"></div>
+      <div class="theme-dot" style="background:#FF6D00;box-shadow:0 0 8px rgba(255,109,0,0.3);"></div>
+      <div class="theme-dot-label">accents</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">warm</span><span class="mood-tag">bustling</span><span class="mood-tag">sun-drenched</span><span class="mood-tag">festive</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> warm sandstone, terracotta tiles, light plaster<br>
+      <strong>Accents:</strong> soft yellow market banners, soft ember lanterns, pulse-green produce<br>
+      <strong>Details:</strong> market stalls, fountain centerpieces, arched doorways, clay pots
+    </div>
+  </div>
+</div>
+
+<!-- THEME: Mint Haven -->
+<div class="theme-card light-theme" id="theme-mint_haven" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #E0F0F0 0%, #E8E4D8 40%, #F0F5F2 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(122,232,224,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(112,184,232,0.08) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#7AE8E0;text-shadow:0 0 15px rgba(122,232,224,0.2);">Mint Haven</h3>
+      <div class="tagline">Cyan-mint pools, white stone, healing sanctuary. Breathe.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#7AE8E0;box-shadow:0 0 8px rgba(122,232,224,0.3);"></div>
+      <div class="theme-dot" style="background:#80FFB8;box-shadow:0 0 8px rgba(128,255,184,0.3);"></div>
+      <div class="theme-dot" style="background:#F5F2EA;border:1px solid #D0CCC0;"></div>
+      <div class="theme-dot" style="background:#A8E870;box-shadow:0 0 8px rgba(168,232,112,0.3);"></div>
+      <div class="theme-dot" style="background:#70B8E8;box-shadow:0 0 8px rgba(112,184,232,0.3);"></div>
+      <div class="theme-dot-label">accents</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">healing</span><span class="mood-tag">restorative</span><span class="mood-tag">spa</span><span class="mood-tag">calm</span><span class="mood-tag">pristine</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> white marble, smooth river stone, organic curves<br>
+      <strong>Accents:</strong> soft cyan water, mint-green moss, soft pulse-green plants<br>
+      <strong>Details:</strong> shallow mint pools, white pavilions, bamboo screens, stepping stones
+    </div>
+  </div>
+</div>
+
+<!-- THEME: Prism Fields -->
+<div class="theme-card light-theme" id="theme-prism_fields" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #F5F5F5 0%, #E8E4D8 40%, #D0E0F8 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(232,122,190,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(122,232,224,0.08) 0%, transparent 50%), radial-gradient(ellipse at 50% 20%, rgba(232,224,122,0.06) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#E87ABE;text-shadow:0 0 15px rgba(232,122,190,0.15);">Prism Fields</h3>
+      <div class="tagline">Full-spectrum color on white canvas. Creative playground, no limits.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#E87ABE;box-shadow:0 0 8px rgba(232,122,190,0.3);"></div>
+      <div class="theme-dot" style="background:#7AE8E0;box-shadow:0 0 8px rgba(122,232,224,0.3);"></div>
+      <div class="theme-dot" style="background:#E8E07A;box-shadow:0 0 8px rgba(232,224,122,0.3);"></div>
+      <div class="theme-dot" style="background:#B8FF5C;box-shadow:0 0 8px rgba(184,255,92,0.3);"></div>
+      <div class="theme-dot" style="background:#B880E8;box-shadow:0 0 8px rgba(184,128,232,0.3);"></div>
+      <div class="theme-dot-label">multi-color</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">creative</span><span class="mood-tag">playful</span><span class="mood-tag">joyful</span><span class="mood-tag">experimental</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> clean white matte — the canvas for color<br>
+      <strong>Accents:</strong> every soft neon used freely — pink, cyan, yellow, lavender, mint<br>
+      <strong>Details:</strong> multicolor sculptural blocks, rainbow paths, creative workshop spaces, prismatic glass
+    </div>
+  </div>
+</div>
+
+<!-- THEME: Dawn Terrace -->
+<div class="theme-card light-theme" id="theme-dawn_terrace" style="margin-bottom:16px;">
+  <div class="theme-banner light-banner" style="background: linear-gradient(135deg, #F0E0D0 0%, #E8E4D8 40%, #F0D8B0 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(232,168,112,0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, rgba(232,122,122,0.08) 0%, transparent 50%);z-index:1;"></div>
+    <div class="theme-banner-text">
+      <h3 style="color:#E8A870;text-shadow:0 0 15px rgba(232,168,112,0.2);">Dawn Terrace</h3>
+      <div class="tagline">Golden hour forever. Warm stone, amber light, soft pink horizon.</div>
+    </div>
+  </div>
+  <div class="theme-body">
+    <div class="theme-dots">
+      <div class="theme-dot" style="background:#E8A870;box-shadow:0 0 8px rgba(232,168,112,0.3);"></div>
+      <div class="theme-dot" style="background:#E87A7A;box-shadow:0 0 8px rgba(232,122,122,0.3);"></div>
+      <div class="theme-dot" style="background:#E8E4D8;"></div>
+      <div class="theme-dot" style="background:#A8E870;box-shadow:0 0 8px rgba(168,232,112,0.3);"></div>
+      <div class="theme-dot" style="background:#E8E07A;box-shadow:0 0 8px rgba(232,224,122,0.3);"></div>
+      <div class="theme-dot-label">accents</div>
+    </div>
+    <div class="mood-tags">
+      <span class="mood-tag">warm</span><span class="mood-tag">golden</span><span class="mood-tag">nostalgic</span><span class="mood-tag">romantic</span><span class="mood-tag">contemplative</span>
+    </div>
+    <div class="theme-section-label">Terrain & Materials</div>
+    <div class="theme-detail">
+      <strong>Surface:</strong> warm sandstone, honey-colored wood, terracotta, soft moss<br>
+      <strong>Accents:</strong> soft ember lanterns, soft pulse-green ivy, rose-toned flowers<br>
+      <strong>Lighting:</strong> low golden sun near horizon, long dramatic shadows
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 09 AGENT GUIDELINES -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="guidelines">09 · Agent Guidelines · Flexible Philosophy</div>
+
+<div class="sub-label" style="color:#B8FF5C;margin-bottom:12px;">Philosophy: Suggestions, Not Rules</div>
+<div class="desc-block" style="margin-top:0;margin-bottom:20px;">
+  These guidelines are suggestions to help agents build beautiful, cohesive Doppel worlds. They are NOT mandatory. The agent is free to build any world in any color. When in doubt, be bold and intentional. A Doppel world should feel like someone cared about every color choice.
+</div>
+
+<div class="sub-label" style="color:#B8FF5C;margin-bottom:12px;">Core Principles</div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#B8FF5C;"></div><div class="rule-num">01</div><div class="rule-text">Pulse (#B8FF5C) is the Doppel signature. A small touch of it in any world anchors it as Doppel. It works on dark AND light backgrounds.</div></div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#B8FF5C;"></div><div class="rule-num">02</div><div class="rule-text">Intentional palettes beat random color. Pick 2–3 colors that work together and commit to them. The themes above are starting points.</div></div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#0BFFF0;"></div><div class="rule-num">03</div><div class="rule-text">Atmosphere creates immersion. Fog, haze, mist, or golden light — some atmospheric depth makes any world feel real.</div></div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#FF0ACD;"></div><div class="rule-num">04</div><div class="rule-text">Avoid pure white (#FFFFFF) and pure black (#000000). Use the named tones (Bone, Cloud, Void, Ink) which have subtle warmth or cool tints.</div></div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#A020FF;"></div><div class="rule-num">05</div><div class="rule-text">Colored light is more interesting than white light. Even in bright worlds, tinting light slightly warm or cool adds character.</div></div>
+<div class="rule-card" style="margin-bottom:6px;"><div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00AAFF;"></div><div class="rule-num">06</div><div class="rule-text">The world should feel designed, not generated. Restraint and consistency matter more than complexity.</div></div>
+
+<div class="sub-label" style="color:#3A3A52;margin:28px 0 14px;">Foundation Approaches</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
+  <div class="hint-group" style="background:#0D1A08;border-color:#2A4A06;">
+    <div class="hint-label" style="color:#B8FF5C;">Dark Foundation</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3A3A52;line-height:1.6;margin-bottom:8px;">Cyberpunk, mysterious, dramatic, high-contrast worlds</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2A3A1A;margin-bottom:4px;"><strong>Colors:</strong> Void, Abyss, Dusk, Slate</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2A3A1A;"><strong>Neon Approach:</strong> Full-strength electric neons with glow/bloom. Emissive surfaces. Neons are the light source.</div>
+  </div>
+  <div class="hint-group" style="background:#F5F2EA;border-color:#D0CCC0;color:#1A1A28;">
+    <div class="hint-label" style="color:#5A5668;">Light Foundation</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#5A5668;line-height:1.6;margin-bottom:8px;">Bright, welcoming, natural, aspirational, warm, serene worlds</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#5A5668;margin-bottom:4px;"><strong>Colors:</strong> Cloud, Pearl, Mist, Stone</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#5A5668;"><strong>Neon Approach:</strong> Soft neons for large areas. Electric neons for small punchy accents. Colored light from sun/sky, not emissive.</div>
+  </div>
+</div>
+
+<div class="sub-label" style="color:#3A3A52;margin:20px 0 14px;">Color Pairing Suggestions</div>
+<div style="margin-bottom:8px;">
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0BFFF0;margin-right:4px;vertical-align:middle;"></span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF0ACD;margin-right:4px;vertical-align:middle;"></span> Cyan + Magenta — the iconic Doppel duo</span>
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#B8FF5C;margin-right:4px;vertical-align:middle;"></span> Pulse + any single neon — brand anchor</span>
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF6D00;margin-right:4px;vertical-align:middle;"></span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#F5FF0A;margin-right:4px;vertical-align:middle;"></span> Ember + Yellow — warm market energy</span>
+</div>
+<div style="margin-bottom:8px;">
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E87ABE;margin-right:4px;vertical-align:middle;"></span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#A8E870;margin-right:4px;vertical-align:middle;"></span> Soft Magenta + Soft Pulse — gentle and organic</span>
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8A870;margin-right:4px;vertical-align:middle;"></span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8E07A;margin-right:4px;vertical-align:middle;"></span> Soft Ember + Soft Yellow — sun-drenched warmth</span>
+  <span class="combo-pill"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7AE8E0;margin-right:4px;vertical-align:middle;"></span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#B880E8;margin-right:4px;vertical-align:middle;"></span> Soft Cyan + Soft Rift — dreamy and ethereal</span>
+</div>
+
+<div class="sub-label" style="color:#3A3A52;margin:20px 0 10px;">Pairing Tips</div>
+<div style="font-family:'Space Mono',monospace;font-size:9px;color:#2A2A40;line-height:1.8;margin-bottom:20px;">
+  • Pick a dominant color and let others support it. Equal intensity across 3+ colors can feel chaotic.<br>
+  • One electric neon accent on a light foundation creates a strong focal point.<br>
+  • Soft neons mix beautifully with each other — use more simultaneously than electric neons.<br>
+  • Warm + cool contrast creates visual interest in any foundation.
+</div>
+
+<!-- Theme Selection Hints -->
+<div class="sub-label" style="color:#3A3A52;margin:28px 0 14px;">Theme Selection by Use Case</div>
+<div class="grid-2">
+  <div class="hint-group">
+    <div class="hint-label" style="color:#F5FF0A;">Trading Spaces</div>
+    <div class="hint-themes"><span class="hint-chip">Neon Market</span><span class="hint-chip">Midnight Bazaar</span><span class="hint-chip">Ember Forge</span><span class="hint-chip">Solar Plaza</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#FF0ACD;">Social Spaces</div>
+    <div class="hint-themes"><span class="hint-chip">Bloom Garden</span><span class="hint-chip">Pulse Meadow</span><span class="hint-chip">Tech Forest</span><span class="hint-chip">Sakura Grid</span><span class="hint-chip">Solar Plaza</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#0BFFF0;">Exploration</div>
+    <div class="hint-themes"><span class="hint-chip">Crystal Depths</span><span class="hint-chip">Void Drift</span><span class="hint-chip">Neon Jungle</span><span class="hint-chip">Cloudtop Citadel</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#FF2020;">Competitive</div>
+    <div class="hint-themes"><span class="hint-chip">Shadow Arcade</span><span class="hint-chip">Rift Zone</span><span class="hint-chip">Surge Spire</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#80FFB8;">Peaceful / Healing</div>
+    <div class="hint-themes"><span class="hint-chip">Pulse Meadow</span><span class="hint-chip">Crystal Depths</span><span class="hint-chip">Bloom Garden</span><span class="hint-chip">Mint Haven</span><span class="hint-chip">Sakura Grid</span><span class="hint-chip">Dawn Terrace</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#A020FF;">Rare / High-Stakes</div>
+    <div class="hint-themes"><span class="hint-chip">Rift Zone</span><span class="hint-chip">Void Drift</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#00AAFF;">Tech / Data</div>
+    <div class="hint-themes"><span class="hint-chip">Data Stream</span><span class="hint-chip">Frozen Circuit</span><span class="hint-chip">Surge Spire</span></div>
+  </div>
+  <div class="hint-group">
+    <div class="hint-label" style="color:#A8E870;">Creative / Playful</div>
+    <div class="hint-themes"><span class="hint-chip">Prism Fields</span><span class="hint-chip">Shadow Arcade</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 10 FULL HEX REFERENCE -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section-tag" id="ref">10 · Full Hex Reference</div>
+<div class="hex-wrap">
+  <table class="hex-table">
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#B8FF5C;text-transform:uppercase;letter-spacing:0.08em;">Dark Foundation</td></tr>
+    <tr><td><span class="hdot" style="background:#060608;border:1px solid #333;"></span></td><td class="hn">Void</td><td class="hx">#060608</td><td class="hr">Sky · emptiness</td></tr>
+    <tr><td><span class="hdot" style="background:#0D0D16;"></span></td><td class="hn">Abyss</td><td class="hx">#0D0D16</td><td class="hr">Ground canvas</td></tr>
+    <tr><td><span class="hdot" style="background:#1A1A28;"></span></td><td class="hn">Dusk</td><td class="hx">#1A1A28</td><td class="hr">Terrain · blocks</td></tr>
+    <tr><td><span class="hdot" style="background:#2A2A40;"></span></td><td class="hn">Slate</td><td class="hx">#2A2A40</td><td class="hr">Structures</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#A8E870;text-transform:uppercase;letter-spacing:0.08em;">Light Foundation</td></tr>
+    <tr><td><span class="hdot" style="background:#F5F2EA;border:1px solid #D0CCC0;"></span></td><td class="hn" style="color:#1A1A28;">Cloud</td><td class="hx" style="color:#5A5668;">#F5F2EA</td><td class="hr">Sky · space</td></tr>
+    <tr><td><span class="hdot" style="background:#E8E4D8;border:1px solid #D0CCC0;"></span></td><td class="hn" style="color:#1A1A28;">Pearl</td><td class="hx" style="color:#5A5668;">#E8E4D8</td><td class="hr">Ground · canvas</td></tr>
+    <tr><td><span class="hdot" style="background:#D0CCC0;"></span></td><td class="hn" style="color:#5A5668;">Mist</td><td class="hx" style="color:#5A5668;">#D0CCC0</td><td class="hr">Terrain · paths</td></tr>
+    <tr><td><span class="hdot" style="background:#9A96A0;"></span></td><td class="hn" style="color:#5A5668;">Stone</td><td class="hx" style="color:#5A5668;">#9A96A0</td><td class="hr">Structures</td></tr>
+    <tr><td><span class="hdot" style="background:#5A5668;"></span></td><td class="hn" style="color:#EDE8DC;">Graphite</td><td class="hx" style="color:#5A5668;">#5A5668</td><td class="hr">Text · shadows</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#EDE8DC;text-transform:uppercase;letter-spacing:0.08em;">Shared Neutrals</td></tr>
+    <tr><td><span class="hdot" style="background:#EDE8DC;"></span></td><td class="hn">Bone</td><td class="hx">#EDE8DC</td><td class="hr">Logo · UI on dark</td></tr>
+    <tr><td><span class="hdot" style="background:#1A1A28;"></span></td><td class="hn">Ink</td><td class="hx">#1A1A28</td><td class="hr">Text on light</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#0BFFF0;text-transform:uppercase;letter-spacing:0.08em;">Electric Neons</td></tr>
+    <tr><td><span class="hdot" style="background:#0BFFF0;box-shadow:0 0 6px rgba(11,255,240,0.8);"></span></td><td class="hn" style="color:#0BFFF0;">Neon Cyan</td><td class="hx">#0BFFF0</td><td class="hr">Player glow · tech</td></tr>
+    <tr><td><span class="hdot" style="background:#FF0ACD;box-shadow:0 0 6px rgba(255,10,205,0.8);"></span></td><td class="hn" style="color:#FF0ACD;">Neon Magenta</td><td class="hx">#FF0ACD</td><td class="hr">Flora · bloom</td></tr>
+    <tr><td><span class="hdot" style="background:#F5FF0A;box-shadow:0 0 6px rgba(245,255,10,0.8);"></span></td><td class="hn" style="color:#F5FF0A;">Neon Yellow</td><td class="hx">#F5FF0A</td><td class="hr">Fire · rewards</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#A8E870;text-transform:uppercase;letter-spacing:0.08em;">Soft Neons</td></tr>
+    <tr><td><span class="hdot" style="background:#7AE8E0;"></span></td><td class="hn" style="color:#7AE8E0;">Soft Cyan</td><td class="hx">#7AE8E0</td><td class="hr">Pools · glass</td></tr>
+    <tr><td><span class="hdot" style="background:#E87ABE;"></span></td><td class="hn" style="color:#A85080;">Soft Magenta</td><td class="hx">#E87ABE</td><td class="hr">Blossoms · fabric</td></tr>
+    <tr><td><span class="hdot" style="background:#E8E07A;"></span></td><td class="hn" style="color:#B8A850;">Soft Yellow</td><td class="hx">#E8E07A</td><td class="hr">Sunlight · sand</td></tr>
+    <tr><td><span class="hdot" style="background:#A8E870;"></span></td><td class="hn" style="color:#7A8A50;">Soft Pulse</td><td class="hx">#A8E870</td><td class="hr">Meadow grass</td></tr>
+    <tr><td><span class="hdot" style="background:#E8A870;"></span></td><td class="hn" style="color:#B88050;">Soft Ember</td><td class="hx">#E8A870</td><td class="hr">Lanterns · warm</td></tr>
+    <tr><td><span class="hdot" style="background:#B880E8;"></span></td><td class="hn" style="color:#804AC0;">Soft Rift</td><td class="hx">#B880E8</td><td class="hr">Lavender mystery</td></tr>
+    <tr><td><span class="hdot" style="background:#70B8E8;"></span></td><td class="hn" style="color:#5080A0;">Soft Nova</td><td class="hx">#70B8E8</td><td class="hr">Sky · water</td></tr>
+    <tr><td><span class="hdot" style="background:#E87A7A;"></span></td><td class="hn" style="color:#A85050;">Soft Flux</td><td class="hx">#E87A7A</td><td class="hr">Sunset · rose</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#D09810;text-transform:uppercase;letter-spacing:0.08em;">Vivid Midtones</td></tr>
+    <tr><td><span class="hdot" style="background:#0A8A7A;box-shadow:0 0 6px rgba(10,138,122,0.5);"></span></td><td class="hn" style="color:#7AE8E0;">Teal</td><td class="hx">#0A8A7A</td><td class="hr">Deep water, jewel pools</td></tr>
+    <tr><td><span class="hdot" style="background:#1A9A50;box-shadow:0 0 6px rgba(26,154,80,0.5);"></span></td><td class="hn" style="color:#A8E870;">Emerald</td><td class="hx">#1A9A50</td><td class="hr">Dense canopy, lush terrain</td></tr>
+    <tr><td><span class="hdot" style="background:#2060D0;box-shadow:0 0 6px rgba(32,96,208,0.5);"></span></td><td class="hn" style="color:#80FFB8;">Sapphire</td><td class="hx">#2060D0</td><td class="hr">Deep sky, stained glass</td></tr>
+    <tr><td><span class="hdot" style="background:#C82048;box-shadow:0 0 6px rgba(200,32,72,0.5);"></span></td><td class="hn" style="color:#FF0ACD;">Ruby</td><td class="hx">#C82048</td><td class="hr">Bold markers, regal</td></tr>
+    <tr><td><span class="hdot" style="background:#7838A8;box-shadow:0 0 6px rgba(120,56,168,0.5);"></span></td><td class="hn" style="color:#B880E8;">Amethyst</td><td class="hx">#7838A8</td><td class="hr">Mystic stone, rare</td></tr>
+    <tr><td><span class="hdot" style="background:#E86050;box-shadow:0 0 6px rgba(232,96,80,0.5);"></span></td><td class="hn" style="color:#E8A870;">Coral</td><td class="hx">#E86050</td><td class="hr">Warm accents, clay</td></tr>
+    <tr><td><span class="hdot" style="background:#C06A3A;box-shadow:0 0 6px rgba(192,106,58,0.5);"></span></td><td class="hn" style="color:#E8A870;">Terracotta</td><td class="hx">#C06A3A</td><td class="hr">Earth walls, pottery</td></tr>
+    <tr><td><span class="hdot" style="background:#D09810;box-shadow:0 0 6px rgba(208,152,16,0.5);"></span></td><td class="hn" style="color:#D09810;">Marigold</td><td class="hx">#D09810</td><td class="hr">Rich gold, treasure</td></tr>
+    <tr><td><span class="hdot" style="background:#3848B0;box-shadow:0 0 6px rgba(56,72,176,0.5);"></span></td><td class="hn" style="color:#80FFB8;">Indigo</td><td class="hx">#3848B0</td><td class="hr">Deep twilight, ocean</td></tr>
+    <tr><td><span class="hdot" style="background:#8A2040;box-shadow:0 0 6px rgba(138,32,64,0.5);"></span></td><td class="hn" style="color:#E87A7A;">Burgundy</td><td class="hx">#8A2040</td><td class="hr">Wine, velvet, aged</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#B8FF5C;text-transform:uppercase;letter-spacing:0.08em;">Pulse Brand + Hue Neighbors</td></tr>
+    <tr><td><span class="hdot" style="background:#B8FF5C;box-shadow:0 0 6px rgba(184,255,92,0.8);"></span></td><td class="hn" style="color:#B8FF5C;">Pulse</td><td class="hx">#B8FF5C</td><td class="hr">Logo · CTA · gains</td></tr>
+    <tr><td><span class="hdot" style="background:#5FFF5C;"></span></td><td class="hn" style="color:#5FFF5C;">Surge</td><td class="hx">#5FFF5C</td><td class="hr">Pure green · growth</td></tr>
+    <tr><td><span class="hdot" style="background:#B8FF00;"></span></td><td class="hn" style="color:#B8FF00;">Volt</td><td class="hx">#B8FF00</td><td class="hr">Max sat · speed</td></tr>
+    <tr><td><span class="hdot" style="background:#DEFF0A;"></span></td><td class="hn" style="color:#DEFF0A;">Charge</td><td class="hx">#DEFF0A</td><td class="hr">Pulse → yellow</td></tr>
+    <tr><td><span class="hdot" style="background:#80FFB8;"></span></td><td class="hn" style="color:#80FFB8;">Mint</td><td class="hx">#80FFB8</td><td class="hr">Calm · healing</td></tr>
+    <tr><td colspan="4" style="padding:12px 14px;background:#0D0D16;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#FF6D00;text-transform:uppercase;letter-spacing:0.08em;">Signal Accents</td></tr>
+    <tr><td><span class="hdot" style="background:#FF6D00;box-shadow:0 0 5px rgba(255,109,0,0.6);"></span></td><td class="hn" style="color:#FF6D00;">Ember</td><td class="hx">#FF6D00</td><td class="hr">Fire · heat</td></tr>
+    <tr><td><span class="hdot" style="background:#A020FF;box-shadow:0 0 5px rgba(160,32,255,0.6);"></span></td><td class="hn" style="color:#A020FF;">Rift</td><td class="hx">#A020FF</td><td class="hr">Rare · mystery</td></tr>
+    <tr><td><span class="hdot" style="background:#FF2020;box-shadow:0 0 5px rgba(255,32,32,0.6);"></span></td><td class="hn" style="color:#FF2020;">Flux</td><td class="hx">#FF2020</td><td class="hr">Danger · volatility</td></tr>
+    <tr><td><span class="hdot" style="background:#00AAFF;box-shadow:0 0 5px rgba(0,170,255,0.6);"></span></td><td class="hn" style="color:#00AAFF;">Nova</td><td class="hx">#00AAFF</td><td class="hr">Info · sky · cold</td></tr>
+  </table>
+</div>
+
+<div style="margin-top:40px;font-family:'Space Mono',monospace;font-size:9px;color:#1E1E30;letter-spacing:0.2em;text-transform:uppercase;">
+  Doppel World Style Guide · v2.0 · 2026-02-27 · Flexible · JSON + HTML synced pair
+</div>
+
+</body>
+</html>

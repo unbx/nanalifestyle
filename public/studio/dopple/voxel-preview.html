@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doppel Voxel World Preview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #060608; overflow: hidden; font-family: 'Syne', sans-serif; }
+  #canvas-wrap { width: 100vw; height: 100vh; position: relative; }
+  canvas { display: block; }
+
+  /* HUD */
+  .hud {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 20px 28px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    z-index: 10; pointer-events: none;
+  }
+  .hud-left { pointer-events: auto; }
+  .hud-right { pointer-events: auto; text-align: right; }
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.35em;
+    color: #B8FF5C; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .title {
+    font-size: 28px; font-weight: 800;
+    color: #EDE8DC; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .title span { color: #B8FF5C; text-shadow: 0 0 20px rgba(184,255,92,0.5); }
+
+  /* Theme selector */
+  .theme-list {
+    display: flex; flex-direction: column; gap: 4px;
+    margin-top: 12px;
+  }
+  .theme-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1E1E30;
+    padding: 8px 12px 4px 12px;
+    margin-top: 4px;
+    border-top: 1px solid #0E0E18;
+    text-align: left;
+  }
+  .theme-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: rgba(13,13,22,0.7);
+    border: 1px solid #0E0E18;
+    color: #2A2A40;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    display: flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .theme-btn:hover { border-color: #2A2A40; color: #EDE8DC; }
+  .theme-btn.active { border-color: var(--tc); color: var(--tc); box-shadow: 0 0 12px var(--tg); }
+  .theme-btn.light-theme { background: rgba(245,242,234,0.85); border-color: #D4D0C4; }
+  .theme-btn.light-theme:hover { border-color: #9A96A0; color: #2A2A40; }
+  .theme-btn.light-theme.active { background: rgba(245,242,234,0.95); }
+  .theme-dot-sm { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Info panel */
+  .info-panel {
+    position: fixed; bottom: 20px; left: 28px; right: 28px;
+    display: flex; gap: 16px; z-index: 10;
+    pointer-events: none;
+  }
+  .info-card {
+    background: rgba(13,13,22,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid #0E0E18;
+    border-radius: 8px;
+    padding: 14px 16px;
+    flex: 1;
+  }
+  .info-card.light-bg {
+    background: rgba(245,242,234,0.85);
+    border: 1px solid #D4D0C4;
+  }
+  .info-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #1E1E30;
+    margin-bottom: 6px;
+  }
+  .info-label.light-text { color: #2A2A40; }
+  .info-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: #3A3A52;
+    line-height: 1.6;
+  }
+  .info-value.light-text { color: #4A4A66; }
+  .palette-dots { display: flex; gap: 6px; margin-top: 6px; }
+  .palette-dot { width: 16px; height: 16px; border-radius: 50%; }
+
+  .drag-hint {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; color: #1E1E30;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    z-index: 10;
+    animation: fadeHint 4s ease-in-out forwards;
+  }
+  .drag-hint.light-text { color: #2A2A40; }
+  @keyframes fadeHint { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
+</style>
+</head>
+<body>
+<div id="canvas-wrap"></div>
+
+<div class="hud">
+  <div class="hud-left">
+    <div class="eyebrow" id="eyebrow">Doppel · Plot Palette Preview</div>
+    <div class="title" id="main-title">DOPPEL <span>PLOTS</span></div>
+    <div class="theme-list" id="theme-list"></div>
+  </div>
+  <div class="hud-right">
+    <div id="theme-name" style="font-size:18px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#EDE8DC;"></div>
+    <div id="theme-tagline" style="font-family:'Space Mono',monospace;font-size:9px;color:#2A2A40;margin-top:4px;max-width:280px;"></div>
+  </div>
+</div>
+
+<div class="info-panel" id="info-panel">
+  <div class="info-card">
+    <div class="info-label">Palette</div>
+    <div class="palette-dots" id="palette-dots"></div>
+  </div>
+  <div class="info-card">
+    <div class="info-label">Mood</div>
+    <div class="info-value" id="mood-text"></div>
+  </div>
+  <div class="info-card">
+    <div class="info-label">Materials</div>
+    <div class="info-value" id="materials-text"></div>
+  </div>
+  <div class="info-card">
+    <div class="info-label">Particles</div>
+    <div class="info-value" id="particles-text"></div>
+  </div>
+</div>
+
+<div class="drag-hint">Click + Drag to orbit · Scroll to zoom</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ════════════════════════════════════════
+// DOPPEL PALETTE
+// ════════════════════════════════════════
+const C = {
+  void: 0x060608, abyss: 0x0D0D16, dusk: 0x1A1A28, slate: 0x2A2A40, bone: 0xEDE8DC,
+  cyan: 0x0BFFF0, magenta: 0xFF0ACD, yellow: 0xF5FF0A, pulse: 0xB8FF5C,
+  surge: 0x5FFF5C, volt: 0xB8FF00, charge: 0xDEFF0A, mint: 0x80FFB8,
+  ember: 0xFF6D00, rift: 0xA020FF, flux: 0xFF2020, nova: 0x00AAFF,
+  // Light theme palette
+  lightCream: 0xF5F2EA, pearl: 0xE8E4D8, stone: 0x9A96A0,
+  softMagenta: 0xE87ABE, softPulse: 0xA8E870, softRift: 0xB880E8,
+  softCyan: 0x7AE8E0, softYellow: 0xE8E07A, softWarm: 0xE8A870,
+  softRose: 0xE87A7A, mintLight: 0x80FFB8,
+  // Vivid midtone colors
+  teal: 0x0A8A7A, emerald: 0x1A9A50, sapphire: 0x2060D0, ruby: 0xC82048,
+  amethyst: 0x7838A8, coral: 0xE86050, terracotta: 0xC06A3A, marigold: 0xD09810,
+  indigo: 0x3848B0, burgundy: 0x8A2040
+};
+
+// ════════════════════════════════════════
+// THEME DEFINITIONS
+// ════════════════════════════════════════
+const themes = [
+  {
+    id: 'tech_forest', name: 'Tech Forest',
+    tagline: 'Magenta flora, cyan glow, dark void. The default Doppel look.',
+    mood: ['alien','bioluminescent','mysterious'],
+    colors: [C.magenta, C.cyan, C.dusk, C.void, C.pulse],
+    fog: { color: 0x0D0D16, near: 20, far: 80 },
+    ambientColor: 0x0A0A1A, ambientInt: 0.15,
+    keyColor: C.cyan, keyInt: 0.8,
+    fillColor: C.magenta, fillInt: 0.4,
+    materials: 'dark matte, emissive neon veins, translucent magenta foliage',
+    particles: 'cyan motes, magenta fireflies, pulse spores',
+    isLight: false,
+    build: buildTechForest
+  },
+  {
+    id: 'neon_market', name: 'Neon Market',
+    tagline: 'Yellow neon signs, pulse gains, ember fire. Hot market zones.',
+    mood: ['bustling','commercial','night-city'],
+    colors: [C.yellow, C.pulse, C.ember, C.abyss, C.magenta],
+    fog: { color: 0x0D0D16, near: 30, far: 100 },
+    ambientColor: 0x0D0810, ambientInt: 0.1,
+    keyColor: C.yellow, keyInt: 0.9,
+    fillColor: C.ember, fillInt: 0.45,
+    materials: 'rough concrete, neon tube signs, holographic displays',
+    particles: 'price tickers, ember sparks, neon flicker',
+    isLight: false,
+    build: buildNeonMarket
+  },
+  {
+    id: 'rift_zone', name: 'Rift Zone',
+    tagline: 'Rift purple, magenta edge, flux red. High-stakes rare events.',
+    mood: ['dangerous','unstable','dramatic'],
+    colors: [C.rift, C.magenta, C.flux, C.void, C.yellow],
+    fog: { color: 0x0A0616, near: 8, far: 55 },
+    ambientColor: 0x080410, ambientInt: 0.08,
+    keyColor: C.rift, keyInt: 1.0,
+    fillColor: C.flux, fillInt: 0.5,
+    materials: 'shattered obsidian, emissive fractures, volcanic glass',
+    particles: 'purple lightning, red sparks, floating fragments',
+    isLight: false,
+    build: buildRiftZone
+  },
+  {
+    id: 'crystal_depths', name: 'Crystal Depths',
+    tagline: 'Submerged caverns, cyan bioluminescence, deep ocean pressure.',
+    mood: ['submerged','ancient','contemplative'],
+    colors: [C.cyan, C.nova, C.abyss, C.dusk, C.mint],
+    fog: { color: 0x060D16, near: 10, far: 50 },
+    ambientColor: 0x040810, ambientInt: 0.12,
+    keyColor: C.cyan, keyInt: 0.6,
+    fillColor: C.nova, fillInt: 0.3,
+    materials: 'wet stone, translucent crystal, bioluminescent coral',
+    particles: 'rising bubbles, bioluminescent plankton, drifting sediment',
+    isLight: false,
+    build: buildCrystalDepths
+  },
+  {
+    id: 'bloom_garden', name: 'Bloom Garden',
+    tagline: 'Explosive organic growth, magenta blooms, pulse-green overgrowth.',
+    mood: ['lush','organic','vibrant','alive'],
+    colors: [C.magenta, C.pulse, C.surge, C.dusk, C.charge],
+    fog: { color: 0x0A0D08, near: 15, far: 60 },
+    ambientColor: 0x0A0D08, ambientInt: 0.18,
+    keyColor: C.pulse, keyInt: 0.7,
+    fillColor: C.magenta, fillInt: 0.45,
+    materials: 'glowing moss, magenta petals, pulse-green vines',
+    particles: 'floating petals, green pollen, charge-yellow fireflies',
+    isLight: false,
+    build: buildBloomGarden
+  },
+  {
+    id: 'shadow_arcade', name: 'Shadow Arcade',
+    tagline: 'Retro-neon gaming district, magenta and yellow on pitch black.',
+    mood: ['retro','playful','competitive','glitchy'],
+    colors: [C.magenta, C.yellow, C.void, C.abyss, C.cyan],
+    fog: { color: 0x060608, near: 40, far: 120 },
+    ambientColor: 0x060608, ambientInt: 0.05,
+    keyColor: C.magenta, keyInt: 0.8,
+    fillColor: C.yellow, fillInt: 0.5,
+    materials: 'matte black, neon edge outlines, CRT glow',
+    particles: 'pixel dust, glitch tears, score pop-ups',
+    isLight: false,
+    build: buildShadowArcade
+  },
+  {
+    id: 'void_drift', name: 'Void Drift',
+    tagline: 'Deep space emptiness, distant stars, purple nebulae.',
+    mood: ['isolated','vast','cosmic','meditative'],
+    colors: [C.rift, C.nova, C.void, C.abyss, C.cyan],
+    fog: { color: 0x040408, near: 60, far: 200 },
+    ambientColor: 0x040408, ambientInt: 0.05,
+    keyColor: C.rift, keyInt: 0.45,
+    fillColor: C.nova, fillInt: 0.25,
+    materials: 'spacecraft hull, nebula light, energy fields',
+    particles: 'distant stars, space dust, nebula wisps, meteors',
+    isLight: false,
+    build: buildVoidDrift
+  },
+  {
+    id: 'pulse_meadow', name: 'Pulse Meadow',
+    tagline: 'Open fields of pulse-green energy, peaceful and rewarding.',
+    mood: ['peaceful','rewarding','open','optimistic'],
+    colors: [C.pulse, 0xD4FFAA, C.dusk, C.abyss, C.mint],
+    fog: { color: 0x080D08, near: 30, far: 100 },
+    ambientColor: 0x080D08, ambientInt: 0.2,
+    keyColor: C.pulse, keyInt: 0.75,
+    fillColor: 0xD4FFAA, fillInt: 0.35,
+    materials: 'dark ground, pulse-green grass, reward crystals',
+    particles: 'grass sway, reward motes, mint fireflies',
+    isLight: false,
+    build: buildPulseMeadow
+  },
+  // LIGHT THEMES BEGIN
+  {
+    id: 'cloudtop_citadel', name: 'Cloudtop Citadel',
+    tagline: 'White marble platforms, wide steps, columns, pulse-green banners, cyan water.',
+    mood: ['architectural','luminous','open','majestic'],
+    colors: [C.lightCream, C.pearl, C.pulse, C.softCyan, C.stone, C.sapphire, C.marigold],
+    fog: { color: 0xF0EDE6, near: 25, far: 90 },
+    ambientColor: 0xF5F2EA, ambientInt: 0.55,
+    keyColor: 0xFFFFFF, keyInt: 0.7,
+    fillColor: 0xF0EDE6, fillInt: 0.35,
+    materials: 'white marble, pearl stone, sapphire accents, marigold trim, light diffuse matte',
+    particles: 'cloud wisps, leaf fall, dust motes',
+    isLight: true,
+    build: buildCloudtopCitadel
+  },
+  {
+    id: 'sakura_grid', name: 'Sakura Grid',
+    tagline: 'Zen garden, wooden bridges, blossom trees, reflecting pools.',
+    mood: ['serene','meditative','organic','beautiful'],
+    colors: [C.pearl, C.softMagenta, C.softPulse, C.softRift, C.lightCream, C.ruby, C.amethyst],
+    fog: { color: 0xF5F2EA, near: 20, far: 85 },
+    ambientColor: 0xF5F2EA, ambientInt: 0.5,
+    keyColor: 0xFFF8F0, keyInt: 0.65,
+    fillColor: 0xF0EDE6, fillInt: 0.3,
+    materials: 'light wood, stone paths, ruby blossoms, amethyst lanterns, soft natural finishes',
+    particles: 'falling pink petals, fireflies, gentle mist',
+    isLight: true,
+    build: buildSakuraGrid
+  },
+  {
+    id: 'solar_plaza', name: 'Solar Plaza',
+    tagline: 'Sun-drenched marketplace, terracotta stalls, soft yellow banners.',
+    mood: ['warm','bustling','energetic','welcoming'],
+    colors: [C.softWarm, C.softYellow, C.pearl, C.pulse, 0xFF6D00, C.terracotta, C.marigold, C.coral],
+    fog: { color: 0xF5F2EA, near: 30, far: 100 },
+    ambientColor: 0xFFF8F0, ambientInt: 0.65,
+    keyColor: 0xFFD700, keyInt: 0.85,
+    fillColor: 0xFFC080, fillInt: 0.4,
+    materials: 'warm terracotta, marigold banners, coral accents, soft concrete, market cloth',
+    particles: 'dust in sunbeams, steam wisps, golden motes',
+    isLight: true,
+    build: buildSolarPlaza
+  },
+  {
+    id: 'mint_haven', name: 'Mint Haven',
+    tagline: 'White stone terraces, shallow mint pools, zen minimal.',
+    mood: ['calm','cooling','zen','peaceful'],
+    colors: [C.lightCream, C.softCyan, 0x80FFB8, C.stone, C.pearl, C.teal, C.emerald],
+    fog: { color: 0xF8FAFA, near: 20, far: 80 },
+    ambientColor: 0xF8FAFA, ambientInt: 0.5,
+    keyColor: 0xFFFFFF, keyInt: 0.6,
+    fillColor: 0xE8F4F8, fillInt: 0.25,
+    materials: 'white stone, cool water, teal pool accents, emerald vegetation, light matte surfaces',
+    particles: 'gentle mist, water ripples, pollen wisps',
+    isLight: true,
+    build: buildMintHaven
+  },
+  {
+    id: 'prism_fields', name: 'Prism Fields',
+    tagline: 'White canvas ground with multicolor neon blocks. Playful and bright.',
+    mood: ['playful','vibrant','colorful','joyful'],
+    colors: [C.softMagenta, C.softCyan, C.softYellow, C.softPulse, C.softRift, C.ruby, C.sapphire, C.emerald, C.marigold, C.amethyst],
+    fog: { color: 0xFAFAFA, near: 25, far: 95 },
+    ambientColor: 0xFAFAFA, ambientInt: 0.6,
+    keyColor: 0xFFFFFF, keyInt: 0.75,
+    fillColor: 0xF0EDE6, fillInt: 0.3,
+    materials: 'white matte ground, vivid neon blocks in ruby, sapphire, emerald, marigold, amethyst, light diffuse',
+    particles: 'rainbow confetti, colored orbs, light sparkles',
+    isLight: true,
+    build: buildPrismFields
+  },
+  {
+    id: 'dawn_terrace', name: 'Dawn Terrace',
+    tagline: 'Golden hour warm stone, terraced gardens, long shadows.',
+    mood: ['warm','contemplative','golden','romantic'],
+    colors: [C.softWarm, C.softRose, C.softPulse, C.pearl, C.lightCream, C.terracotta, C.burgundy, C.marigold],
+    fog: { color: 0xF5EEE8, near: 25, far: 90 },
+    ambientColor: 0xFFF4E6, ambientInt: 0.45,
+    keyColor: 0xFFB87C, keyInt: 0.7,
+    fillColor: 0xFFE8C8, fillInt: 0.35,
+    materials: 'warm stone, terracotta structures, burgundy accents, marigold highlights, golden matte surfaces',
+    particles: 'golden dust, drifting petals, warm light rays',
+    isLight: true,
+    build: buildDawnTerrace
+  }
+];
+
+// ════════════════════════════════════════
+// THREE.JS SETUP
+// ════════════════════════════════════════
+let scene, camera, renderer, animationId;
+let particles = [];
+let glowMeshes = [];
+let time = 0;
+let currentTheme = 0;
+
+const wrap = document.getElementById('canvas-wrap');
+const W = window.innerWidth, H = window.innerHeight;
+
+function init() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 500);
+  camera.position.set(28, 22, 28);
+  camera.lookAt(0, 2, 0);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  wrap.appendChild(renderer.domElement);
+
+  // Orbit controls (manual)
+  setupOrbit();
+
+  // Build UI
+  buildThemeList();
+
+  // Load first theme
+  loadTheme(0);
+
+  animate();
+}
+
+// ════════════════════════════════════════
+// ORBIT CONTROLS (manual)
+// ════════════════════════════════════════
+let isDragging = false;
+let prevX = 0, prevY = 0;
+let orbitAngle = Math.PI / 4;
+let orbitPitch = 0.5;
+let orbitDist = 38;
+
+function setupOrbit() {
+  const el = renderer.domElement;
+  el.addEventListener('mousedown', e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
+  el.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    orbitAngle -= (e.clientX - prevX) * 0.005;
+    orbitPitch = Math.max(0.1, Math.min(1.2, orbitPitch + (e.clientY - prevY) * 0.005));
+    prevX = e.clientX; prevY = e.clientY;
+  });
+  el.addEventListener('mouseup', () => isDragging = false);
+  el.addEventListener('mouseleave', () => isDragging = false);
+  el.addEventListener('wheel', e => {
+    orbitDist = Math.max(15, Math.min(70, orbitDist + e.deltaY * 0.03));
+  });
+  // Touch
+  el.addEventListener('touchstart', e => { isDragging = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; });
+  el.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    orbitAngle -= (e.touches[0].clientX - prevX) * 0.005;
+    orbitPitch = Math.max(0.1, Math.min(1.2, orbitPitch + (e.touches[0].clientY - prevY) * 0.005));
+    prevX = e.touches[0].clientX; prevY = e.touches[0].clientY;
+  });
+  el.addEventListener('touchend', () => isDragging = false);
+}
+
+function updateCamera() {
+  if (!isDragging) orbitAngle += 0.002; // slow auto rotate
+  camera.position.x = Math.cos(orbitAngle) * Math.cos(orbitPitch) * orbitDist;
+  camera.position.y = Math.sin(orbitPitch) * orbitDist;
+  camera.position.z = Math.sin(orbitAngle) * Math.cos(orbitPitch) * orbitDist;
+  camera.lookAt(0, 3, 0);
+}
+
+// ════════════════════════════════════════
+// VOXEL HELPERS
+// ════════════════════════════════════════
+const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+const boxGeoTall = new THREE.BoxGeometry(1, 2, 1);
+
+function vox(x, y, z, color, emissive = false, eIntensity = 0.3) {
+  const mat = new THREE.MeshStandardMaterial({
+    color, roughness: emissive ? 0.3 : 0.85, metalness: emissive ? 0.1 : 0.0,
+    emissive: emissive ? color : 0x000000,
+    emissiveIntensity: emissive ? eIntensity : 0
+  });
+  const m = new THREE.Mesh(boxGeo, mat);
+  m.position.set(x, y, z);
+  m.castShadow = true; m.receiveShadow = true;
+  scene.add(m);
+  if (emissive) glowMeshes.push(m);
+  return m;
+}
+
+function voxTall(x, y, z, color, emissive = false, eInt = 0.3) {
+  const mat = new THREE.MeshStandardMaterial({
+    color, roughness: emissive ? 0.3 : 0.85, metalness: 0.0,
+    emissive: emissive ? color : 0x000000,
+    emissiveIntensity: emissive ? eInt : 0
+  });
+  const m = new THREE.Mesh(boxGeoTall, mat);
+  m.position.set(x, y + 0.5, z);
+  m.castShadow = true; m.receiveShadow = true;
+  scene.add(m);
+  if (emissive) glowMeshes.push(m);
+  return m;
+}
+
+function pointLight(x, y, z, color, intensity, dist) {
+  const l = new THREE.PointLight(color, intensity, dist);
+  l.position.set(x, y, z);
+  scene.add(l);
+  return l;
+}
+
+function addParticles(count, color, yRange, spread, size = 0.12) {
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    pos[i*3] = (Math.random()-0.5) * spread;
+    pos[i*3+1] = Math.random() * yRange;
+    pos[i*3+2] = (Math.random()-0.5) * spread;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const mat = new THREE.PointsMaterial({ color, size, transparent: true, opacity: 0.7 });
+  const pts = new THREE.Points(geo, mat);
+  scene.add(pts);
+  particles.push(pts);
+  return pts;
+}
+
+// ════════════════════════════════════════
+// WORLD BUILDERS
+// ════════════════════════════════════════
+
+function buildGround(color, size = 30) {
+  for (let x = -size/2; x < size/2; x++) {
+    for (let z = -size/2; z < size/2; z++) {
+      if (Math.random() < 0.7) vox(x, 0, z, color);
+    }
+  }
+}
+
+function buildTechForest() {
+  buildGround(C.abyss);
+  // Cyan cracks in ground
+  for (let i = 0; i < 40; i++) {
+    const x = Math.floor((Math.random()-0.5)*26);
+    const z = Math.floor((Math.random()-0.5)*26);
+    vox(x, 0.01, z, C.cyan, true, 0.6);
+  }
+  // Magenta trees
+  for (let t = 0; t < 18; t++) {
+    const tx = Math.floor((Math.random()-0.5)*22);
+    const tz = Math.floor((Math.random()-0.5)*22);
+    const h = 3 + Math.floor(Math.random()*5);
+    // trunk
+    for (let y = 1; y <= h; y++) vox(tx, y, tz, C.dusk);
+    // canopy - magenta glow
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        if (Math.random() < 0.7) vox(tx+dx, h+1, tz+dz, C.magenta, true, 0.5);
+        if (Math.random() < 0.4) vox(tx+dx, h+2, tz+dz, C.magenta, true, 0.4);
+      }
+    }
+    vox(tx, h+2, tz, C.magenta, true, 0.6);
+    pointLight(tx, h+2, tz, C.magenta, 0.6, 8);
+  }
+  // Cyan tech structures
+  for (let i = 0; i < 6; i++) {
+    const sx = Math.floor((Math.random()-0.5)*20);
+    const sz = Math.floor((Math.random()-0.5)*20);
+    for (let y = 1; y <= 2; y++) vox(sx, y, sz, C.slate);
+    vox(sx, 3, sz, C.cyan, true, 0.8);
+    pointLight(sx, 4, sz, C.cyan, 0.5, 6);
+  }
+  addParticles(120, C.cyan, 15, 30, 0.1);
+  addParticles(80, C.magenta, 12, 25, 0.08);
+  addParticles(40, C.pulse, 10, 20, 0.06);
+}
+
+function buildNeonMarket() {
+  buildGround(C.abyss);
+  // Streets (darker)
+  for (let x = -12; x < 12; x++) {
+    vox(x, 0.01, 0, C.dusk); vox(x, 0.01, 1, C.dusk);
+    vox(0, 0.01, x, C.dusk); vox(1, 0.01, x, C.dusk);
+  }
+  // Market stalls
+  for (let i = 0; i < 14; i++) {
+    const sx = Math.floor((Math.random()-0.5)*20);
+    const sz = Math.floor((Math.random()-0.5)*20);
+    if (Math.abs(sx) < 2 && Math.abs(sz) < 2) continue;
+    const h = 2 + Math.floor(Math.random()*3);
+    for (let y = 1; y <= h; y++) {
+      vox(sx, y, sz, C.slate);
+      if (Math.random() < 0.3) vox(sx+1, y, sz, C.dusk);
+    }
+    // Neon sign on top
+    const signColor = [C.yellow, C.pulse, C.ember, C.magenta][Math.floor(Math.random()*4)];
+    vox(sx, h+1, sz, signColor, true, 0.9);
+    pointLight(sx, h+2, sz, signColor, 0.7, 7);
+  }
+  // Ember fire pits
+  for (let i = 0; i < 4; i++) {
+    const fx = Math.floor((Math.random()-0.5)*16);
+    const fz = Math.floor((Math.random()-0.5)*16);
+    vox(fx, 1, fz, C.ember, true, 0.8);
+    pointLight(fx, 2, fz, C.ember, 0.5, 5);
+  }
+  addParticles(80, C.yellow, 12, 28, 0.1);
+  addParticles(60, C.ember, 8, 20, 0.08);
+  addParticles(40, C.pulse, 6, 18, 0.06);
+}
+
+function buildRiftZone() {
+  // Fractured terrain
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      const r = Math.random();
+      if (r < 0.3) continue; // gaps
+      const y = r > 0.8 ? Math.floor(Math.random()*3) : 0;
+      vox(x, y, z, C.void);
+    }
+  }
+  // Rift cracks (purple glow)
+  for (let i = 0; i < 50; i++) {
+    const x = Math.floor((Math.random()-0.5)*24);
+    const z = Math.floor((Math.random()-0.5)*24);
+    vox(x, 0.02, z, C.rift, true, 0.7);
+  }
+  // Flux red seams
+  for (let i = 0; i < 25; i++) {
+    const x = Math.floor((Math.random()-0.5)*20);
+    const z = Math.floor((Math.random()-0.5)*20);
+    vox(x, 0.01, z, C.flux, true, 0.5);
+  }
+  // Floating fragments
+  for (let i = 0; i < 12; i++) {
+    const fx = (Math.random()-0.5)*20;
+    const fy = 4 + Math.random()*8;
+    const fz = (Math.random()-0.5)*20;
+    const s = 1 + Math.floor(Math.random()*2);
+    for (let dx = 0; dx < s; dx++) for (let dz = 0; dz < s; dz++) {
+      vox(Math.floor(fx)+dx, Math.floor(fy), Math.floor(fz)+dz, C.dusk);
+    }
+    vox(Math.floor(fx), Math.floor(fy)+1, Math.floor(fz), C.rift, true, 0.5);
+  }
+  // Central rift column
+  for (let y = 0; y < 12; y++) {
+    vox(0, y, 0, C.rift, true, 0.4 + Math.sin(y*0.5)*0.3);
+    if (y % 2 === 0) { vox(1, y, 0, C.magenta, true, 0.3); vox(-1, y, 0, C.magenta, true, 0.3); }
+  }
+  pointLight(0, 12, 0, C.rift, 1.5, 20);
+  pointLight(0, 6, 0, C.magenta, 0.8, 12);
+  addParticles(100, C.rift, 18, 30, 0.12);
+  addParticles(60, C.flux, 12, 25, 0.08);
+}
+
+function buildCrystalDepths() {
+  // Cave floor
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      if (Math.random() < 0.15) continue;
+      vox(x, 0, z, C.abyss);
+      if (Math.random() < 0.1) vox(x, 1, z, C.dusk);
+    }
+  }
+  // Crystals (cyan)
+  for (let i = 0; i < 20; i++) {
+    const cx = Math.floor((Math.random()-0.5)*22);
+    const cz = Math.floor((Math.random()-0.5)*22);
+    const h = 2 + Math.floor(Math.random()*5);
+    for (let y = 1; y <= h; y++) {
+      vox(cx, y, cz, C.cyan, true, 0.3 + (y/h)*0.5);
+    }
+    pointLight(cx, h+1, cz, C.cyan, 0.4, 6);
+  }
+  // Mint coral
+  for (let i = 0; i < 15; i++) {
+    const mx = Math.floor((Math.random()-0.5)*20);
+    const mz = Math.floor((Math.random()-0.5)*20);
+    vox(mx, 1, mz, C.mint, true, 0.4);
+    if (Math.random() > 0.5) vox(mx, 2, mz, C.mint, true, 0.3);
+    vox(mx+1, 1, mz, C.mint, true, 0.3);
+  }
+  // Cave ceiling
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      if (Math.random() < 0.3) continue;
+      const dist = Math.sqrt(x*x + z*z);
+      if (dist < 10 && Math.random() < 0.5) continue; // opening
+      vox(x, 12 + Math.floor(Math.random()*2), z, C.dusk);
+    }
+  }
+  // Nova-blue water pools
+  for (let i = 0; i < 6; i++) {
+    const px = Math.floor((Math.random()-0.5)*16);
+    const pz = Math.floor((Math.random()-0.5)*16);
+    for (let dx = 0; dx < 3; dx++) for (let dz = 0; dz < 3; dz++) {
+      vox(px+dx, 0.5, pz+dz, C.nova, true, 0.2);
+    }
+  }
+  addParticles(150, C.cyan, 12, 28, 0.08);
+  addParticles(60, C.mint, 10, 22, 0.06);
+}
+
+function buildBloomGarden() {
+  // Ground with moss
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      vox(x, 0, z, Math.random() < 0.3 ? 0x2A4A06 : C.dusk);
+    }
+  }
+  // Pulse-green grass tufts
+  for (let i = 0; i < 60; i++) {
+    const gx = Math.floor((Math.random()-0.5)*26);
+    const gz = Math.floor((Math.random()-0.5)*26);
+    vox(gx, 1, gz, C.pulse, true, 0.3);
+  }
+  // Magenta flower clusters
+  for (let i = 0; i < 16; i++) {
+    const fx = Math.floor((Math.random()-0.5)*22);
+    const fz = Math.floor((Math.random()-0.5)*22);
+    const h = 2 + Math.floor(Math.random()*3);
+    // Stem
+    for (let y = 1; y <= h; y++) vox(fx, y, fz, 0x5A8A18);
+    // Bloom
+    vox(fx, h+1, fz, C.magenta, true, 0.7);
+    for (let d of [[-1,0],[1,0],[0,-1],[0,1]]) {
+      if (Math.random() > 0.4) vox(fx+d[0], h, fz+d[1], C.magenta, true, 0.4);
+    }
+    pointLight(fx, h+2, fz, C.magenta, 0.4, 6);
+  }
+  // Surge green mushrooms
+  for (let i = 0; i < 8; i++) {
+    const mx = Math.floor((Math.random()-0.5)*20);
+    const mz = Math.floor((Math.random()-0.5)*20);
+    vox(mx, 1, mz, C.surge, true, 0.5);
+    vox(mx, 2, mz, C.surge, true, 0.3);
+    for (let d of [[-1,0],[1,0],[0,-1],[0,1]]) vox(mx+d[0], 2, mz+d[1], C.surge, true, 0.2);
+  }
+  // Overgrown structures
+  for (let i = 0; i < 3; i++) {
+    const sx = Math.floor((Math.random()-0.5)*16);
+    const sz = Math.floor((Math.random()-0.5)*16);
+    for (let y = 1; y <= 4; y++) { vox(sx, y, sz, C.slate); vox(sx+1, y, sz, C.dusk); }
+    vox(sx, 3, sz+1, C.pulse, true, 0.4); // vine
+    vox(sx, 5, sz, C.magenta, true, 0.3); // bloom on top
+  }
+  addParticles(100, C.magenta, 12, 28, 0.1);
+  addParticles(80, C.pulse, 8, 24, 0.08);
+  addParticles(50, C.charge, 6, 20, 0.06);
+}
+
+function buildShadowArcade() {
+  // Pure void floor with grid
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      vox(x, 0, z, C.void);
+    }
+  }
+  // Grid lines (very subtle)
+  for (let x = -14; x < 14; x += 3) {
+    for (let z = -14; z < 14; z++) vox(x, 0.01, z, C.dusk);
+  }
+  for (let z = -14; z < 14; z += 3) {
+    for (let x = -14; x < 14; x++) vox(x, 0.01, z, C.dusk);
+  }
+  // Arcade cabinets
+  for (let i = 0; i < 12; i++) {
+    const ax = Math.floor((Math.random()-0.5)*20);
+    const az = Math.floor((Math.random()-0.5)*20);
+    for (let y = 1; y <= 3; y++) vox(ax, y, az, C.void);
+    // Screen (magenta or yellow)
+    const sc = Math.random() > 0.5 ? C.magenta : C.yellow;
+    vox(ax, 3, az-1, sc, true, 0.9);
+    pointLight(ax, 4, az-1, sc, 0.6, 5);
+  }
+  // Neon floor strips
+  for (let i = 0; i < 20; i++) {
+    const nx = Math.floor((Math.random()-0.5)*24);
+    const nz = Math.floor((Math.random()-0.5)*24);
+    const nc = [C.magenta, C.yellow, C.cyan][Math.floor(Math.random()*3)];
+    vox(nx, 0.02, nz, nc, true, 0.6);
+    if (Math.random() > 0.5) vox(nx+1, 0.02, nz, nc, true, 0.4);
+  }
+  // Floating score display
+  for (let y = 6; y <= 8; y++) {
+    for (let x = -2; x <= 2; x++) {
+      vox(x, y, -8, C.void);
+    }
+  }
+  vox(0, 7, -8, C.yellow, true, 1.0);
+  vox(-1, 7, -8, C.magenta, true, 0.7);
+  vox(1, 7, -8, C.cyan, true, 0.7);
+  pointLight(0, 8, -8, C.yellow, 0.8, 10);
+
+  addParticles(60, C.magenta, 10, 28, 0.06);
+  addParticles(40, C.yellow, 8, 24, 0.05);
+}
+
+function buildVoidDrift() {
+  // No ground — floating platforms
+  // Main platform
+  for (let x = -4; x <= 4; x++) {
+    for (let z = -4; z <= 4; z++) {
+      if (Math.random() < 0.15) continue;
+      vox(x, 0, z, C.abyss);
+      if (Math.random() < 0.1) vox(x, -1, z, C.dusk);
+    }
+  }
+  // Satellite platforms
+  const platforms = [
+    {x: 10, z: 6, s: 3}, {x: -8, z: -7, s: 4}, {x: 5, z: -10, s: 2},
+    {x: -10, z: 8, s: 3}, {x: 12, z: -4, s: 2}, {x: -5, z: 12, s: 3}
+  ];
+  platforms.forEach(p => {
+    const py = Math.floor(Math.random()*4) - 2;
+    for (let dx = 0; dx < p.s; dx++) for (let dz = 0; dz < p.s; dz++) {
+      if (Math.random() < 0.2) continue;
+      vox(p.x+dx, py, p.z+dz, C.abyss);
+    }
+    // Structure on platform
+    if (Math.random() > 0.3) {
+      const h = 1 + Math.floor(Math.random()*3);
+      for (let y = 1; y <= h; y++) vox(p.x+1, py+y, p.z+1, C.slate);
+      vox(p.x+1, py+h+1, p.z+1, C.rift, true, 0.5);
+      pointLight(p.x+1, py+h+2, p.z+1, C.rift, 0.4, 6);
+    }
+  });
+  // Energy tethers (cyan lines between platforms)
+  for (let i = 0; i < 8; i++) {
+    const tx = Math.floor((Math.random()-0.5)*20);
+    const tz = Math.floor((Math.random()-0.5)*20);
+    const ty = Math.floor(Math.random()*4);
+    vox(tx, ty, tz, C.cyan, true, 0.3);
+  }
+  // Central beacon
+  for (let y = 1; y <= 6; y++) vox(0, y, 0, C.nova, true, 0.2 + y*0.1);
+  pointLight(0, 7, 0, C.nova, 0.8, 12);
+
+  addParticles(200, 0xEDE8DC, 20, 50, 0.04); // stars
+  addParticles(60, C.rift, 15, 35, 0.08); // nebula wisps
+  addParticles(30, C.nova, 10, 30, 0.06);
+}
+
+function buildPulseMeadow() {
+  // Ground
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      vox(x, 0, z, C.abyss);
+    }
+  }
+  // Rolling hills of pulse grass
+  for (let x = -14; x < 14; x++) {
+    for (let z = -14; z < 14; z++) {
+      const h = Math.sin(x*0.3)*Math.cos(z*0.3)*1.5 + 1;
+      if (h > 0.5) {
+        vox(x, 1, z, C.pulse, true, 0.15 + Math.random()*0.15);
+        if (h > 1.5 && Math.random() < 0.3) vox(x, 2, z, C.pulse, true, 0.2);
+      }
+    }
+  }
+  // Reward crystals
+  for (let i = 0; i < 8; i++) {
+    const rx = Math.floor((Math.random()-0.5)*20);
+    const rz = Math.floor((Math.random()-0.5)*20);
+    for (let y = 1; y <= 3; y++) vox(rx, y, rz, 0xD4FFAA, true, 0.4 + y*0.15);
+    pointLight(rx, 4, rz, C.pulse, 0.5, 6);
+  }
+  // Mint streams
+  for (let i = -12; i < 12; i++) {
+    const z = Math.floor(Math.sin(i*0.4)*4);
+    vox(i, 0.5, z, C.mint, true, 0.3);
+    vox(i, 0.5, z+1, C.mint, true, 0.2);
+  }
+  // Gentle stones
+  for (let i = 0; i < 6; i++) {
+    const sx = Math.floor((Math.random()-0.5)*18);
+    const sz = Math.floor((Math.random()-0.5)*18);
+    vox(sx, 1, sz, C.dusk);
+    if (Math.random() > 0.5) vox(sx+1, 1, sz, C.slate);
+  }
+  addParticles(100, C.pulse, 8, 28, 0.08);
+  addParticles(60, C.mint, 6, 24, 0.06);
+  addParticles(40, 0xD4FFAA, 10, 20, 0.1);
+}
+
+// ════════════════════════════════════════
+// LIGHT THEME BUILDERS
+// ════════════════════════════════════════
+
+function buildCloudtopCitadel() {
+  // Light cream ground with scattered platforms
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      if (Math.random() < 0.8) vox(x, 0, z, C.lightCream);
+    }
+  }
+  // Pearl marble platforms (stepped)
+  const platformLevels = [
+    { y: 1, color: C.pearl, count: 25 },
+    { y: 2, color: C.pearl, count: 20 },
+    { y: 3, color: C.pearl, count: 12 }
+  ];
+  platformLevels.forEach(level => {
+    for (let i = 0; i < level.count; i++) {
+      const px = Math.floor((Math.random()-0.5)*28);
+      const pz = Math.floor((Math.random()-0.5)*28);
+      vox(px, level.y, pz, level.color);
+    }
+  });
+  // Pulse-green banners
+  for (let i = 0; i < 8; i++) {
+    const bx = Math.floor((Math.random()-0.5)*20);
+    const bz = Math.floor((Math.random()-0.5)*20);
+    voxTall(bx, 2, bz, C.pulse);
+  }
+  // Cyan water features
+  for (let i = 0; i < 6; i++) {
+    const wx = Math.floor((Math.random()-0.5)*18);
+    const wz = Math.floor((Math.random()-0.5)*18);
+    for (let dx = 0; dx < 2; dx++) for (let dz = 0; dz < 2; dz++) {
+      vox(wx+dx, 0.5, wz+dz, C.softCyan);
+    }
+  }
+  // Stone accent columns
+  for (let i = 0; i < 5; i++) {
+    const cx = Math.floor((Math.random()-0.5)*20);
+    const cz = Math.floor((Math.random()-0.5)*20);
+    for (let y = 1; y <= 3; y++) vox(cx, y, cz, C.stone);
+  }
+  // Sapphire royal accent structures
+  for (let i = 0; i < 4; i++) {
+    const sx = Math.floor((Math.random()-0.5)*18);
+    const sz = Math.floor((Math.random()-0.5)*18);
+    voxTall(sx, 1, sz, C.sapphire);
+  }
+  // Marigold trim blocks
+  for (let i = 0; i < 3; i++) {
+    const mx = Math.floor((Math.random()-0.5)*16);
+    const mz = Math.floor((Math.random()-0.5)*16);
+    vox(mx, 3, mz, C.marigold);
+    vox(mx+1, 2, mz, C.marigold);
+  }
+  addParticles(100, 0xE0D8D0, 14, 32, 0.08); // cloud wisps
+  addParticles(60, 0xB8D080, 10, 24, 0.06); // leaf fall
+  addParticles(40, 0xE8E4D8, 8, 20, 0.05); // dust motes
+}
+
+function buildSakuraGrid() {
+  // Light pearl ground
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      vox(x, 0, z, C.pearl);
+    }
+  }
+  // Wooden bridge paths
+  for (let x = -8; x < 8; x++) {
+    vox(x, 1, 0, 0xC4A884); // horizontal bridge
+  }
+  for (let z = -8; z < 8; z++) {
+    vox(0, 1, z, 0xC4A884); // vertical bridge
+  }
+  // Sakura blossom trees (soft magenta)
+  for (let i = 0; i < 12; i++) {
+    const tx = Math.floor((Math.random()-0.5)*20);
+    const tz = Math.floor((Math.random()-0.5)*20);
+    if (Math.abs(tx) < 2 && Math.abs(tz) < 2) continue;
+    // Trunk
+    for (let y = 1; y <= 3; y++) vox(tx, y, tz, 0x8B6F47);
+    // Canopy - soft magenta blossoms
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        if (Math.random() < 0.6) vox(tx+dx, 4, tz+dz, C.softMagenta);
+        if (Math.random() < 0.3) vox(tx+dx, 5, tz+dz, C.softMagenta);
+      }
+    }
+  }
+  // Reflecting pools
+  for (let i = 0; i < 5; i++) {
+    const px = Math.floor((Math.random()-0.5)*16);
+    const pz = Math.floor((Math.random()-0.5)*16);
+    for (let dx = 0; dx < 3; dx++) for (let dz = 0; dz < 3; dz++) {
+      vox(px+dx, 0.5, pz+dz, 0x9FC8D8);
+    }
+  }
+  // Ruby dramatic blossom clusters
+  for (let i = 0; i < 4; i++) {
+    const rx = Math.floor((Math.random()-0.5)*16);
+    const rz = Math.floor((Math.random()-0.5)*16);
+    voxTall(rx, 2, rz, C.ruby);
+    vox(rx, 4, rz, C.ruby);
+  }
+  // Amethyst lantern/gate elements
+  for (let i = 0; i < 3; i++) {
+    const ax = Math.floor((Math.random()-0.5)*14);
+    const az = Math.floor((Math.random()-0.5)*14);
+    voxTall(ax, 1, az, C.amethyst);
+    if (i < 2) voxTall(ax+2, 1, az, C.amethyst);
+  }
+  addParticles(90, C.softMagenta, 12, 28, 0.07); // falling pink petals
+  addParticles(50, 0xE8A8E8, 10, 24, 0.05); // fireflies
+  addParticles(40, 0xF0F0F0, 8, 20, 0.04); // mist
+}
+
+function buildSolarPlaza() {
+  // Light cream ground
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      vox(x, 0, z, C.pearl);
+    }
+  }
+  // Terracotta market stalls
+  for (let i = 0; i < 16; i++) {
+    const sx = Math.floor((Math.random()-0.5)*22);
+    const sz = Math.floor((Math.random()-0.5)*22);
+    const h = 2 + Math.floor(Math.random()*2);
+    for (let y = 1; y <= h; y++) {
+      vox(sx, y, sz, C.softWarm);
+      if (Math.random() < 0.2) vox(sx+1, y, sz, 0xDC9870);
+    }
+    // Soft yellow banner
+    if (Math.random() > 0.3) vox(sx, h+1, sz, C.softYellow);
+  }
+  // Pulse-green accent details
+  for (let i = 0; i < 8; i++) {
+    const ax = Math.floor((Math.random()-0.5)*20);
+    const az = Math.floor((Math.random()-0.5)*20);
+    vox(ax, 1, az, C.softPulse);
+  }
+  // Ember-orange accent blocks
+  for (let i = 0; i < 6; i++) {
+    const ex = Math.floor((Math.random()-0.5)*18);
+    const ez = Math.floor((Math.random()-0.5)*18);
+    vox(ex, 1, ez, 0xFF8C42);
+  }
+  // Terracotta market roof structures
+  for (let i = 0; i < 4; i++) {
+    const tx = Math.floor((Math.random()-0.5)*16);
+    const tz = Math.floor((Math.random()-0.5)*16);
+    vox(tx, 3, tz, C.terracotta);
+    vox(tx+1, 3, tz, C.terracotta);
+  }
+  // Marigold banner-like structures
+  for (let i = 0; i < 3; i++) {
+    const mx = Math.floor((Math.random()-0.5)*14);
+    const mz = Math.floor((Math.random()-0.5)*14);
+    voxTall(mx, 2, mz, C.marigold);
+  }
+  // Coral accent spots
+  for (let i = 0; i < 3; i++) {
+    const cx = Math.floor((Math.random()-0.5)*12);
+    const cz = Math.floor((Math.random()-0.5)*12);
+    vox(cx, 2, cz, C.coral);
+    vox(cx, 1, cz, C.coral);
+  }
+  addParticles(100, 0xFFD080, 12, 32, 0.08); // dust in sunbeams
+  addParticles(60, 0xF0E0C0, 10, 26, 0.06); // steam wisps
+  addParticles(40, 0xFFD700, 8, 22, 0.05); // golden motes
+}
+
+function buildMintHaven() {
+  // White stone terrace ground
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      vox(x, 0, z, C.lightCream);
+    }
+  }
+  // Stone terraces (stepped levels)
+  for (let level = 1; level <= 3; level++) {
+    const count = 20 - level * 5;
+    for (let i = 0; i < count; i++) {
+      const tx = Math.floor((Math.random()-0.5)*(28-level*4));
+      const tz = Math.floor((Math.random()-0.5)*(28-level*4));
+      vox(tx, level, tz, C.pearl);
+    }
+  }
+  // Shallow mint pools
+  for (let i = 0; i < 8; i++) {
+    const px = Math.floor((Math.random()-0.5)*18);
+    const pz = Math.floor((Math.random()-0.5)*18);
+    for (let dx = 0; dx < 3; dx++) for (let dz = 0; dz < 3; dz++) {
+      vox(px+dx, 0.5, pz+dz, C.softCyan);
+      if (Math.random() > 0.5) vox(px+dx, 1, pz+dz, 0x80FFB8);
+    }
+  }
+  // Zen stone placements
+  for (let i = 0; i < 6; i++) {
+    const zx = Math.floor((Math.random()-0.5)*20);
+    const zz = Math.floor((Math.random()-0.5)*20);
+    vox(zx, 1, zz, C.stone);
+  }
+  // Teal deeper water pool accents
+  for (let i = 0; i < 3; i++) {
+    const tx = Math.floor((Math.random()-0.5)*16);
+    const tz = Math.floor((Math.random()-0.5)*16);
+    vox(tx, 0.5, tz, C.teal);
+    vox(tx, 1, tz, C.teal);
+  }
+  // Emerald lush vegetation blocks
+  for (let i = 0; i < 4; i++) {
+    const ex = Math.floor((Math.random()-0.5)*14);
+    const ez = Math.floor((Math.random()-0.5)*14);
+    voxTall(ex, 1, ez, C.emerald);
+  }
+  addParticles(80, 0xE8F8F8, 12, 26, 0.06); // gentle mist
+  addParticles(60, 0xA8E8E8, 10, 24, 0.05); // water ripples
+  addParticles(40, 0xD8E8D8, 8, 20, 0.04); // pollen wisps
+}
+
+function buildPrismFields() {
+  // White canvas ground
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      vox(x, 0, z, C.lightCream);
+    }
+  }
+  // Multicolor neon blocks scattered throughout (soft colors)
+  const softColors = [C.softMagenta, C.softCyan, C.softYellow, C.softPulse, C.softRift];
+  for (let i = 0; i < 50; i++) {
+    const bx = Math.floor((Math.random()-0.5)*28);
+    const bz = Math.floor((Math.random()-0.5)*28);
+    const h = 1 + Math.floor(Math.random()*3);
+    const color = softColors[Math.floor(Math.random()*softColors.length)];
+    for (let y = 1; y <= h; y++) {
+      vox(bx, y, bz, color);
+    }
+  }
+  // Additional scattered colored elements (soft colors)
+  for (let i = 0; i < 30; i++) {
+    const cx = Math.floor((Math.random()-0.5)*26);
+    const cz = Math.floor((Math.random()-0.5)*26);
+    const color = softColors[Math.floor(Math.random()*softColors.length)];
+    vox(cx, 1, cz, color);
+  }
+  // Vivid midtone blocks scattered throughout - ruby, sapphire, emerald, marigold, amethyst
+  const vividColors = [C.ruby, C.sapphire, C.emerald, C.marigold, C.amethyst];
+  for (let i = 0; i < 25; i++) {
+    const vx = Math.floor((Math.random()-0.5)*26);
+    const vz = Math.floor((Math.random()-0.5)*26);
+    const h = 1 + Math.floor(Math.random()*2);
+    const color = vividColors[Math.floor(Math.random()*vividColors.length)];
+    for (let y = 1; y <= h; y++) {
+      vox(vx, y, vz, color);
+    }
+  }
+  addParticles(120, C.softMagenta, 14, 32, 0.07); // rainbow confetti
+  addParticles(80, C.softCyan, 12, 28, 0.06); // colored orbs
+  addParticles(60, C.softPulse, 10, 24, 0.05); // light sparkles
+}
+
+function buildDawnTerrace() {
+  // Golden hour warm stone ground
+  for (let x = -16; x < 16; x++) {
+    for (let z = -16; z < 16; z++) {
+      vox(x, 0, z, C.softWarm);
+    }
+  }
+  // Terraced gardens (stepped levels)
+  const terraceLevels = [
+    { y: 1, size: 24, count: 24 },
+    { y: 2, size: 20, count: 16 },
+    { y: 3, size: 14, count: 8 }
+  ];
+  terraceLevels.forEach(level => {
+    for (let i = 0; i < level.count; i++) {
+      const tx = Math.floor((Math.random()-0.5)*level.size);
+      const tz = Math.floor((Math.random()-0.5)*level.size);
+      vox(tx, level.y, tz, C.pearl);
+    }
+  });
+  // Soft rose accents
+  for (let i = 0; i < 8; i++) {
+    const rx = Math.floor((Math.random()-0.5)*20);
+    const rz = Math.floor((Math.random()-0.5)*20);
+    vox(rx, 1, rz, C.softRose);
+  }
+  // Soft pulse green details
+  for (let i = 0; i < 6; i++) {
+    const gx = Math.floor((Math.random()-0.5)*18);
+    const gz = Math.floor((Math.random()-0.5)*18);
+    vox(gx, 1, gz, C.softPulse);
+  }
+  // Warm stone pillars
+  for (let i = 0; i < 4; i++) {
+    const px = Math.floor((Math.random()-0.5)*16);
+    const pz = Math.floor((Math.random()-0.5)*16);
+    for (let y = 1; y <= 3; y++) vox(px, y, pz, C.stone);
+  }
+  // Terracotta warm structures
+  for (let i = 0; i < 3; i++) {
+    const tx = Math.floor((Math.random()-0.5)*14);
+    const tz = Math.floor((Math.random()-0.5)*14);
+    voxTall(tx, 1, tz, C.terracotta);
+  }
+  // Burgundy accent blocks
+  for (let i = 0; i < 3; i++) {
+    const bx = Math.floor((Math.random()-0.5)*12);
+    const bz = Math.floor((Math.random()-0.5)*12);
+    vox(bx, 2, bz, C.burgundy);
+  }
+  // Marigold highlight blocks
+  for (let i = 0; i < 2; i++) {
+    const mx = Math.floor((Math.random()-0.5)*10);
+    const mz = Math.floor((Math.random()-0.5)*10);
+    vox(mx, 3, mz, C.marigold);
+    vox(mx, 2, mz, C.marigold);
+  }
+  addParticles(100, 0xFFD080, 14, 30, 0.08); // golden dust
+  addParticles(70, C.softRose, 12, 26, 0.06); // drifting petals
+  addParticles(50, 0xFFE0A0, 10, 22, 0.05); // warm light rays
+}
+
+// ════════════════════════════════════════
+// THEME LOADING
+// ════════════════════════════════════════
+function clearScene() {
+  while (scene.children.length > 0) scene.remove(scene.children[0]);
+  particles = [];
+  glowMeshes = [];
+}
+
+function loadTheme(idx) {
+  currentTheme = idx;
+  const t = themes[idx];
+  clearScene();
+
+  // Background
+  scene.background = new THREE.Color(t.fog.color);
+  scene.fog = new THREE.Fog(t.fog.color, t.fog.near, t.fog.far);
+
+  // Lights
+  const amb = new THREE.AmbientLight(t.ambientColor, t.ambientInt);
+  scene.add(amb);
+  const key = new THREE.DirectionalLight(t.keyColor, t.keyInt);
+  key.position.set(10, 15, 8);
+  key.castShadow = true;
+  key.shadow.mapSize.width = 1024;
+  key.shadow.mapSize.height = 1024;
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(t.fillColor, t.fillInt);
+  fill.position.set(-8, 5, -6);
+  scene.add(fill);
+
+  // Build world
+  t.build();
+
+  // Update UI
+  updateUI(t);
+  updateThemeButtons(idx);
+}
+
+// ════════════════════════════════════════
+// UI
+// ════════════════════════════════════════
+function buildThemeList() {
+  const list = document.getElementById('theme-list');
+  themes.forEach((t, i) => {
+    // Add light theme separator
+    if (i === 8) { // after 8 dark themes
+      const sep = document.createElement('div');
+      sep.className = 'theme-section-label';
+      sep.textContent = 'Light Themes';
+      list.appendChild(sep);
+    }
+
+    const btn = document.createElement('button');
+    btn.className = 'theme-btn' + (t.isLight ? ' light-theme' : '');
+    btn.style.setProperty('--tc', '#' + t.colors[0].toString(16).padStart(6,'0'));
+    btn.style.setProperty('--tg', 'rgba(' + ((t.colors[0]>>16)&255) + ',' + ((t.colors[0]>>8)&255) + ',' + (t.colors[0]&255) + ',0.3)');
+    const dot = document.createElement('span');
+    dot.className = 'theme-dot-sm';
+    dot.style.background = '#' + t.colors[0].toString(16).padStart(6,'0');
+    dot.style.boxShadow = '0 0 6px ' + btn.style.getPropertyValue('--tg');
+    btn.appendChild(dot);
+    btn.appendChild(document.createTextNode(t.name));
+    btn.onclick = () => loadTheme(i);
+    list.appendChild(btn);
+  });
+}
+
+function updateThemeButtons(idx) {
+  document.querySelectorAll('.theme-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+}
+
+function hexStr(c) { return '#' + c.toString(16).padStart(6, '0').toUpperCase(); }
+
+function updateUI(t) {
+  // Update theme name color
+  const nameEl = document.getElementById('theme-name');
+  nameEl.textContent = t.name;
+  nameEl.style.color = hexStr(t.colors[0]);
+  // Adapt main title & eyebrow for light/dark backgrounds
+  const mainTitle = document.getElementById('main-title');
+  const mainTitleSpan = mainTitle.querySelector('span');
+  const eyebrow = document.getElementById('eyebrow');
+  const taglineEl = document.getElementById('theme-tagline');
+
+  if (t.isLight) {
+    nameEl.style.color = '#1A1A28';
+    nameEl.style.textShadow = 'none';
+    // Main title: dark text for light backgrounds
+    mainTitle.style.color = '#1A1A28';
+    mainTitleSpan.style.color = '#5A8A20';
+    mainTitleSpan.style.textShadow = 'none';
+    // Eyebrow
+    eyebrow.style.color = '#5A8A20';
+    // Tagline
+    taglineEl.style.color = '#4A4A66';
+  } else {
+    nameEl.style.textShadow = '0 0 20px ' + hexStr(t.colors[0]) + '66';
+    // Main title: light/neon for dark backgrounds
+    mainTitle.style.color = '#EDE8DC';
+    mainTitleSpan.style.color = '#B8FF5C';
+    mainTitleSpan.style.textShadow = '0 0 20px rgba(184,255,92,0.5)';
+    // Eyebrow
+    eyebrow.style.color = '#B8FF5C';
+    // Tagline
+    taglineEl.style.color = '#2A2A40';
+  }
+
+  taglineEl.textContent = t.tagline;
+  document.getElementById('mood-text').textContent = t.mood.join(' · ');
+  document.getElementById('materials-text').textContent = t.materials;
+  document.getElementById('particles-text').textContent = t.particles;
+
+  // Update info cards styling for light themes
+  const infoCards = document.querySelectorAll('.info-card');
+  const infoLabels = document.querySelectorAll('.info-label');
+  const infoValues = document.querySelectorAll('.info-value');
+  infoCards.forEach(el => el.classList.toggle('light-bg', t.isLight));
+  infoLabels.forEach(el => el.classList.toggle('light-text', t.isLight));
+  infoValues.forEach(el => el.classList.toggle('light-text', t.isLight));
+
+  // Update drag hint for light themes
+  const dragHint = document.querySelector('.drag-hint');
+  dragHint.classList.toggle('light-text', t.isLight);
+
+  const dots = document.getElementById('palette-dots');
+  dots.innerHTML = '';
+  t.colors.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'palette-dot';
+    d.style.background = hexStr(c);
+    const r = (c>>16)&255, g = (c>>8)&255, b = c&255;
+    if (r + g + b > 100) d.style.boxShadow = `0 0 8px rgba(${r},${g},${b},0.5)`;
+    else d.style.border = '1px solid #1A1A28';
+    dots.appendChild(d);
+  });
+}
+
+// ════════════════════════════════════════
+// ANIMATE
+// ════════════════════════════════════════
+function animate() {
+  animationId = requestAnimationFrame(animate);
+  time += 0.016;
+
+  updateCamera();
+
+  // Animate particles
+  particles.forEach(p => {
+    p.rotation.y += 0.001;
+    const pos = p.geometry.attributes.position.array;
+    for (let i = 1; i < pos.length; i += 3) {
+      pos[i] += Math.sin(time + i) * 0.003;
+    }
+    p.geometry.attributes.position.needsUpdate = true;
+  });
+
+  // Pulse glow meshes
+  glowMeshes.forEach((m, i) => {
+    if (m.material.emissiveIntensity !== undefined) {
+      const base = m.material.userData?.baseEmissive || m.material.emissiveIntensity;
+      if (!m.material.userData) m.material.userData = { baseEmissive: base };
+      m.material.emissiveIntensity = base + Math.sin(time * 2 + i * 0.7) * base * 0.2;
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+
+// ════════════════════════════════════════
+// RESIZE
+// ════════════════════════════════════════
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// GO
+init();
+</script>
+</body>
+</html>

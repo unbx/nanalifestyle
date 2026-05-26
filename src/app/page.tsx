@@ -323,6 +323,7 @@ function Navigation() {
           <a href="#product" className="nav-link">Product</a>
           <a href="#experience" className="nav-link">Enterprise</a>
           <a href="#skills" className="nav-link">Skills</a>
+          <a href="/work" className="nav-link">Work</a>
           <a href="#contact" className="nav-link">Contact</a>
         </div>
       </div>
@@ -343,7 +344,7 @@ function HeroSection() {
         </div>
         <p className="hero-subtitle animate-fade-up delay-1">Sean Nana</p>
         <h1 className="hero-title animate-fade-up delay-2">
-          <span className="hero-title-line"><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Operator. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Enabler.</span><br />
+          <span className="hero-title-line"><span className="holo-text" style={{ fontWeight: 500 }}>Creative</span> Director. <span className="holo-text" style={{ fontWeight: 500 }}>Strategic</span> Operator.</span><br />
           Culture <span style={{ color: "var(--muted)", fontWeight: 300 }}>×</span> Emerging Tech.
         </h1>
         <p className="hero-desc animate-fade-up delay-3">
@@ -773,7 +774,7 @@ function ContactSection() {
         <div className="reveal">
           <NanaLogo width={96} className="" />
           <h2 className="font-display" style={{ fontSize: "clamp(28px,5vw,48px)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 24, marginTop: 32 }}><span className="holo-text">Let&apos;s Build Together</span></h2>
-          <p style={{ color: "var(--muted)", fontSize: 14, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.8 }}>Open to creative collaborations, product roles, and conversations about culture, technology, and what&apos;s next.</p>
+          <p style={{ color: "var(--muted)", fontSize: 14, maxWidth: 480, margin: "0 auto 48px", lineHeight: 1.8 }}>Open to creative collaborations, roles, and conversations about culture, technology, and what&apos;s next.</p>
         </div>
         <div className="reveal" style={{ marginBottom: 64 }}><a href="mailto:holler.back@me.com" className="contact-btn">holler.back@me.com</a></div>
         <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: 32, marginBottom: 80 }}>
