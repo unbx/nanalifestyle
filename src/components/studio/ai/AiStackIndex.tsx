@@ -12,9 +12,9 @@ const stack = [
   "wan 2.6",
   "kling",
   "chatgpt",
+  "claude code",
   "elevenlabs",
   "final cut pro",
-  "after effects",
 ];
 
 export default function AiStackIndex() {

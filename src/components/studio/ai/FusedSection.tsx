@@ -29,7 +29,7 @@ const briefToBrandPipeline = [
   { n: "03", label: "Visual exploration", tool: "Nano Banana · FLUX · Recraft" },
   { n: "04", label: "Refinement", tool: "Nano Banana relight" },
   { n: "05", label: "Hero compositions", tool: "Nano Banana final pass" },
-  { n: "06", label: "Interactive style guide", tool: "Fuser canvas render" },
+  { n: "06", label: "Interactive style guide", tool: "Claude Code node in Fuser" },
 ];
 
 export default function FusedSection({ index }: { index: number }) {
@@ -384,14 +384,14 @@ export default function FusedSection({ index }: { index: number }) {
 
         <WorkDetail
           problem="Brand work usually splits across a team and a week. Even with AI, the bottleneck is tool sprawl — model in one tab, prompts in another, output collection in a third, deliverable in a fourth. The brief gets diluted between hands and apps."
-          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and persona in LLM text nodes, then defines per-direction prompt scaffolds. Asset Production runs multi-model exploration in parallel — Nano Banana, FLUX, and Recraft each playing to their strengths across the directions — then narrows down through a Nano Banana relight pass and a final hero composition pass. Interactive Showcase renders the result as a clickable style guide inside the canvas. The brief stays present at every stage."
+          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and persona in LLM text nodes, then defines per-direction prompt scaffolds. Asset Production runs multi-model exploration in parallel — Nano Banana, FLUX, and Recraft each playing to their strengths across the directions — then narrows down through a Nano Banana relight pass and a final hero composition pass. Interactive Showcase ships a clickable style guide rendered by a Claude Code node, all live inside the same Fuser canvas. The brief stays present at every stage."
           tools={[
             "Fuser Studio",
             "LLM text nodes",
             "Nano Banana",
             "FLUX",
             "Recraft",
-            "Fuser canvas render",
+            "Claude Code node",
           ]}
         />
       </div>
