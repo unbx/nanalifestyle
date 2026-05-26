@@ -5,8 +5,12 @@ import { motion } from "framer-motion";
 const stack = [
   "fuser studio",
   "nano banana",
-  "kling",
+  "flux",
+  "recraft",
   "midjourney",
+  "florence-2",
+  "wan 2.6",
+  "kling",
   "chatgpt",
   "elevenlabs",
   "final cut pro",

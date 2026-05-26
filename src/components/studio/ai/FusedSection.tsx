@@ -26,7 +26,7 @@ const pipeline = [
 const briefToBrandPipeline = [
   { n: "01", label: "Brief + persona", tool: "LLM text nodes" },
   { n: "02", label: "Direction prompts", tool: "Per-direction prompt scaffolds" },
-  { n: "03", label: "Visual exploration", tool: "Nano Banana · Midjourney · multi-model" },
+  { n: "03", label: "Visual exploration", tool: "Nano Banana · FLUX · Recraft" },
   { n: "04", label: "Refinement", tool: "Nano Banana relight" },
   { n: "05", label: "Hero compositions", tool: "Nano Banana final pass" },
   { n: "06", label: "Interactive style guide", tool: "Fuser canvas render" },
@@ -384,13 +384,13 @@ export default function FusedSection({ index }: { index: number }) {
 
         <WorkDetail
           problem="Brand work usually splits across a team and a week. Even with AI, the bottleneck is tool sprawl — model in one tab, prompts in another, output collection in a third, deliverable in a fourth. The brief gets diluted between hands and apps."
-          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and persona in LLM text nodes, then defines per-direction prompt scaffolds. Asset Production runs multi-model exploration in parallel — Nano Banana for the core compositions, Midjourney for the more painterly directions — then narrows down through a Nano Banana relight pass and a final hero composition pass. Interactive Showcase renders the result as a clickable style guide inside the canvas. The brief stays present at every stage."
+          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and persona in LLM text nodes, then defines per-direction prompt scaffolds. Asset Production runs multi-model exploration in parallel — Nano Banana, FLUX, and Recraft each playing to their strengths across the directions — then narrows down through a Nano Banana relight pass and a final hero composition pass. Interactive Showcase renders the result as a clickable style guide inside the canvas. The brief stays present at every stage."
           tools={[
             "Fuser Studio",
             "LLM text nodes",
             "Nano Banana",
-            "Midjourney",
-            "ChatGPT",
+            "FLUX",
+            "Recraft",
             "Fuser canvas render",
           ]}
         />
