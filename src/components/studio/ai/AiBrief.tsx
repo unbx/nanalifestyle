@@ -30,9 +30,8 @@ export default function AiBrief() {
           </blockquote>
 
           <p className="text-nana-text/80 text-base md:text-lg leading-relaxed">
-            This page is the answer. Four pieces, each with the
-            workflow exposed. Tools are listed by name. Pipelines are
-            shown, not described.
+            This page is the answer. Three case studies, each with the
+            pipeline exposed and the models named.
           </p>
         </motion.div>
       </div>

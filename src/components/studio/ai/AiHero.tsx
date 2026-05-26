@@ -70,9 +70,11 @@ export default function AiHero() {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="font-display font-light tracking-tight text-3xl md:text-5xl lg:text-6xl leading-[1.05] mb-8 max-w-4xl"
         >
-          Creative direction,{" "}
-          <span className="holo-text font-medium">made with AI.</span>{" "}
-          Voice, motion, image, identity.
+          Creative direction, made with AI.{" "}
+          <span className="holo-text font-medium">
+            Voice across cultures. Brand across models. Agents that
+            read both.
+          </span>
         </motion.h1>
 
         <motion.p
@@ -81,10 +83,10 @@ export default function AiHero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-nana-text text-base md:text-lg max-w-2xl leading-relaxed"
         >
-          A selection of recent work made with a modern AI toolkit.
-          Pipelines stitched in Fuser Studio, generations from Nano
-          Banana, Kling, and Midjourney, voice from ElevenLabs,
-          finished in Final Cut Pro.
+          Three case studies. Multi-model pipelines stitched in Fuser
+          Studio. Brand systems written for humans and AI agents.
+          Custom voice work in ElevenLabs that crosses cultures and
+          characters.
         </motion.p>
       </div>
 
