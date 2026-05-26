@@ -31,7 +31,7 @@ export default function DoppelSection({ index }: { index: number }) {
               {String(index).padStart(2, "0")}
             </span>
             <span className="w-8 h-px bg-nana-muted/40" />
-            <span>case study · brand system for agents</span>
+            <span>case study · agentic system + voice</span>
           </div>
 
           <h2 className="font-display font-medium tracking-tight text-4xl md:text-6xl lg:text-7xl mb-4">
@@ -39,34 +39,83 @@ export default function DoppelSection({ index }: { index: number }) {
           </h2>
 
           <p className="font-display text-lg md:text-2xl text-nana-text/90 max-w-3xl leading-snug font-light">
-            A style guide written for humans{" "}
+            Agentic avatars, each with their own LLM.{" "}
             <span className="holo-text font-medium">
-              and agents. Built with Claude.
+              Voiced live by the ElevenLabs Voice API.
             </span>
           </p>
         </motion.div>
 
-        <Brief text="Doppel is a 3D world building platform where AI agents create voxel environments. The brand had to survive in three contexts at once — 2D guidelines designers read, 3D rules the world engine renders, and a machine-readable spec the agents consume. Used Claude as the system architect so all three readers trust the same source of truth." />
+        <Brief text="Doppel is a 3D world building platform where every avatar runs its own LLM and speaks live through the ElevenLabs Voice API. The experimental setup sits on top of a real brand system — a single typed spec, architected with Claude, that designers, the 3D engine, and the agents themselves all read from. Same source of truth, three readers, one voice across all of them." />
+
+        {/* --- LEAD EXHIBIT: Agentic ElevenLabs demos --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-6"
+        >
+          <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3 flex-wrap">
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: ACCENT }} />
+            <span>the experiment · elevenlabs voice api</span>
+            <span
+              className="ml-2 px-2 py-0.5 rounded-full border font-mono text-[9px] tracking-[0.2em] uppercase"
+              style={{ borderColor: `${ACCENT}80`, color: ACCENT }}
+            >
+              experimental
+            </span>
+          </div>
+          <p className="text-nana-muted text-sm md:text-base max-w-2xl leading-relaxed">
+            A networked 3D world. Every avatar runs its own LLM. Same
+            spec read by every agent. Same brand voice across every
+            line. A glimpse of what agent-to-agent collaboration sounds
+            like when it shares a brand.
+          </p>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8 }}
-          className="relative aspect-[16/9] w-full bg-black border border-nana-border rounded-sm overflow-hidden mb-20"
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-24"
         >
-          <img
-            src="/studio/dopple/Doppel OpenGraph.jpg"
-            alt="Doppel splash"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-nana-black/50 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/70">
-            <span>doppel · world style system</span>
-            <span style={{ color: ACCENT }}>v 2.0</span>
+          <div
+            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
+            style={{ borderColor: `${ACCENT}40` }}
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={DEMO_1}
+              controls
+              playsInline
+              preload="metadata"
+            />
+            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>demo · networked agents</span>
+              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
+            </div>
+          </div>
+          <div
+            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
+            style={{ borderColor: `${ACCENT}40` }}
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={DEMO_2}
+              controls
+              playsInline
+              preload="metadata"
+            />
+            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>demo · agent dialogue</span>
+              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
+            </div>
           </div>
         </motion.div>
 
+        {/* --- Supporting context: the underlying brand system --- */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,14 +125,21 @@ export default function DoppelSection({ index }: { index: number }) {
         >
           <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3">
             <span className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
-            <span>one brand · three readers</span>
+            <span>the system underneath · one brand · three readers</span>
           </div>
           <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
-            A style guide.{" "}
+            A style guide, built with Claude.{" "}
             <span className="holo-text font-medium">
-              Built for 2D, 3D, and agents.
+              For 2D, 3D, and agents.
             </span>
           </h3>
+          <p className="text-nana-muted text-sm md:text-base mt-4 max-w-2xl leading-relaxed">
+            The agentic voice work runs on top of a real brand system.
+            One typed spec, architected with Claude. Three live
+            artifacts — an HTML guide for designers, a Three.js voxel
+            preview for the engine, and a machine-readable JSON the
+            agents consume directly.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
@@ -138,80 +194,6 @@ export default function DoppelSection({ index }: { index: number }) {
             </motion.a>
           ))}
         </div>
-
-        {/* --- Agents in conversation · ElevenLabs voice --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-6"
-        >
-          <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3">
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: ACCENT }} />
-            <span>agents in conversation · elevenlabs voice api</span>
-            <span
-              className="ml-2 px-2 py-0.5 rounded-full border font-mono text-[9px] tracking-[0.2em] uppercase"
-              style={{ borderColor: `${ACCENT}80`, color: ACCENT }}
-            >
-              experimental
-            </span>
-          </div>
-          <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
-            Agentic avatars, each with their own LLM.{" "}
-            <span className="holo-text font-medium">
-              Voiced live by the ElevenLabs Voice API.
-            </span>
-          </h3>
-          <p className="text-nana-muted text-sm md:text-base mt-4 max-w-2xl leading-relaxed">
-            A networked 3D world where every avatar runs its own LLM
-            and speaks through the ElevenLabs Voice API in real time.
-            Same spec read by every agent, same brand voice across
-            every line. A glimpse of what agent-to-agent collaboration
-            sounds like when it shares a brand.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.05 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12"
-        >
-          <div
-            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
-            style={{ borderColor: `${ACCENT}40` }}
-          >
-            <video
-              className="absolute inset-0 w-full h-full object-cover"
-              src={DEMO_1}
-              controls
-              playsInline
-              preload="metadata"
-            />
-            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
-              <span>demo · networked agents</span>
-              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
-            </div>
-          </div>
-          <div
-            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
-            style={{ borderColor: `${ACCENT}40` }}
-          >
-            <video
-              className="absolute inset-0 w-full h-full object-cover"
-              src={DEMO_2}
-              controls
-              playsInline
-              preload="metadata"
-            />
-            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
-              <span>demo · agent dialogue</span>
-              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
-            </div>
-          </div>
-        </motion.div>
 
         <WorkDetail
           problem="A brand identity that has to read across three audiences at once. Humans on 2D guidelines. The 3D engine rendering environments. AI agents building worlds with no human in the room. The brand has to give agents enough rules to create inside the design system — and survive when those agents talk to each other in voice."
