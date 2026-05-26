@@ -22,9 +22,9 @@ export default function AiBrief() {
 
           <blockquote className="border-l border-nana-amber/60 pl-6 md:pl-8 py-1 mb-8">
             <p className="font-display text-lg md:text-2xl text-nana-text/90 leading-snug font-light italic">
-              A practice of fusing AI into every step — brief to brand
-              to build. Years of practice build the taste. Fusing it
-              with what's new makes possible what wasn't.
+              A practice built on analogue foundations. Refined through
+              years of creative process. Fused with cutting-edge tools
+              to make possible what wasn't before.
             </p>
           </blockquote>
 
