@@ -13,12 +13,14 @@ const ACCENT = "#e8c878";
 const HAS_FUSER_SCREENSHOT = true;
 
 const pipeline = [
-  { n: "01", label: "Character sheets", tool: "Fuser Studio · LLM" },
-  { n: "02", label: "Image generation", tool: "Nano Banana + others" },
-  { n: "03", label: "Art refinement", tool: "Fuser Studio nodes" },
-  { n: "04", label: "Dramatic lighting", tool: "Lighting pass" },
-  { n: "05", label: "Video generation", tool: "Kling" },
-  { n: "06", label: "Edit + sound", tool: "Final Cut Pro" },
+  { n: "01", label: "References in", tool: "Hapa 3D · Otherside biomes · Ape refs" },
+  { n: "02", label: "Caption + brief", tool: "Florence-2 · LLM text nodes" },
+  { n: "03", label: "Composition", tool: "Nano Banana (Gemini Image)" },
+  { n: "04", label: "Element extraction", tool: "Wan 2.6 Image" },
+  { n: "05", label: "Photoreal pass", tool: "FLUX.1 [Dev]" },
+  { n: "06", label: "Cinematic lighting", tool: "Nano Banana relight" },
+  { n: "07", label: "Motion", tool: "Kling 3.0 Video" },
+  { n: "08", label: "Edit + sound", tool: "Final Cut Pro" },
 ];
 
 export default function FusedSection({ index }: { index: number }) {
@@ -110,7 +112,7 @@ export default function FusedSection({ index }: { index: number }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.05 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-12"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12"
         >
           {pipeline.map((s) => (
             <div
@@ -160,20 +162,55 @@ export default function FusedSection({ index }: { index: number }) {
             </div>
           )}
           <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/70">
-            <span>fuser studio</span>
+            <span>fuser into the otherside · full canvas</span>
             <span style={{ color: ACCENT }}>workflow graph</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12"
+        >
+          <div className="relative bg-black border border-nana-border rounded-sm overflow-hidden">
+            <LightboxImage
+              src="/ai/fuser-workflow2.png"
+              alt="Fuser canvas zoom: references feeding the composition chain"
+              triggerClass="block w-full"
+              imgClass="block w-full h-auto"
+            />
+            <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>refs → composition</span>
+              <span style={{ color: ACCENT }}>florence-2 · nano banana</span>
+            </div>
+          </div>
+          <div className="relative bg-black border border-nana-border rounded-sm overflow-hidden">
+            <LightboxImage
+              src="/ai/fuser-workflow3.png"
+              alt="Fuser canvas zoom: photoreal pass, cinematic lighting, motion"
+              triggerClass="block w-full"
+              imgClass="block w-full h-auto"
+            />
+            <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>photoreal → lighting → motion</span>
+              <span style={{ color: ACCENT }}>flux · nano banana · kling</span>
+            </div>
           </div>
         </motion.div>
 
         <WorkDetail
           problem="Generative video tools produce clips quickly. Almost none produce a finished poster. The gap is craft: character coherence across shots, a real art direction, lighting that reads as authored, sound that earns the cut. Without a real pipeline, AI output looks like AI output."
-          solution="Built a multi-step pipeline in Fuser Studio that holds the character through every stage. Sheets first. Image generations off the sheet using Nano Banana and partner models. Refinement and a dedicated lighting pass before any motion. Kling for the animation. Final Cut Pro for the cut, music, and sound design. The output reads as a directed piece."
+          solution="Built a multi-model pipeline in Fuser Studio that holds the character through every stage. References feed Florence-2 captioning and LLM-shaped prompts. Nano Banana drives the composition pass. Wan 2.6 extracts elements. FLUX.1 handles the photoreal pass. Nano Banana relights for a cinematic three-point setup. Kling 3.0 turns the final still into a cinemagraph. Final Cut Pro brings the cut, music, and sound design. The output reads as a directed piece."
           tools={[
             "Fuser Studio",
+            "Florence-2",
             "Nano Banana",
-            "Kling",
+            "Wan 2.6",
+            "FLUX.1 [Dev]",
+            "Kling 3.0",
             "Final Cut Pro",
-            "Photoshop",
           ]}
         />
 
