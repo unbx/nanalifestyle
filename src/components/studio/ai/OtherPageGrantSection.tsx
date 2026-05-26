@@ -37,14 +37,14 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
           </h2>
 
           <p className="font-display text-lg md:text-2xl text-nana-text/90 max-w-3xl leading-snug font-light">
-            One ElevenLabs voice. Two languages.{" "}
+            My voice in English. An ElevenLabs voice in Mandarin.{" "}
             <span className="holo-text font-medium">
               A $1.5M grant won. The project that became OpenPage.
             </span>
           </p>
         </motion.div>
 
-        <Brief text="A pitch film for what became OpenPage. The grant was decided by a panel where the Chinese community held heavy influence. The proposal shipped in two languages — English and Mandarin — both narrated by the same ElevenLabs voice, created for the brand register and then directed to speak across cultures. One voice talent, two languages, no fracture in the brand. The grant was awarded." />
+        <Brief text="A pitch film for what became OpenPage. The grant was decided by a panel where the Chinese community held heavy influence. Narrated the English version myself, then built a custom voice in ElevenLabs and used it to deliver a full Mandarin localization for the Chinese audience — plus text-to-speech assist on production passes throughout the cut. Same pitch, two languages, global audience impact. The grant was awarded." />
 
         {/* --- The voice: ElevenLabs centerpiece --- */}
         <motion.div
@@ -59,17 +59,19 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
             <span>the voice · elevenlabs</span>
           </div>
           <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
-            One voice, built in ElevenLabs.{" "}
+            Built a custom voice in ElevenLabs.{" "}
             <span className="holo-text font-medium">
-              Then directed to speak two languages.
+              Unlocked a Mandarin localization the panel could trust.
             </span>
           </h3>
           <p className="text-nana-muted text-sm md:text-base mt-4 max-w-2xl leading-relaxed">
-            Created a custom voice in ElevenLabs that fit the brand
-            register. Used that same voice for the English narration,
-            then directed it to speak Mandarin natively for the Chinese
-            audience. The decision panel heard the brand twice in two
-            languages and never heard a different voice.
+            Narrated the English pitch myself. For the Chinese
+            audience, created a custom voice in ElevenLabs and used
+            text-to-speech to translate the whole film into Mandarin
+            — and to assist production passes along the way. Same
+            pitch, two languages, one production cycle. The decision
+            panel got a version in the language they actually wanted
+            to hear it in.
           </p>
         </motion.div>
 
@@ -91,7 +93,7 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
             />
             <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
               <span>english · pitch film</span>
-              <span style={{ color: ACCENT }}>elevenlabs voice</span>
+              <span style={{ color: ACCENT }}>self-narrated</span>
             </div>
           </div>
           <div
@@ -107,7 +109,7 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
             />
             <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
               <span>mandarin · 中文版本</span>
-              <span style={{ color: ACCENT }}>same voice</span>
+              <span style={{ color: ACCENT }}>elevenlabs voice</span>
             </div>
           </div>
         </motion.div>
@@ -133,14 +135,13 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
           </div>
           <div className="border border-nana-border/60 rounded-sm p-5 bg-nana-dark/40">
             <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-2">
-              the voice
+              the reach
             </div>
-            <div className="font-display text-3xl md:text-4xl font-medium leading-none mb-1">
-              <span className="holo-text">2</span>{" "}
-              <span className="text-nana-text/80 text-lg align-middle">languages</span>
+            <div className="font-display text-3xl md:text-4xl font-medium leading-none mb-1 holo-text">
+              Global
             </div>
             <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-nana-muted/80">
-              english + mandarin · single talent
+              english + mandarin · elevenlabs localization
             </div>
           </div>
           <div className="border border-nana-border/60 rounded-sm p-5 bg-nana-dark/40">
@@ -157,8 +158,8 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
         </motion.div>
 
         <WorkDetail
-          problem="A pitch film for a grant where the Chinese community held heavy influence on the decision. Localizing to Mandarin via a second voice talent would have read as an afterthought and fractured the brand voice. Hiring a bilingual VO talent and running parallel sessions would have eaten the runway."
-          solution="Created a custom ElevenLabs voice that fit the brand register, then directed the same voice to speak both English and Mandarin. Same persona across cultures, no fracture. AI tools also compressed the script, motion concept, and storyboard passes so the team could spend the runway on the narrative and the cut. The grant was awarded. The project shipped as OpenPage."
+          problem="A pitch film for a grant where the Chinese community held heavy influence on the decision. The English narration was straightforward — recorded it myself. The harder problem: a Mandarin localization the panel could actually trust. Hiring a Mandarin VO talent and running a parallel session would have eaten the runway. Skipping Mandarin entirely would have left the most important audience without a version in their language."
+          solution="Self-narrated the English film. Built a custom voice in ElevenLabs and used it two ways: as a text-to-speech assist during production (scratch passes, rapid script tests against the cut) and then for the full Mandarin localization for the Chinese audience. Same pitch in two languages, one production cycle. AI tools also compressed the script, motion concept, and storyboard passes so the runway went to narrative and cut. The grant was awarded. The project shipped as OpenPage."
           tools={[
             "ElevenLabs",
             "ChatGPT",
