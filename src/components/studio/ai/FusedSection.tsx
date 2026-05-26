@@ -23,6 +23,15 @@ const pipeline = [
   { n: "08", label: "Edit + sound", tool: "Final Cut Pro" },
 ];
 
+const briefToBrandPipeline = [
+  { n: "01", label: "Brief + persona", tool: "LLM text nodes" },
+  { n: "02", label: "Direction prompts", tool: "Per-direction prompt scaffolds" },
+  { n: "03", label: "Visual exploration", tool: "Nano Banana · Midjourney · multi-model" },
+  { n: "04", label: "Refinement", tool: "Nano Banana relight" },
+  { n: "05", label: "Hero compositions", tool: "Nano Banana final pass" },
+  { n: "06", label: "Interactive style guide", tool: "Fuser canvas render" },
+];
+
 export default function FusedSection({ index }: { index: number }) {
   return (
     <section
@@ -267,20 +276,45 @@ export default function FusedSection({ index }: { index: number }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-12 font-mono text-[10px] tracking-[0.2em] uppercase text-nana-muted"
+          className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 font-mono text-[10px] tracking-[0.2em] uppercase text-nana-muted"
         >
           <div className="flex items-center gap-3 px-4 py-3 border border-nana-border/60 rounded-sm">
-            <span className="text-nana-muted/60 tabular-nums">01</span>
+            <span className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
             <span>brand direction</span>
           </div>
           <div className="flex items-center gap-3 px-4 py-3 border border-nana-border/60 rounded-sm">
-            <span className="text-nana-muted/60 tabular-nums">02</span>
+            <span className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
             <span>asset production</span>
           </div>
           <div className="flex items-center gap-3 px-4 py-3 border border-nana-border/60 rounded-sm">
-            <span className="text-nana-muted/60 tabular-nums">03</span>
+            <span className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
             <span>interactive showcase</span>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-12"
+        >
+          {briefToBrandPipeline.map((s) => (
+            <div
+              key={s.n}
+              className="border border-nana-border/60 rounded-sm p-4 bg-nana-dark/40"
+            >
+              <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-2 tabular-nums">
+                {s.n}
+              </div>
+              <div className="font-display text-sm md:text-base text-nana-text mb-1 leading-tight">
+                {s.label}
+              </div>
+              <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-nana-muted/80">
+                {s.tool}
+              </div>
+            </div>
+          ))}
         </motion.div>
 
         <motion.div
@@ -350,13 +384,14 @@ export default function FusedSection({ index }: { index: number }) {
 
         <WorkDetail
           problem="Brand work usually splits across a team and a week. Even with AI, the bottleneck is tool sprawl — model in one tab, prompts in another, output collection in a third, deliverable in a fourth. The brief gets diluted between hands and apps."
-          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and shapes prompts. Asset Production runs explorations across multiple image models in parallel. Interactive Showcase narrows the best moments into a delivered style guide. The brief stays present at every stage."
+          solution="One Fuser canvas, three lanes. Brand Direction holds the brief and persona in LLM text nodes, then defines per-direction prompt scaffolds. Asset Production runs multi-model exploration in parallel — Nano Banana for the core compositions, Midjourney for the more painterly directions — then narrows down through a Nano Banana relight pass and a final hero composition pass. Interactive Showcase renders the result as a clickable style guide inside the canvas. The brief stays present at every stage."
           tools={[
             "Fuser Studio",
+            "LLM text nodes",
             "Nano Banana",
             "Midjourney",
             "ChatGPT",
-            "Image models",
+            "Fuser canvas render",
           ]}
         />
       </div>
