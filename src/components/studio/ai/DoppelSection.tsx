@@ -64,10 +64,11 @@ export default function DoppelSection({ index }: { index: number }) {
             </span>
           </div>
           <p className="text-nana-muted text-sm md:text-base max-w-2xl leading-relaxed">
-            A networked 3D world. Every avatar runs its own LLM. Same
-            spec read by every agent. Same brand voice across every
-            line. A glimpse of what agent-to-agent collaboration sounds
-            like when it shares a brand.
+            A new way to listen in on agents. The 3D world is
+            networked, each avatar runs its own LLM, and each carries
+            a voice a human assigned. Walk into earshot of two of them
+            and the ElevenLabs Voice API kicks in — their conversation
+            becomes audible, in space, in real time.
           </p>
         </motion.div>
 
