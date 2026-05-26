@@ -351,34 +351,61 @@ export default function FusedSection({ index }: { index: number }) {
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-6"
+        >
+          <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3">
+            <span className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
+            <span>the deliverable · interactive</span>
+          </div>
+          <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
+            The brand, delivered live.{" "}
+            <span className="holo-text font-medium">
+              Click around the style guide right here.
+            </span>
+          </h3>
+          <p className="text-nana-muted text-sm md:text-base mt-4 max-w-2xl leading-relaxed">
+            The interactive style guide that came out of the canvas,
+            embedded live below. Brief in. Brand out. No tab
+            switching, no asset handoff, no re-prompting in five
+            tools. One surface, one practice, one clickable artifact.
+          </p>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center mb-12"
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="bg-black border border-nana-border rounded-sm overflow-hidden mb-12"
         >
-          <div className="md:col-span-7 order-2 md:order-1 relative bg-black border border-nana-border rounded-sm overflow-hidden">
-            <LightboxImage
-              src="/ai/From Brief to Brand - Product shot.jpg"
-              alt="AURA product hero shot — delivered asset"
-              triggerClass="block w-full"
-              imgClass="block w-full h-auto"
-            />
-            <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
-              <span>aura · hero composition</span>
-              <span style={{ color: ACCENT }}>delivered asset</span>
-            </div>
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-nana-border bg-nana-dark">
+            <span className="w-2 h-2 rounded-full" style={{ background: ACCENT }} />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-nana-muted truncate">
+              aura · interactive style guide
+            </span>
+            <a
+              href="https://app.fuser.studio/embed/cc/580b3178-f68f-47ae-88f6-a78233496077"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto font-mono text-[10px] tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-opacity shrink-0"
+              style={{ color: ACCENT }}
+            >
+              open ↗
+            </a>
           </div>
-          <div className="md:col-span-5 order-1 md:order-2">
-            <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3">
-              the output
-            </div>
-            <p className="text-nana-text/85 text-sm md:text-base leading-relaxed">
-              A polished hero shot delivered from the same canvas. The
-              brief came in, the brand came out. No tab switching, no
-              asset handoff, no re-prompting in five tools. One
-              surface, one practice.
-            </p>
+          <div className="relative aspect-[4/3] md:aspect-video bg-black">
+            <iframe
+              src="https://app.fuser.studio/embed/cc/580b3178-f68f-47ae-88f6-a78233496077"
+              className="absolute inset-0 w-full h-full"
+              title="AURA brand style guide — interactive"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </motion.div>
 
