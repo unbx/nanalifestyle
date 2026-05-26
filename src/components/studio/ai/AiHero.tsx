@@ -72,8 +72,7 @@ export default function AiHero() {
         >
           Creative direction, made with AI.{" "}
           <span className="holo-text font-medium">
-            Voice across cultures. Brand across models. Agents that
-            read both.
+            Fused into every step from the brief to the build.
           </span>
         </motion.h1>
 
@@ -83,10 +82,10 @@ export default function AiHero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-nana-text text-base md:text-lg max-w-2xl leading-relaxed"
         >
-          Three case studies. Multi-model pipelines stitched in Fuser
-          Studio. Brand systems written for humans and AI agents.
-          Custom voice work in ElevenLabs that crosses cultures and
-          characters.
+          Three case studies in fused creative direction. Multi-model
+          pipelines stitched in Fuser Studio. Brand systems for humans
+          and AI agents. Voice and identity work that crosses cultures
+          and characters.
         </motion.p>
       </div>
 

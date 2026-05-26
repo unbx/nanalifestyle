@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nanalifestyle.com"),
   title: "AI Work | Sean Nana",
   description:
-    "Creative direction made with AI tools — Fuser Studio, Kling, Nano Banana, Midjourney, ChatGPT, ElevenLabs, Final Cut Pro.",
+    "AI-native creative direction. A practice of fusing models into pipelines, brand systems, and voice work.",
   robots: {
     index: false,
     follow: false,
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Work | Sean Nana",
     description:
-      "Creative direction made with AI tools — Fuser Studio, Kling, Nano Banana, Midjourney, ChatGPT, ElevenLabs, Final Cut Pro.",
+      "AI-native creative direction. A practice of fusing models into pipelines, brand systems, and voice work.",
     type: "website",
     url: "https://nanalifestyle.com/ai",
     images: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI Work | Sean Nana",
     description:
-      "Creative direction made with AI tools — Fuser Studio, Kling, Nano Banana, Midjourney, ChatGPT, ElevenLabs, Final Cut Pro.",
+      "AI-native creative direction. A practice of fusing models into pipelines, brand systems, and voice work.",
     images: ["/studio/NANA work OG.png"],
   },
 };
