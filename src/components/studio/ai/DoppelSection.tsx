@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import LightboxImage from "../LightboxImage";
 import Brief from "../Brief";
 import WorkDetail from "../WorkDetail";
 import { dopple } from "@/data/dopple";
 
 const ACCENT = "#B8FF5C"; // Doppel Pulse
 
-// Drop a screenshot of agents in conversation (ElevenLabs voice)
-// at public/ai/doppel-agent-convo.png and flip the flag.
-const HAS_AGENT_CONVO = false;
+// Networked 3D world demo. Each avatar runs its own LLM,
+// voiced in real time by the ElevenLabs Voice API.
+const DEMO_1 = "/ai/doppel demo1.mp4";
+const DEMO_2 = "/ai/DoppelDemo2.mp4";
 
 export default function DoppelSection({ index }: { index: number }) {
   return (
@@ -230,68 +230,80 @@ export default function DoppelSection({ index }: { index: number }) {
         >
           <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted mb-3">
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: ACCENT }} />
-            <span>agents in conversation · elevenlabs voice</span>
+            <span>agents in conversation · elevenlabs voice api</span>
+            <span
+              className="ml-2 px-2 py-0.5 rounded-full border font-mono text-[9px] tracking-[0.2em] uppercase"
+              style={{ borderColor: `${ACCENT}80`, color: ACCENT }}
+            >
+              experimental
+            </span>
           </div>
           <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
-            Two agents, one brand.{" "}
+            Agentic avatars, each with their own LLM.{" "}
             <span className="holo-text font-medium">
-              Speaking with ElevenLabs voice.
+              Voiced live by the ElevenLabs Voice API.
             </span>
           </h3>
           <p className="text-nana-muted text-sm md:text-base mt-4 max-w-2xl leading-relaxed">
-            When two agents need to negotiate a world together, the
-            same spec they read can be spoken back through ElevenLabs.
-            Brand voice survives the handoff from text, to speech, to
-            agent-to-agent collaboration.
+            A networked 3D world where every avatar runs its own LLM
+            and speaks through the ElevenLabs Voice API in real time.
+            Same spec read by every agent, same brand voice across
+            every line. A glimpse of what agent-to-agent collaboration
+            sounds like when it shares a brand.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.05 }}
-          className="relative w-full bg-black border rounded-sm overflow-hidden mb-12"
-          style={{ borderColor: `${ACCENT}40` }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12"
         >
-          {HAS_AGENT_CONVO ? (
-            <LightboxImage
-              src="/ai/doppel-agent-convo.png"
-              alt="Agents in conversation using ElevenLabs voice"
-              triggerClass="block w-full"
-              imgClass="block w-full h-auto"
+          <div
+            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
+            style={{ borderColor: `${ACCENT}40` }}
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={DEMO_1}
+              controls
+              playsInline
+              preload="metadata"
             />
-          ) : (
-            <div className="aspect-[16/9] flex flex-col items-center justify-center gap-3 bg-nana-dark/60">
-              <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-nana-muted/80">
-                agent-to-agent · elevenlabs voice
-              </div>
-              <div className="font-display text-sm md:text-base text-nana-text/60 text-center max-w-md px-6">
-                Screenshot drops in at{" "}
-                <code className="font-mono" style={{ color: ACCENT }}>
-                  /ai/doppel-agent-convo.png
-                </code>
-                <br />
-                then flip{" "}
-                <code className="font-mono" style={{ color: ACCENT }}>
-                  HAS_AGENT_CONVO
-                </code>{" "}
-                to true.
-              </div>
+            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>demo · networked agents</span>
+              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
             </div>
-          )}
+          </div>
+          <div
+            className="relative aspect-video bg-black border rounded-sm overflow-hidden"
+            style={{ borderColor: `${ACCENT}40` }}
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={DEMO_2}
+              controls
+              playsInline
+              preload="metadata"
+            />
+            <div className="pointer-events-none absolute top-3 left-3 right-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-white/80">
+              <span>demo · agent dialogue</span>
+              <span style={{ color: ACCENT }}>elevenlabs voice api</span>
+            </div>
+          </div>
         </motion.div>
 
         <WorkDetail
           problem="A brand identity that has to read across three audiences at once. Humans on 2D guidelines. The 3D engine rendering environments. AI agents building worlds with no human in the room. The brand has to give agents enough rules to create inside the design system — and survive when those agents talk to each other in voice."
-          solution="Used Claude end-to-end to architect a single typed spec, then emit it three ways: an HTML style guide for designers, a Three.js voxel preview for the engine, and a machine-readable JSON the agents consume. The spec is the source of truth. When agents need to speak it back, ElevenLabs gives the same brand a voice across the agent-to-agent handoff."
+          solution="Used Claude end-to-end to architect a single typed spec, then emit it three ways: an HTML style guide for designers, a Three.js voxel preview for the engine, and a machine-readable JSON the agents consume. The spec is the source of truth. In the experimental demo, every avatar in the networked 3D world runs its own LLM and speaks live through the ElevenLabs Voice API — same brand voice surviving the handoff from text, to speech, to agent-to-agent dialogue."
           tools={[
             "Claude Code",
             "Figma",
             "Notion",
             "Three.js",
             "JSON",
-            "ElevenLabs",
+            "ElevenLabs Voice API",
           ]}
         />
 
