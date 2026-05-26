@@ -16,7 +16,10 @@ export default function StudioFooter() {
             thanks for the time
           </div>
           <h3 className="font-display font-light text-3xl md:text-5xl tracking-tight mb-10 max-w-3xl">
-            Available for creative direction, identity, and systems work.
+            Want to do more of this.{" "}
+            <span className="holo-text font-medium">
+              Looking for the team building it.
+            </span>
           </h3>
           <a
             href="https://nana.works"
