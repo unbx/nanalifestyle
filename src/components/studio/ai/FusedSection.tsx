@@ -10,7 +10,7 @@ const ACCENT = "#e8c878";
 
 // Drop the Fuser workflow screenshot at public/ai/fuser-workflow.png
 // to light up the workflow image. Set to true once the file is in place.
-const HAS_FUSER_SCREENSHOT = false;
+const HAS_FUSER_SCREENSHOT = true;
 
 const pipeline = [
   { n: "01", label: "Character sheets", tool: "Fuser Studio · LLM" },
