@@ -112,7 +112,7 @@ export default function FusedSection({ index }: { index: number }) {
           </div>
           <h3 className="font-display text-2xl md:text-4xl font-light tracking-tight max-w-3xl">
             A pipeline stitched in Fuser Studio.{" "}
-            <span className="holo-text font-medium">Six steps, one taste.</span>
+            <span className="holo-text font-medium">Many models, one taste.</span>
           </h3>
         </motion.div>
 
