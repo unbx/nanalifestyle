@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Brief from "../Brief";
 import WorkDetail from "../WorkDetail";
 import { dopple } from "@/data/dopple";
 
@@ -45,8 +44,6 @@ export default function DoppelSection({ index }: { index: number }) {
             </span>
           </p>
         </motion.div>
-
-        <Brief text="Doppel is a 3D world building platform where every avatar runs its own LLM and speaks live through the ElevenLabs Voice API. The experimental setup sits on top of a real brand system — a single typed spec, architected with Claude, that designers, the 3D engine, and the agents themselves all read from. Same source of truth, three readers, one voice across all of them." />
 
         {/* --- LEAD EXHIBIT: Agentic ElevenLabs demos --- */}
         <motion.div

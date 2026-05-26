@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Brief from "../Brief";
 import WorkDetail from "../WorkDetail";
 
 const ACCENT = "#e8c878";
@@ -43,8 +42,6 @@ export default function OtherPageGrantSection({ index }: { index: number }) {
             </span>
           </p>
         </motion.div>
-
-        <Brief text="A pitch film for what became OpenPage. The grant was decided by a panel where the Chinese community held heavy influence. Narrated the English version myself, then built a custom voice in ElevenLabs and used it to deliver a full Mandarin localization for the Chinese audience — plus text-to-speech assist on production passes throughout the cut. Same pitch, two languages, global audience impact. The grant was awarded." />
 
         {/* --- The voice: ElevenLabs centerpiece --- */}
         <motion.div
