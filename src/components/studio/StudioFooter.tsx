@@ -19,10 +19,10 @@ export default function StudioFooter() {
             Available for creative direction, identity, and systems work.
           </h3>
           <a
-            href="https://nanalifestyle.com"
+            href="https://nana.works"
             className="studio-link font-display text-xl md:text-2xl font-medium"
           >
-            More at nanalifestyle.com →
+            More at nana.works →
           </a>
         </motion.div>
 
