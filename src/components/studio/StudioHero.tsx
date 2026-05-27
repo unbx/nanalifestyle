@@ -28,7 +28,7 @@ export default function StudioHero() {
   return (
     <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 overflow-hidden">
       <img
-        src="/studio/Ape Swiss Burst Static.png"
+        src="/studio/NANA-swiss-knife-alpha.png"
         alt=""
         aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-[60%_50%] md:object-center z-0"
