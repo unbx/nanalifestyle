@@ -28,7 +28,7 @@ export default function StudioHero() {
   return (
     <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 overflow-hidden">
       <img
-        src="/studio/NANA-swiss-knife-alpha.png"
+        src="/studio/NANA swiss knife static.png"
         alt=""
         aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-[60%_50%] md:object-center z-0"
@@ -36,7 +36,7 @@ export default function StudioHero() {
       <video
         ref={videoRef}
         className={`absolute inset-0 w-full h-full object-cover object-[60%_50%] md:object-center z-0 ${videoOk ? "block" : "hidden"}`}
-        src="/studio/APE Swiss Knife BG.mov"
+        src="/studio/NANA swiss knife.mov"
         autoPlay
         loop
         muted
